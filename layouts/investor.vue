@@ -1,21 +1,17 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer mobile-breakpoint="1024" width="220px" v-model="drawer" app clipped>
-      <!-- -->ss
-      <div class="h-40 w-full" style="border: 1px solid red"></div>
-    </v-navigation-drawer>
+     <investor-sidebar/>
+    <investor-header/>
 
-    <v-app-bar color="#fff" elevation="0" app clipped-left>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <!-- -->
-    </v-app-bar>
+  
 
     <!-- Sizes your content based upon application components -->
     <v-main>
       <Nuxt />
     </v-main>
 
-    <v-footer app>
+    <v-footer       mobile-breakpoint="1024"
+ app>
       footer
       <!-- -->
     </v-footer>

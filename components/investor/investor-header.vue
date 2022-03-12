@@ -1,79 +1,27 @@
 <template>
-  <v-app-bar
-    app
-    :height="75"
-    color="#fff"
-    clipped-left
-    elevation="0"
-  >
-    <div class="app-header md:px-10 flex items-center">
+  <v-app-bar app :height="60" color="#fff" clipped-left elevation="0">
+    <div class="app-header md:px-3 flex items-center">
       <router-link to="/">
         <img class="app-header__logo" src="/images/logo.png" alt=""
       /></router-link>
-      <v-spacer></v-spacer>
-      <div class="hidden md:flex">
-        <v-hover v-slot="{ hover }">
-          <nuxt-link to="/about-us">
-            <v-btn
-              rounded
-              :ripple="false"
-              small
-              style="font-weight: 600; font-family: Montserrat"
-              :color="
-                hover || $route.name == 'about-us' ? 'primary' : '#101010'
-              "
-              text
-              >Who we are</v-btn
-            >
-          </nuxt-link>
-        </v-hover>
 
-        <v-hover v-slot="{ hover }">
-          <nuxt-link to="/purpose">
-            <v-btn
-              rounded
-              :ripple="false"
-              small
-              style="font-weight: 600; font-family: Montserrat"
-              :color="hover || $route.name == 'purpose' ? 'primary' : '#101010'"
-              text
-              >what we do</v-btn
-            >
-          </nuxt-link>
-        </v-hover>
-
-        <v-hover v-slot="{ hover }">
-          <nuxt-link to="/contact-us">
-            <v-btn
-              rounded
-              :ripple="false"
-              small
-              style="font-weight: 600; font-family: Montserrat"
-              :color="
-                hover || $route.name == 'contact-us' ? 'primary' : '#101010'
-              "
-              text
-              >contact us</v-btn
-            >
-          </nuxt-link>
-        </v-hover>
-      </div>
-
+      <v-app-bar-nav-icon color="primary" @click="toggleInvestorDrawer()" />
       <v-spacer></v-spacer>
 
-      <div class="hidden md:flex">
-        <v-btn text small to="/login">Login</v-btn>
-        <v-btn small to="/signup" elevation="0" color="primary">Sign up</v-btn>
-      </div>
+      <div class="hidden md:flex gap-5">
+        <router-link to="/profile" class="inline-flex gap-1 items-center">
+          <span
+            class="h-8 w-8 bg-primary rounded-full flex items-center justify-center"
+          >
+            <v-icon color="#fff">mdi-account</v-icon></span
+          >
+          <span class="text-gray-500">Overcomer</span>
+        </router-link>
+        <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
 
-      <span class="inline-flex md:hidden" ref="menu">
-        <v-btn @click="showPopup = !showPopup" icon>
-          <v-icon>mdi-menu</v-icon>
-        </v-btn>
-      </span>
+        <v-btn color="primary" icon> <v-icon>mdi-cog-outline</v-icon></v-btn>
+      </div>
     </div>
-
-   
   </v-app-bar>
 </template>
 

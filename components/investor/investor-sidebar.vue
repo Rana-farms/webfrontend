@@ -1,90 +1,82 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
+    v-model="INVESTOR.drawer"
     app
-    width="270"
+    width="235"
     clipped
-    absolute
-    :mini-variant.sync="mini"
-    mini-variant-width="80"
+    mobile-breakpoint="1025"
+    disable-resize-watcher
     color="#fff"
-    class="side-navigation"
   >
-    <div class="cat-title" v-if="!mini">
-      <!-- <span class="pr-3"
-        ><v-icon color="var(--accent-color)">mdi-view-dashboard</v-icon></span
-      >
-      <span>Categories</span> -->
+    
+    <div class="block md:hidden">
+        <v-list >
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-icon color="grey" size="40">mdi-account</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ USER.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{ USER.email }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </div>
+
+   <div class="mt-5">
+        <v-list dense rounded>
+        <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item v-for="(item, i) in items" link :to="item.link" :key="i">
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+   </div>
+    
   </v-navigation-drawer>
 </template>
 
 <script>
 export default {
-  props: {
-    miniSidebar: {
-      default: false,
-      Type: Boolean,
-    },
-  },
   data() {
     return {
-      drawer: true,
-      mini: false,
+      selectedItem: 1,
+      items: [
+        {
+          text: 'Dashboard',
+          icon: 'mdi-home-variant-outline',
+          link: '/investor',
+        },
+        {
+          text: 'Wallet',
+          icon: 'mdi-wallet-outline',
+          link: '',
+        },
+        {
+          text: 'Investments',
+          icon: 'mdi-chart-line',
+          link: '',
+        },
+        {
+          text: 'Settings',
+          icon: 'mdi-cog-outline',
+          link: '',
+        },
+      ],
     }
   },
   mounted() {
-    // if (this.$device.isDesktop) {
-    //   this.drawer = true;
-    //   this.mini = this.miniSidebar;
-    //   console.log("is desktop");
-    // }
-    // this.$bus.$on("show-menu", () => {
-    //   this.toggleMini();
-    // });
+    if (this.$device.isDesktop) {
+      this.toggleInvestorDrawer(true)
+    }
   },
-  methods: {
-    toggleMini() {
-      // if (this.$device.isMobile) {
-      //   this.mini = false;
-      //   this.drawer = null;
-      //   this.drawer = !this.drawer;
-      // } else if (this.$device.isTablet) {
-      //   this.drawer = true;
-      //   this.mini = false;
-      // } else if (this.$device.isDesktop) {
-      //   // this.drawer = !this.drawer
-      //   // this.mini = false
-      //   this.drawer = true;
-      //   this.mini = !this.mini;
-      // } else if (this.$device.isDesktop) {
-      //   this.drawer = true;
-      //   this.mini = !this.mini;
-      // }
-      //  alert(this.$vuetify.breakpoint.name);
-    },
-  },
+  methods: {},
 }
 </script>
 
-<style lang="scss" scoped>
-.side-navigation {
-  width: 16.5vw;
-  height: 100%;
-  background-color: var(--primary-color);
-  padding: 10px;
-  z-index: 99999;
-}
-@media only screen and (min-width: 768px) {
-  .cat-title {
-    color: var(--accent-color);
-    width: 90%;
-    margin: auto;
-    padding: 10px 15px;
-    font-weight: bold;
-    border-radius: 8px;
-    border: 1px solid var(--accent-color);
-    box-shadow: 0px 0px 2px var(--accent-color);
-  }
-}
-</style>
+<style lang="scss" scoped></style>
