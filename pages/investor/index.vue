@@ -2,25 +2,16 @@
   <div class="page">
     <span class="block font-semibold text-2xl">Dashboard</span>
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-6"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-4"
     >
-      <div class="shadow-sm rounded-md  p-8  bg-white">
-        <div class="flex items-center">
-          <div class=" flex-1">
-            <span class="block font-semibold text-2xl">₦120,010</span>
-            <span class=" text-sm text-gray-400">Monthly ROI</span>
-          </div>
-          <v-icon size="50" color="#6E81DF">mdi-poll</v-icon>
-        </div>
-        <div class="mt-3 text-sm">
-         <span class="inline-flex items-center" style="color:#039E00">2.65%  <v-icon color="#039E00">mdi-arrow-up-bold</v-icon></span>
-         <span class="  text-gray-400">Since Last Week</span>
-        </div>
 
-      </div>
-      <div class="shadow-sm rounded-md  bg-white"></div>
-      <div class="shadow-sm rounded-md  bg-white"></div>
-      <div class="shadow-sm rounded-md  bg-white"></div>
+    <investor-monthly-roi/>
+    <investor-net-income/>
+    <investor-available-funds/>
+    <investor-captial-accoun-bal/>
+
+
+   
     </div>
 
     <div class="flex">
@@ -37,10 +28,19 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
+import InvestorMonthlyRoi from '~/components/investor/pages/index/investor-monthly-roi.vue'
+import InvestorNetIncome from '~/components/investor/pages/index/investor-net-income.vue'
+import InvestorAvailableFunds from '~/components/investor/pages/index/investor-available-funds.vue'
+import InvestorCaptialAccounBal from '~/components/investor/pages/index/investor-captial-accoun-bal.vue'
+
 export default {
   layout: 'investor',
   components: {
-    VueApexCharts
+    VueApexCharts,
+    InvestorMonthlyRoi,
+    InvestorNetIncome,
+    InvestorAvailableFunds,
+    InvestorCaptialAccounBal
   },
   data() {
     return {
