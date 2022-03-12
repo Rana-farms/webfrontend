@@ -45,7 +45,15 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{
+    src: '~/plugins/vue-device-detector',
+    ssr: false
+  }, 
+ {
+    src: '~/plugins/app-mixin',
+ }
+
+],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
