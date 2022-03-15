@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <component :is="currentView" />
+    <component :details="details" @fee="collectFee" @proceed="withdraw" :is="currentView" />
   </div>
 </template>
 
@@ -18,8 +18,22 @@ export default {
   layout: 'investor',
   data() {
     return {
-      currentView: 'withdrawSucessful',
+      currentView: 'withdrawFee',
+      details: {
+        amount: 0,
+        transactionFee: 0,
+      },
     }
+  },
+  methods: {
+    collectFee(data) {
+      this.details.amount = data.amount
+      this.details.transactionFee = data.transactionFee
+      this.currentView = 'withdrawDetails'
+    },
+    withdraw() {
+      this.currentView = 'withdrawSucessful'
+    },
   },
 }
 </script>

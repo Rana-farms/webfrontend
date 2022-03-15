@@ -8,17 +8,18 @@
       <div class="block mt-10 w-full">
         <div class="font-semibold flex justify-between">
           <span class="text-lg">Amount </span>
-          <span>₦5,000,000 </span>
+          <span>₦{{ details.amount }} </span>
         </div>
 
         <div class="font-semibold mt-5 flex justify-between">
           <span class="text-lg">Transaction fee </span>
-          <span>₦5,000,000 </span>
+          <span>₦{{ details.transactionFee }} </span>
         </div>
 
         <div class="flex justify-center">
           <v-btn
             elevation="0"
+            @click="proceed"
             style="width: 50%"
             class="mt-10 d-block"
             color="primary"
@@ -32,7 +33,17 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['details'],
+  methods: {
+    proceed() {
+      this.$emit('proceed', {
+        amount: this.details.amount,
+        transactionFee: this.details.transactionFee,
+      })
+    },
+  },
+}
 </script>
 
 <style></style>
