@@ -10,7 +10,7 @@
         investment.description
       }}</span>
 
-      <div class="grid mt-8 mb-20 grid-cols-1 md:grid-cols-2">
+      <div class="grid mt-8 mb-8 md:mb-20 grid-cols-1 md:grid-cols-2">
         <div>
           <span class="font-semibold block">Assets Allocation</span>
           <span class="block">{{ investment.allocation }}</span>
@@ -32,6 +32,10 @@
           <span class="font-semibold block mt-1">Insurance Fee</span>
           <span class="block">{{ investment.fee }}</span>
         </div>
+      </div>
+
+      <div class="flex justify-end">
+        <v-btn elevation="0" large color="primary">Invest</v-btn>
       </div>
     </div>
   </div>
