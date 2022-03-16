@@ -60,7 +60,7 @@ export default {
         {
           text: 'Investments',
           icon: 'mdi-chart-line',
-          link: '',
+          link: '/investor/investments',
         },
         {
           text: 'Settings',
