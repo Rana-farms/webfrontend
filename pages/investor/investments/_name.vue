@@ -35,7 +35,7 @@
       </div>
 
       <div class="flex justify-end">
-        <v-btn elevation="0" large color="primary">Invest</v-btn>
+        <v-btn elevation="0" to="/investment/invest" large color="primary">Invest</v-btn>
       </div>
     </div>
   </div>
