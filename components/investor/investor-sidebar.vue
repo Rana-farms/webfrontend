@@ -65,7 +65,7 @@ export default {
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
-          link: '',
+          link: '/investor/settings',
         },
       ],
     }
