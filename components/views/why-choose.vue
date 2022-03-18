@@ -30,7 +30,7 @@
 
         <div class="text-center tracking-wider">
           <span class="block font-semibold text-3xl md:text-4xl mb-2"
-            >N200M+</span
+            >N250M+</span
           >
           <span class="block text-gray-100"> Trading Volume</span>
         </div>
