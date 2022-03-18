@@ -88,9 +88,9 @@
         <router-link to="/about-us"> Who we are </router-link>
         <router-link to="/purpose"> What we do </router-link>
         <router-link to="/contact-us"> Contact us </router-link>
-        <router-link>
+        <li>
           <a href="https://www.hope.com/" target="_blank">Bitcoin</a>
-        </router-link>
+        </li>
       </div>
       <div class="grid items-center grid-cols-2 gap-1 mt-2">
         <v-btn text to="/login">Login</v-btn>
@@ -157,15 +157,16 @@ export default {
   left: 0;
   display: none;
   padding: 10px;
-
   &--show {
     display: block;
   }
-
   &__links {
     a {
       display: block;
       padding: 10px;
+    }
+    li {
+      list-style-type:none;
     }
   }
 }
