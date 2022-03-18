@@ -33,7 +33,7 @@
         </div>
 
         <div class="analytics__box">
-          <span class="analytics__box--title">N200M+</span>
+          <span class="analytics__box--title">N250M+</span>
           <span class="analytics__box--text"> Trading Volume</span>
         </div>
 
