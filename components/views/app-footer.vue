@@ -22,7 +22,7 @@
           </li>
           <li>Project</li>
 
-          <li>Blog</li>
+          <li><a href="https://www.hope.com/" target="_blank">Bitcoin</a></li>
         </ul>
       </div>
 
