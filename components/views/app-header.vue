@@ -59,10 +59,11 @@
             >
           </nuxt-link>
         </v-hover>
-      </div>
-      <a href="https://www.hope.com/" target="_blank"
+        <a href="https://www.hope.com/" target="_blank"
         ><div class="ml-10 icons8-bitcoin"></div
       ></a>
+      </div>
+      
 
       <v-spacer></v-spacer>
 
