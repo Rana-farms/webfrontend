@@ -60,7 +60,6 @@
           </nuxt-link>
         </v-hover>
       </div>
-      
 
       <v-spacer></v-spacer>
 
@@ -131,12 +130,10 @@ export default {
 .app-header {
   &__logo {
     width: auto;
-    height: 60px;
+    height: 55px;
     margin-right: 20px;
   }
 }
-
-
 
 .mobile-popup {
   width: 100%;
