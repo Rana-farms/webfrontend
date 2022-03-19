@@ -33,6 +33,12 @@
           </span>
 
           <span class="block my-5 text-light-dark">
+               <p>
+              RANA is named after the sun, as a testament of its significance
+              and importance to Agriculture. Our logo is sunrise which
+              represents the birth of a new age in Africa's Agriculture.
+            </p>
+            
             <p>
               Our story began in 2017. Back then we were in primary production
               of paddy with 13 hectares of leased farmland in Gaya LGA, Kano.
@@ -48,11 +54,7 @@
               and profitability.
             </p>
 
-            <p>
-              RANA is named after the sun, as a testament of its significance
-              and importance to Agriculture. Our logo is sunrise which
-              represents the birth of a new age in Africa's Agriculture.
-            </p>
+         
           </span>
 
           <v-btn color="primary" elevation="0" style="border-radius: 8px" large

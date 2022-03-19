@@ -17,7 +17,13 @@
         <ul>
           <li>
             <router-link to="/about-us" class="text-light-dark"
-              >About Us</router-link
+              >Who we are</router-link
+            >
+          </li>
+
+          <li>
+            <router-link to="/purpose" class="text-light-dark"
+              >What we do</router-link
             >
           </li>
       
@@ -29,10 +35,16 @@
       <div class="sectionx__3 col-span-12 md:col-span-4 lg:col-span-3">
         <span class="title">Quick links</span>
         <ul>
+
+           <li>
+            <router-link to="/signup" class="text-light-dark"
+              >Sign up</router-link
+            >
+          </li>
           
           <li>
             <router-link to="/contact-us" class="text-light-dark"
-              >contact us</router-link
+              >Contact us</router-link
             >
           </li>
         </ul>
@@ -62,7 +74,7 @@
       class="flex flex-col md:flex-row gap-5 justify-between py-10 items-center"
     >
       <span class="copyright"
-        >© {{ new Date().getFullYear() }} Rana Farm Limited. All rights
+        >© {{ new Date().getFullYear() }} RANA Farms Limited. All rights
         reserved.</span
       >
 
