@@ -29,7 +29,7 @@
           <span class="text-dark ml-2">
             <span class="font-semibold block w">Address:</span>
             <span class="text-gray-500 w-64 block"
-              >2 Adewale Taiwo Olajide Close, off Niyi Okunubi.</span
+              >21 Buhari Shopping complex, Hadeija Road, Yankaba, 70213, Kano, Nigeria</span
             >
           </span>
         </div>
@@ -38,7 +38,7 @@
           <v-icon>mdi-email-outline</v-icon>
           <span class="text-dark ml-2">
             <span class="font-semibold block w">Email:</span>
-            <span class="text-gray-500 w-64 block">hello@ranafarms.com</span>
+            <span class="text-gray-500 w-64 block">info@rana.com.ng</span>
           </span>
         </div>
 
@@ -46,7 +46,7 @@
           <v-icon>mdi-phone-outline</v-icon>
           <span class="text-dark ml-2">
             <span class="font-semibold block w">Phone:</span>
-            <span class="text-gray-500 w-64 block">+234 709 5854 795</span>
+            <span class="text-gray-500 w-64 block">+234 805 2040 002</span>
           </span>
         </div>
       </div>
