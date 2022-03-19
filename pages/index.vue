@@ -44,7 +44,7 @@
 
         <div class="analytics__box">
           <span class="analytics__box--title">100%+</span>
-          <span class="analytics__box--text"> 100%</span>
+          <span class="analytics__box--text"> Growth rate</span>
         </div>
       </div>
 

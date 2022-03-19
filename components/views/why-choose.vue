@@ -39,7 +39,7 @@
           <span class="block font-semibold text-3xl md:text-4xl mb-2"
             >100%+</span
           >
-          <span class="block text-gray-100"> Sales Growth</span>
+          <span class="block text-gray-100"> Growth rate</span>
         </div>
       </div>
     </div>
