@@ -6,8 +6,8 @@
           <img src="/images/logo.png" alt="" />
           <span class="call-us">CALL US DIRECTLY</span>
           <a class="phone" href="tel:+234 709 5854 795">+234 709 5854 795</a>
-          <a class="email" href="mailto:Hello@ranafarms.com"
-            >Hello@ranafarms.com</a
+          <a class="email" href="mailto:info@rana.com.ng"
+            >info@rana.com.ng</a
           >
         </div>
       </div>
