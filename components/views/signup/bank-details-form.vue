@@ -35,8 +35,8 @@
 
     <div class="grid grid-cols-12 items-center">
         <v-btn color="primary" @click="$emit('back')" class=" col-span-2" text large > <v-icon>mdi-chevron-left</v-icon></v-btn>
-         <v-btn color="primary" @click="NEXT" class="my-3 col-span-10" elevation="0" large 
-      >Next <v-icon right>mdi-chveron-right</v-icon></v-btn
+         <v-btn color="primary" @click="REGISTER" class="my-3 col-span-10" elevation="0" large 
+      >SIGN UP </v-btn
     >
     </div>
   </div>
@@ -69,13 +69,13 @@ export default {
     }
   },
   methods: {
-    NEXT() {
+    REGISTER() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canMoveOn) {
-        this.$emit('next', this.data)
+        this.$emit('complete', this.data)
       }
     },
   },

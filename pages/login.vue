@@ -51,7 +51,7 @@
       >
 
       <div class="text-center text-sm">
-        Don't have an account ? <router-link to="/sigup">Sign in</router-link>
+        Don't have an account ? <router-link to="/signup">Sign up</router-link>
       </div>
     </div>
   </div>

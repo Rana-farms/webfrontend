@@ -25,7 +25,7 @@
 
    <div class="mt-5">
         <v-list dense rounded>
-        <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item-group  color="primary">
           <v-list-item v-for="(item, i) in items" link :to="item.link" :key="i">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
@@ -50,22 +50,22 @@ export default {
         {
           text: 'Dashboard',
           icon: 'mdi-home-variant-outline',
-          link: '/investor',
+          link: '/investor/dashboard',
         },
         {
           text: 'Wallet',
           icon: 'mdi-wallet-outline',
-          link: '',
+          link: '/investor/wallet',
         },
         {
           text: 'Investments',
           icon: 'mdi-chart-line',
-          link: '',
+          link: '/investor/investments',
         },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
-          link: '',
+          link: '/investor/settings',
         },
       ],
     }
