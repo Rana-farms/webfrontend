@@ -20,7 +20,7 @@
               >About Us</router-link
             >
           </li>
-          <li>Project</li>
+      
 
           <li><a href="https://www.hope.com/" target="_blank">Bitcoin</a></li>
         </ul>
@@ -29,7 +29,7 @@
       <div class="sectionx__3 col-span-12 md:col-span-4 lg:col-span-3">
         <span class="title">Quick links</span>
         <ul>
-          <li>Faq</li>
+          
           <li>
             <router-link to="/contact-us" class="text-light-dark"
               >contact us</router-link
