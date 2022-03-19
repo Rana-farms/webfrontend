@@ -60,8 +60,7 @@
           </nuxt-link>
         </v-hover>
         <a href="https://www.hope.com/" target="_blank"
-        ><div class="ml-6 icons8-bitcoin"></div
-      ></a>
+        ><img class="ml-6 " src="/images/bitcoin.svg"></a>
       </div>
       
 
