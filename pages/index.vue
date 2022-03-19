@@ -12,7 +12,12 @@
           the agricultural value chain
         </div>
 
-        <v-btn color="primary" class="mt-10 md:mt-20" elevation="0" large
+        <v-btn
+          color="primary"
+          to="/signup"
+          class="mt-10 md:mt-20"
+          elevation="0"
+          large
           >Get Started</v-btn
         >
       </div>
@@ -62,7 +67,12 @@
             agribusiness.</span
           >
 
-          <v-btn color="primary" elevation="0" style="border-radius: 8px" large
+          <v-btn
+            color="primary"
+            elevation="0"
+            to="/signup"
+            style="border-radius: 8px"
+            large
             >Get started</v-btn
           >
         </div>

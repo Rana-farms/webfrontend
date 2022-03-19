@@ -9,34 +9,40 @@
         class="block text-center font-bold mt-1 text-2xl"
         >Register Account</span
       >
-      <span
-        v-if="!registering"
-        class="text-light-dark mb-2 block text-center tracking-wider text-lg"
-        >Get your free Rana account now.</span
-      >
+      <div v-if="!registering">
+        <span
+          class="text-light-dark mb-2 block text-center tracking-wider text-lg"
+          >Get your free Rana account now.</span
+        >
 
-      <v-progress-linear :value="progress" color="primary"></v-progress-linear>
-      <div class="sm:flex my-2 text-sm hidden  justify-between">
-        <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
-          >User Details</span
-        >
-        <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
-          >Next of Kin</span
-        >
-        <span :class="{ 'font-semibold': el == 3, 'text-gray-500': el != 3 }"
-          >Bank details</span
-        >
-        <span :class="{ 'font-semibold': el == 4, 'text-gray-500': el != 4 }"
+        <v-progress-linear
+          :value="progress"
+          color="primary"
+        ></v-progress-linear>
+        <div class="sm:flex my-2 text-sm hidden justify-between">
+          <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
+            >User Details</span
+          >
+          <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
+            >Next of Kin</span
+          >
+          <span :class="{ 'font-semibold': el == 3, 'text-gray-500': el != 3 }"
+            >Bank details</span
+          >
+          <!-- <span :class="{ 'font-semibold': el == 4, 'text-gray-500': el != 4 }"
           >Investment trust</span
-        >
+        > -->
+        </div>
       </div>
 
-      
-
-      <user-details-form @next="setUpUserDetails"  v-if="el == 1" />
-      <next-of-kin-form @next="setUpNextOfKin" @back="el -=1 " v-if="el == 2" />
-      <bank-details-form @next="setUpBankDetails" @back="el -=1" v-if="el == 3" />
-      <investment-trust-form @complete="setUpInvestmentTrust" @back="el -=1"  v-if="el == 4" />
+      <user-details-form @next="setUpUserDetails" v-if="el == 1" />
+      <next-of-kin-form @next="setUpNextOfKin" @back="el -= 1" v-if="el == 2" />
+      <bank-details-form
+        @complete="setUpBankDetails"
+        @back="el -= 1"
+        v-if="el == 3"
+      />
+      <!-- <investment-trust-form @complete="setUpInvestmentTrust" @back="el -=1"  v-if="el == 4" /> -->
 
       <div v-if="registering" class="flex text-center justify-center p-10">
         <v-progress-circular
@@ -85,34 +91,40 @@ export default {
     },
 
     setUpBankDetails(data) {
-      this.el++
+      this.el = -1
+      this.registering = true
+      this.progress = 0
       this.form = Object.assign({}, this.form, { bank: data })
     },
 
-    setUpInvestmentTrust(data) {
-      this.el = -1
-      this.registering = true
-      this.form = Object.assign({}, this.form, { investmentTrust: data })
-    },
+    // setUpInvestmentTrust(data) {
+    //   this.el = -1
+    //   this.registering = true
+    //   this.form = Object.assign({}, this.form, { investmentTrust: data })
+    // },
   },
   watch: {
     form: {
       deep: true,
       immediate: true,
       handler(val) {
-        console.log(JSON.stringify(val, null, 2))
+        //console.log(JSON.stringify(val, null, 2))
       },
     },
-    el(val){
-      if(val == 1){
+    el(val) {
+      if (val == 1) {
         this.progress = 0
-      }else if(val == 2){
-        this.progress = 25
-    }else if (val == 3){
-        this.progress = 50
-  }else if (val == 4){
-        this.progress = 100
-  }}}
+      } else if (val == 2) {
+        this.progress = 33.33333
+      } else if (val == 3) {
+        this.progress = 33.33333 * 2
+      }
+
+      // else if (val == 4){
+      //       this.progress = 100
+      // }
+    },
+  },
 }
 </script>
 
