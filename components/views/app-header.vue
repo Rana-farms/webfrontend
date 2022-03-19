@@ -88,7 +88,7 @@
         <router-link to="/about-us"> Who we are </router-link>
         <router-link to="/purpose"> What we do </router-link>
         <router-link to="/contact-us"> Contact us </router-link>
-        <li>
+         <li>
           <a href="https://www.hope.com/" target="_blank">Bitcoin</a>
         </li>
       </div>

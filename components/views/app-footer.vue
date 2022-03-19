@@ -5,9 +5,9 @@
         <div>
           <img src="/images/logo.png" alt="" />
           <span class="call-us">CALL US DIRECTLY</span>
-          <a class="phone" href="tel:+234 709 5854 795">+234 709 5854 795</a>
-          <a class="email" href="mailto:Hello@ranafarms.com"
-            >Hello@ranafarms.com</a
+          <a class="phone" href="tel:+234 805 2040 002">+234 805 2040 002</a>
+          <a class="email" href="mailto:info@rana.com.ng"
+            >info@rana.com.ng</a
           >
         </div>
       </div>
@@ -20,7 +20,7 @@
               >About Us</router-link
             >
           </li>
-          <li>Project</li>
+      
 
           <li><a href="https://www.hope.com/" target="_blank">Bitcoin</a></li>
         </ul>
@@ -29,7 +29,7 @@
       <div class="sectionx__3 col-span-12 md:col-span-4 lg:col-span-3">
         <span class="title">Quick links</span>
         <ul>
-          <li>Faq</li>
+          
           <li>
             <router-link to="/contact-us" class="text-light-dark"
               >contact us</router-link

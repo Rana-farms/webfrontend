@@ -104,17 +104,18 @@
 
     <div class="p-5 p-10">
       <span class="block text-center font-semibold text-3xl text-dark"
-        >Unit Trust Investing</span
+        >Trust Investing</span
       >
 
       <div class="max-w-xl text-center m-auto text-light-dark my-3">
-        A unit trust is established under a trust deed, and the investors are
-        the beneficiary of the trust. Thus are unincorporated entities that pass
-        profits directly to investors rather than reinvesting in the fund.
+       A trust company is established as a special purpose vehicle (SPV),
+       while investors are shareholders of the trust company. 
+       Thus, the incorporated entity passes profits directly to investors
+       rather than reinvesting in the fund.
       </div>
-
       <div class="flex justify-center gap-8 mt-10 flex-wrap">
-        <div class="shadow-md rounded-md p-5 max-w-xs">
+        
+           <div class="shadow-md rounded-md p-5 max-w-xs">
           <span class="text-primary block font-semibold text-xl"
             >Agricultural Logistics Trust</span
           >
@@ -124,58 +125,56 @@
           >
 
           <ul class="p-0 m-0 list-none">
-            <li><b>Assets Allocation:</b> Min 30% - Equity/Max. 70% - Debt</li>
-            <li><b>Minimum Investment:</b> 500,000 Units</li>
-            <li><b>Unit Price:</b> NGN 1</li>
-            <li><b>Profit Sharing Formula:</b> NGN 30:70 (Investor:Trustee)</li>
+            <li><b>Assets Allocation:</b> Max. 90% in Vehicle Acquisition</li>
+            <li><b>Investment Agreement:</b> Cost-Plus Financing</li>
+            <li><b>Minimum Investment:</b> 200,000 Units</li>
+            <li><b>Unit Price:</b> $ 0.05</li>
             <li><b>Insurance Fee:</b> 3%</li>
             <li><b>Look-Up Period:</b> 2 Years</li>
             <li><b>Risk Profile:</b> Medium Risk Appetite</li>
           </ul>
         </div>
 
-        <div class="shadow-md rounded-md p-5 max-w-xs">
+         <div class="shadow-md rounded-md p-5 max-w-xs">
           <span class="text-primary block font-semibold text-xl"
             >Agricultural Commodity Trust
           </span>
           <span class="text-gray-500 block my-2"
-            >This trust is invested in produce aggregation and commodity trading
-            to generate profit for unit holders.</span
+            >This trust is invested in aggregation of produce and commodity trading to generate profit for shareholders.</span
           >
 
           <ul class="p-0 m-0 list-none">
-            <li>
-              <b>Assets Allocation:</b> Min 10% - Cash/Max. 90% - Commodity
-            </li>
-            <li><b>Minimum Investment:</b> 1,000,000 Units</li>
-            <li><b>Unit Price:</b> NGN 1</li>
-            <li><b>Profit Sharing Formula:</b> NGN 60:40 (Investor:Trustee)</li>
+           <li><b>Assets Allocation:</b> Min. 10% in Cash/Max. 90% in Commodity</li>
+            <li><b>Investment Agreement:</b> Profit Sharing</li>
+            <li><b>Minimum Investment:</b> 100,000 Units</li>
+            <li><b>Unit Price:</b> &#8358; 10.00</li>
             <li><b>Insurance Fee:</b> 4%</li>
-            <li><b>Look-Up Period:</b> 1 Years</li>
-            <li><b>Risk Profile:</b> High Risk Appetite</li>
+            <li><b>Look-Up Period:</b> 1 Year</li>
+            <li><b>Risk Profile:</b> Medium Risk Appetite</li>
           </ul>
         </div>
-
-        <div class="shadow-md rounded-md p-5 max-w-xs">
+<div class="shadow-md rounded-md p-5 max-w-xs">
           <span class="text-primary block font-semibold text-xl"
             >Agricultural Storage Trust
           </span>
           <span class="text-gray-500 block my-2"
-            >This trust is invested in construction or acquisition of storage
-            facilities to generate profit for unit holders.</span
+            >This trust is invested in construction or acquisition of storage facilities to generate profit for unit holders.
+
+</span
           >
 
           <ul class="p-0 m-0 list-none">
             <li>
               <b>Assets Allocation:</b>Max. 90% in Construction or Acquisition
             </li>
-            <li><b>Minimum Investment:</b> 1,000,000 Units</li>
-            <li><b>Unit Price:</b> NGN 1</li>
-            <li><b>Profit Sharing Formula:</b> NGN 50:50 (Investor:Trustee)</li>
+            <li><b>Investment Agreement:  </b> Cost-Plus Financing</li>
+            <li><b>Minimum Investment:</b> 2,500,000 Units</li>
+            <li><b>Unit Price:</b> &#8358;1.00</li>
             <li><b>Look-Up Period:</b> 5 Years</li>
             <li><b>Risk Profile:</b> Low Risk Appetite</li>
           </ul>
         </div>
+       
       </div>
     </div>
 
