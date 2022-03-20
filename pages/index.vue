@@ -28,22 +28,36 @@
         class="analytics px-5 items-center justify-center pt-5 gap-5 flex flex-wrap items-center"
       >
         <div class="analytics__box">
-          <span class="analytics__box--title">1050 tons</span>
+          <span class="analytics__box--title">
+            <ICountUp :delay="delay" :endVal="1050" :options="options" />
+            tons</span
+          >
           <span class="analytics__box--text"> Grain supplied</span>
         </div>
 
         <div class="analytics__box">
-          <span class="analytics__box--title">498 Trips</span>
+          <span class="analytics__box--title">
+            <ICountUp :delay="delay" :endVal="498" :options="options" />
+            Trips</span
+          >
           <span class="analytics__box--text"> Agricultural logistics</span>
         </div>
 
         <div class="analytics__box">
-          <span class="analytics__box--title">N250M+</span>
+          <span class="analytics__box--title"
+            >N<ICountUp
+              :delay="delay"
+              :endVal="250"
+              :options="options"
+            />M+</span
+          >
           <span class="analytics__box--text"> Trading Volume</span>
         </div>
 
         <div class="analytics__box">
-          <span class="analytics__box--title">100%+</span>
+          <span class="analytics__box--title">
+            <ICountUp :delay="delay" :endVal="100" :options="options" />%+</span
+          >
           <span class="analytics__box--text"> Growth rate</span>
         </div>
       </div>
@@ -90,11 +104,27 @@ import partners from '@/components/views/partners.vue'
 import posts from '@/components/views/posts.vue'
 import faqs from '@/components/views/faqs.vue'
 
+import ICountUp from 'vue-countup-v2'
 export default {
   components: {
+    ICountUp,
     partners,
     posts,
     faqs,
+  },
+  data() {
+    return {
+      delay: 1000,
+      endVal: 1050,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: '',
+      },
+    }
   },
 }
 </script>

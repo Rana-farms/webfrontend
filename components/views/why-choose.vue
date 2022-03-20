@@ -15,29 +15,31 @@
         class="flex flex-wrap justify-center flex-col sm:flex-row gap-8 md:gap-14 mb-10"
       >
         <div class="text-center tracking-wider">
-          <span class="block font-semibold text-3xl md:text-4xl mb-2"
-            >1050 tons</span
-          >
+          <span class="block font-semibold text-3xl md:text-4xl mb-2">
+            <ICountUp :delay="delay" :endVal="1050" :options="options" /> tons
+          </span>
           <span class="block text-gray-100"> Grain supplied</span>
         </div>
 
         <div class="text-center tracking-wider">
-          <span class="block font-semibold text-3xl md:text-4xl mb-2"
-            >498 Trips</span
+          <span class="block font-semibold text-3xl md:text-4xl mb-2">
+            <ICountUp :delay="delay" :endVal="498" :options="options" />
+
+            Trips</span
           >
           <span class="block text-gray-100"> Agricultural logistics</span>
         </div>
 
         <div class="text-center tracking-wider">
-          <span class="block font-semibold text-3xl md:text-4xl mb-2"
-            >N250M+</span
-          >
+          <span class="block font-semibold text-3xl md:text-4xl mb-2">
+            N<ICountUp :delay="delay" :endVal="250" :options="options" />M+
+          </span>
           <span class="block text-gray-100"> Trading Volume</span>
         </div>
 
         <div class="text-center tracking-wider">
-          <span class="block font-semibold text-3xl md:text-4xl mb-2"
-            >100%+</span
+          <span class="block font-semibold text-3xl md:text-4xl mb-2">
+            <ICountUp :delay="delay" :endVal="100" :options="options" />%+</span
           >
           <span class="block text-gray-100"> Growth rate</span>
         </div>
@@ -47,7 +49,26 @@
 </template>
 
 <script>
-export default {}
+import ICountUp from 'vue-countup-v2'
+export default {
+  components: {
+    ICountUp,
+  },
+  data() {
+    return {
+      delay: 1000,
+      endVal: 1050,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: '',
+      },
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
