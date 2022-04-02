@@ -37,11 +37,13 @@
 
       <user-details-form @next="setUpUserDetails" v-if="el == 1" />
       <next-of-kin-form @next="setUpNextOfKin" @back="el -= 1" v-if="el == 2" />
+       
       <bank-details-form
         @complete="setUpBankDetails"
         @back="el -= 1"
         v-if="el == 3"
       />
+      <password-form  @back="el -= 1"  @complete="setUpPassword" v-if="el == 4" />
       <!-- <investment-trust-form @complete="setUpInvestmentTrust" @back="el -=1"  v-if="el == 4" /> -->
 
       <div v-if="registering" class="flex text-center justify-center p-10">
@@ -62,6 +64,7 @@
 import BankDetailsForm from '~/components/views/signup/bank-details-form.vue'
 import InvestmentTrustForm from '~/components/views/signup/investment-trust-form.vue'
 import NextOfKinForm from '~/components/views/signup/next-of-kin-form.vue'
+import PasswordForm from '~/components/views/signup/password-form.vue'
 import userDetailsForm from '~/components/views/signup/user-details-form.vue'
 export default {
   components: {
@@ -69,11 +72,12 @@ export default {
     NextOfKinForm,
     BankDetailsForm,
     InvestmentTrustForm,
+    PasswordForm,
   },
   layout: 'auth',
   data() {
     return {
-      el: 1,
+      el: 3,
       form: {},
       registering: false,
       progress: 0,
@@ -82,33 +86,52 @@ export default {
   methods: {
     setUpUserDetails(data) {
       this.el++
-      this.form = Object.assign({}, this.form, { user: data })
+      this.form = Object.assign({}, this.form, { ...data })
     },
 
     setUpNextOfKin(data) {
       this.el++
-      this.form = Object.assign({}, this.form, { nextOfKin: data })
+      this.form = Object.assign({}, this.form, { ...data })
     },
 
     setUpBankDetails(data) {
-      this.el = -1
-      this.registering = true
-      this.progress = 0
-      this.form = Object.assign({}, this.form, { bank: data })
+
+      if(data.bank_id == '057'){
+        data.bank_id = [057][0]
+      }else{
+        data.bank_id = Number(data.bank_id)
+      }
+
+      this.form = Object.assign({}, this.form, {...data  })
+      this.el++
     },
 
-    // setUpInvestmentTrust(data) {
-    //   this.el = -1
-    //   this.registering = true
-    //   this.form = Object.assign({}, this.form, { investmentTrust: data })
-    // },
+    setUpPassword(data){
+      this.form = Object.assign({}, this.form, { ...data })
+      this.RESGISTER()
+    },
+  
+
+
+   async RESGISTER() {
+              this.registering = true
+
+      try {
+        const registeration = await this.$API.auth.register(this.form)
+        console.log(JSON.stringify(registeration, null, 2))
+      } catch (err) {
+        console.log(JSON.stringify(err, null, 2))
+      } finally {
+        this.registering = false
+      }
+    },
   },
   watch: {
     form: {
       deep: true,
       immediate: true,
       handler(val) {
-        //console.log(JSON.stringify(val, null, 2))
+        console.log(JSON.stringify(val, null, 2))
       },
     },
     el(val) {
@@ -118,11 +141,11 @@ export default {
         this.progress = 33.33333
       } else if (val == 3) {
         this.progress = 33.33333 * 2
+      }else if(val == 4){
+        this.progress = 33.33333 * 3
       }
 
-      // else if (val == 4){
-      //       this.progress = 100
-      // }
+     
     },
   },
 }

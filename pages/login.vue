@@ -82,13 +82,21 @@ export default {
   },
 
   methods: {
-    LOGIN() {
+   async LOGIN() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canLogin) {
         this.isLogining = true
+        try {
+        await  this.$API.auth.login(this.form)
+        } catch (err) {
+          console.log(JSON.stringify(err))
+          // this.$toast.error(err.message)
+        } finally {
+          this.isLogining = false
+        }
       }
     },
   },

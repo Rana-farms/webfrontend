@@ -11,6 +11,7 @@
 <script>
 import appHeader from '@/components/views/app-header.vue'
 import appFooter from '@/components/views/app-footer.vue'
+
 export default {
   name: 'DefaultLayout',
   components: {
@@ -20,5 +21,15 @@ export default {
   data() {
     return {}
   },
+  mounted(){
+    console.log(process.env.baseURL)
+    this.login()
+  },
+
+  methods:{
+    login(){
+
+    }
+  }
 }
 </script>

@@ -3,13 +3,13 @@
 
     <div class=" flex flex-col gap-5">
       <v-text-field
-        v-model="data.name"
-        ref="name"
+        v-model="data.fullname"
+        ref="fullname"
         name="Name"
         label="Name"
         outlined
         hide-details="auto"
-        :rules="rules.name"
+        :rules="rules.fullname"
       ></v-text-field>
 
       <v-text-field
@@ -56,13 +56,13 @@ export default {
     return {
       show: false,
       data: {
-        name: '',
+        fullname: '',
         phone: '',
         email: '',
         address: '',
       },
       rules: {
-        name: [
+        fullname: [
           (v) => !!v || 'Name is required',
           (v) => v.length <= 20 || 'Name must be less than 20 characters',
         ],
@@ -96,7 +96,7 @@ export default {
   computed: {
     form() {
       return {
-        name: this.data.name,
+        fullname: this.data.fullname,
         phone: this.data.phone,
         email: this.data.email,
         address: this.data.address,

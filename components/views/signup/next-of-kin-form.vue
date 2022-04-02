@@ -2,44 +2,54 @@
   <div class="form">
     <div class="flex flex-col gap-5">
       <v-text-field
-        v-model="data.name"
-        ref="name"
+        v-model="data.next_of_kin_fullname"
+        ref="next_of_kin_fullname"
         name="Name"
         label="Name"
         outlined
         hide-details="auto"
-        :rules="rules.name"
+        :rules="rules.next_of_kin_fullname"
       ></v-text-field>
 
       <v-text-field
-        v-model="data.phone"
-        ref="phone"
+        v-model="data.next_of_kin_phone"
+        ref="next_of_kin_phone"
         name="Phone number"
         label="Phone number"
         outlined
         hide-details="auto"
-        :rules="rules.phone"
+        :rules="rules.next_of_kin_phone"
       ></v-text-field>
 
       <v-text-field
-        v-model="data.email"
-        ref="email"
+        v-model="data.next_of_kin_email"
+        ref="next_of_kin_email"
         name="Email"
         label="Email"
         type="email"
         outlined
         hide-details="auto"
-        :rules="rules.email"
+        :rules="rules.next_of_kin_email"
       ></v-text-field>
 
       <v-text-field
-        v-model="data.address"
-        ref="address"
+        v-model="data.next_of_kin_address"
+        ref="next_of_kin_address"
         name="Address"
         label="Address"
         outlined
         hide-details="auto"
-        :rules="rules.address"
+        :rules="rules.next_of_kin_address"
+      ></v-text-field>
+      
+      <v-text-field
+        v-model="data.relationship"
+        ref="relationship"
+        name="Relationship"
+        label="Relationship"
+        outlined
+        hide-details="auto"
+        :rules="rules.relationship"
       ></v-text-field>
     </div>
 
@@ -71,28 +81,32 @@ export default {
     return {
       show: false,
       data: {
-        name: '',
-        phone: '',
-        email: '',
-        address: '',
+        next_of_kin_fullname: '',
+        next_of_kin_phone: '',
+        next_of_kin_email: '',
+        next_of_kin_address: '',
+        relationship: '',
       },
       rules: {
-        name: [
+        next_of_kin_fullname: [
           (v) => !!v || 'Name is required',
           (v) => v.length <= 20 || 'Name must be less than 20 characters',
         ],
-        phone: [
+        next_of_kin_phone: [
           (v) => !!v || 'Phone is required',
           // v => v.length <= 20 || 'Phone must be less than 20 characters',
         ],
-        email: [
+        next_of_kin_email: [
           (v) => !!v || 'Email is required',
           (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
         ],
-        address: [
+        next_of_kin_address: [
           (v) => !!v || 'Address is required',
           //  v => v.length <= 20 || 'Address must be less than 20 characters',
         ],
+        relationship:[
+          (v) => !!v || 'Relationship is required',
+        ]
       },
     }
   },
@@ -111,10 +125,11 @@ export default {
   computed: {
     form() {
       return {
-        name: this.data.name,
-        phone: this.data.phone,
-        email: this.data.email,
-        address: this.data.address,
+        next_of_kin_fullname: this.data.next_of_kin_fullname,
+        next_of_kin_phone: this.data.next_of_kin_phone,
+        next_of_kin_email: this.data.next_of_kin_email,
+        next_of_kin_address: this.data.next_of_kin_address,
+        relationship: this.data.relationship,
       }
     },
 
