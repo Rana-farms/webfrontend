@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <div class="signup__form bg-white md:shadow rounded-md">
+    <div v-if="!registering" class="signup__form bg-white md:shadow rounded-md">
       <router-link to="/" v-if="!registering">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
@@ -9,7 +9,7 @@
         class="block text-center font-bold mt-1 text-2xl"
         >Register Account</span
       >
-      <div v-if="!registering">
+      <div>
         <span
           class="text-light-dark mb-2 block text-center tracking-wider text-lg"
           >Get your free Rana account now.</span
@@ -20,110 +20,89 @@
           color="primary"
         ></v-progress-linear>
         <div class="sm:flex my-2 text-sm hidden justify-between">
-          <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
+          <span :class="{ 'font-semibold': el == 0, 'text-gray-500': el != 0 }"
             >User Details</span
           >
-          <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
+          <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
             >Next of Kin</span
           >
-          <span :class="{ 'font-semibold': el == 3, 'text-gray-500': el != 3 }"
+          <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
             >Bank details</span
           >
-          <!-- <span :class="{ 'font-semibold': el == 4, 'text-gray-500': el != 4 }"
-          >Investment trust</span
-        > -->
         </div>
       </div>
 
-      <user-details-form @next="setUpUserDetails" v-if="el == 1" />
-      <next-of-kin-form @next="setUpNextOfKin" @back="el -= 1" v-if="el == 2" />
-       
-      <bank-details-form
-        @complete="setUpBankDetails"
-        @back="el -= 1"
-        v-if="el == 3"
-      />
-      <password-form  @back="el -= 1"  @complete="setUpPassword" v-if="el == 4" />
-      <!-- <investment-trust-form @complete="setUpInvestmentTrust" @back="el -=1"  v-if="el == 4" /> -->
+      <keep-alive>
+        <component
+          :is="current"
+          :current="el"
+          @move="current = steps[$event]"
+          v-model="form"
+          @register="RESGISTER"
+        />
+      </keep-alive>
 
-      <div v-if="registering" class="flex text-center justify-center p-10">
-        <v-progress-circular
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
-      </div>
-
-      <div class="text-center" v-if="!registering">
+      <div class="text-center">
         Already have an account ? <router-link to="/login">Sign in</router-link>
       </div>
     </div>
+
+    <v-progress-circular indeterminate color="primary" v-else />
   </div>
 </template>
 
 <script>
 import BankDetailsForm from '~/components/views/signup/bank-details-form.vue'
-import InvestmentTrustForm from '~/components/views/signup/investment-trust-form.vue'
 import NextOfKinForm from '~/components/views/signup/next-of-kin-form.vue'
 import PasswordForm from '~/components/views/signup/password-form.vue'
 import userDetailsForm from '~/components/views/signup/user-details-form.vue'
 export default {
   components: {
-    userDetailsForm,
-    NextOfKinForm,
-    BankDetailsForm,
-    InvestmentTrustForm,
-    PasswordForm,
+    user: userDetailsForm,
+    kin: NextOfKinForm,
+    bank: BankDetailsForm,
+    password: PasswordForm,
   },
+
   layout: 'auth',
   data() {
     return {
-      el: 3,
+      steps: ['user', 'kin', 'bank', 'password'],
       form: {},
       registering: false,
       progress: 0,
+      current: 'user',
     }
   },
   methods: {
-    setUpUserDetails(data) {
-      this.el++
-      this.form = Object.assign({}, this.form, { ...data })
-    },
-
-    setUpNextOfKin(data) {
-      this.el++
-      this.form = Object.assign({}, this.form, { ...data })
-    },
-
-    setUpBankDetails(data) {
-
-      if(data.bank_id == '057'){
-        data.bank_id = [057][0]
-      }else{
-        data.bank_id = Number(data.bank_id)
-      }
-
-      this.form = Object.assign({}, this.form, {...data  })
-      this.el++
-    },
-
-    setUpPassword(data){
-      this.form = Object.assign({}, this.form, { ...data })
-      this.RESGISTER()
-    },
-  
-
-
-   async RESGISTER() {
-              this.registering = true
+    async RESGISTER() {
+      this.registering = true
 
       try {
-        const registeration = await this.$API.auth.register(this.form)
-        console.log(JSON.stringify(registeration, null, 2))
+        const { data } = await this.$API.user.register(this.form)
+        console.log(JSON.stringify(data, null, 2))
+
+        this.$store.dispatch('user/setUser', data.data)
+        localStorage.setItem('token', data?.data?.token)
+
+        if (data?.data?.role?.name === 'Investor') {
+          this.$router.replace('/investor')
+        } else if (data?.data?.role?.name === 'superadmin') {
+          this.$router.replace('/admin')
+        } else if (data?.data?.role?.name === 'admin') {
+          this.$router.replace('/admin')
+        }
       } catch (err) {
         console.log(JSON.stringify(err, null, 2))
       } finally {
         this.registering = false
       }
+    },
+  },
+
+  computed: {
+    el() {
+      return this.steps.indexOf(this.current)
     },
   },
   watch: {
@@ -134,18 +113,16 @@ export default {
         console.log(JSON.stringify(val, null, 2))
       },
     },
-    el(val) {
-      if (val == 1) {
+    el(el) {
+      if (el == 0) {
         this.progress = 0
-      } else if (val == 2) {
+      } else if (el == 1) {
         this.progress = 33.33333
-      } else if (val == 3) {
+      } else if (el == 2) {
         this.progress = 33.33333 * 2
-      }else if(val == 4){
+      } else if (el == 3) {
         this.progress = 33.33333 * 3
       }
-
-     
     },
   },
 }

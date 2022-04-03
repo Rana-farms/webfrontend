@@ -3,6 +3,8 @@
     <app-header />
     <v-main>
       <Nuxt />
+
+
     </v-main>
     <app-footer />
   </v-app>
@@ -11,12 +13,14 @@
 <script>
 import appHeader from '@/components/views/app-header.vue'
 import appFooter from '@/components/views/app-footer.vue'
+import NotificationAlert from '~/components/views/notification-alert.vue'
 
 export default {
   name: 'DefaultLayout',
   components: {
     appHeader,
-    appFooter
+    appFooter,
+    NotificationAlert
   },
   data() {
     return {}

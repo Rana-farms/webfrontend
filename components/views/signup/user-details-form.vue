@@ -52,6 +52,17 @@
 
 <script>
 export default {
+  props:{
+    current: {
+      type: Number,
+      default: 0
+    },
+    value:{
+      type: Object,
+      default: ''
+    }
+
+  },
   data() {
     return {
       show: false,
@@ -88,7 +99,9 @@ export default {
       })
 
       if (this.canMoveOn) {
-        this.$emit('next', this.data)
+        this.$emit('input', Object.assign({}, this.value, { ...this.data }))
+        this.$emit('move',this.current+=1)
+
       }
     },
   },

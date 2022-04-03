@@ -41,7 +41,7 @@
         hide-details="auto"
         :rules="rules.next_of_kin_address"
       ></v-text-field>
-      
+
       <v-text-field
         v-model="data.relationship"
         ref="relationship"
@@ -56,7 +56,7 @@
     <div class="grid grid-cols-12 items-center">
       <v-btn
         color="primary"
-        @click="$emit('back')"
+        @click="$emit('move', (current -= 1))"
         class="col-span-2"
         text
         large
@@ -77,6 +77,16 @@
 
 <script>
 export default {
+  props: {
+    current: {
+      type: Number,
+      default: 0,
+    },
+    value: {
+      type: Object,
+      default: '',
+    },
+  },
   data() {
     return {
       show: false,
@@ -104,9 +114,7 @@ export default {
           (v) => !!v || 'Address is required',
           //  v => v.length <= 20 || 'Address must be less than 20 characters',
         ],
-        relationship:[
-          (v) => !!v || 'Relationship is required',
-        ]
+        relationship: [(v) => !!v || 'Relationship is required'],
       },
     }
   },
@@ -117,7 +125,8 @@ export default {
       })
 
       if (this.canMoveOn) {
-        this.$emit('next', this.data)
+        this.$emit('input', Object.assign({}, this.value, { ...this.data }))
+        this.$emit('move', (this.current += 1))
       }
     },
   },

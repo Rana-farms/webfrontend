@@ -1,8 +1,8 @@
-import auth from './auth'
+import user from './user'
 import utils from './utils'
 
 const $Api = {
-  auth,
+  user,
   utils
 }
 

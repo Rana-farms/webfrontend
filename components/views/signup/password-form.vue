@@ -32,7 +32,7 @@
     <div class="grid grid-cols-12 items-center">
       <v-btn
         color="primary"
-        @click="$emit('back')"
+        @click="$emit('move', (current -= 1))"
         class="col-span-2"
         text
         large
@@ -53,6 +53,17 @@
 
 <script>
 export default {
+  props: {
+    current: {
+      type: Number,
+      default: 0,
+    },
+    value: {
+      type: Object,
+      default: '',
+    },
+  },
+
   data() {
     return {
       show: false,
@@ -83,9 +94,8 @@ export default {
       })
 
       if (this.canMoveOn) {
-        this.$emit('complete', {
-          password: this.data.password,
-        })
+        this.$emit('input', Object.assign({}, this.value, { ...{password:this.data.password} }))
+        this.$emit('register')
       }
     },
   },

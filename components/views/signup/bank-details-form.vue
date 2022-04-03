@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <div class=" flex flex-col gap-5">
+    <div class="flex flex-col gap-5">
       <v-select
         v-model="data.bank_id"
         ref="bank_id"
@@ -9,7 +9,7 @@
         outlined
         hide-details="auto"
         :items="banks"
-        item-value="code"
+        item-value="id"
         item-text="name"
         :rules="rules.bank_id"
       ></v-select>
@@ -37,16 +37,40 @@
     </div>
 
     <div class="grid grid-cols-12 items-center">
-        <v-btn color="primary" @click="$emit('back')" class=" col-span-2" text large > <v-icon>mdi-chevron-left</v-icon></v-btn>
-         <v-btn color="primary" @click="REGISTER" class="my-3 col-span-10" elevation="0" large 
-      >NEXT </v-btn
-    >
+      <v-btn
+        color="primary"
+        @click="$emit('move', (current -= 1))"
+        class="col-span-2"
+        text
+        large
+      >
+        <v-icon>mdi-chevron-left</v-icon></v-btn
+      >
+      <v-btn
+        color="primary"
+        @click="REGISTER"
+        class="my-3 col-span-10"
+        elevation="0"
+        large
+        >NEXT
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    current: {
+      type: Number,
+      default: 0,
+    },
+    value: {
+      type: Object,
+      default: '',
+    },
+  },
+
   data() {
     return {
       show: false,
@@ -55,7 +79,7 @@ export default {
         account_no: '',
         account_name: '',
       },
-      banks:[],
+      banks: [],
       rules: {
         bank_id: [
           (v) => !!v || 'Bank name is required',
@@ -63,7 +87,7 @@ export default {
         ],
         account_no: [
           (v) => !!v || 'Account number is required',
-           v => (v && v.length == 10) || 'Account number is invalid',
+          (v) => (v && v.length == 10) || 'Account number is invalid',
         ],
         account_name: [
           (v) => !!v || 'Account name is required',
@@ -73,8 +97,8 @@ export default {
     }
   },
   mounted() {
-    this.getBanks();
-  },  
+    this.getBanks()
+  },
   methods: {
     REGISTER() {
       Object.keys(this.form).forEach((f) => {
@@ -82,12 +106,13 @@ export default {
       })
 
       if (this.canMoveOn) {
-        this.$emit('complete', this.data)
+        this.$emit('input', Object.assign({}, this.value, { ...this.data }))
+        this.$emit('move', (this.current += 1))
       }
     },
 
     async getBanks() {
-      const { data } = await this.$API.utils.fetchBanks();
+      const { data } = await this.$API.utils.fetchBanks()
       this.banks = data.data
     },
   },
@@ -115,15 +140,15 @@ export default {
         .every((val) => val == true)
     },
   },
-  watch:{
-    banks:{
-      deep:true,
-      immediate:true,
-      handler(val){
-        console.log(JSON.stringify(val, null, 2))
-      }
-    }
-  }
+  watch: {
+    banks: {
+      deep: true,
+      immediate: true,
+      handler(val) {
+        // console.log(JSON.stringify(val, null, 2))
+      },
+    },
+  },
 }
 </script>
 

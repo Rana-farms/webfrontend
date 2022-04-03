@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="login__form bg-white md:shadow rounded-md">
+    <div class="login__form bg-white md:shadow rounded-md" v-if="!isLogining">
       <router-link to="/">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
@@ -54,6 +54,8 @@
         Don't have an account ? <router-link to="/signup">Sign up</router-link>
       </div>
     </div>
+
+    <v-progress-circular indeterminate color="primary" v-else/>
   </div>
 </template>
 
@@ -90,9 +92,24 @@ export default {
       if (this.canLogin) {
         this.isLogining = true
         try {
-        await  this.$API.auth.login(this.form)
+       const {data} = await  this.$API.user.login(this.form)
+
+       this.$store.dispatch('user/setUser', data)
+
+       localStorage.setItem('token', data?.token)
+
+       console.log(data.token)
+
+       if(data?.data?.role?.name === 'Investor'){
+         this.$router.replace('/investor')
+       }else if(data?.data?.role?.name === 'superadmin'){
+         this.$router.replace('/admin')
+       }else if(data?.data?.role?.name === 'admin'){
+         this.$router.replace('/admin')
+       }
+
         } catch (err) {
-          console.log(JSON.stringify(err))
+          console.log(JSON.stringify(err,null,2))
           // this.$toast.error(err.message)
         } finally {
           this.isLogining = false
