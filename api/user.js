@@ -17,6 +17,14 @@ export default {
     })
   },
 
+  verifyEmail(payload) {
+    return api().post('/verify-code', payload)
+  },
+
+  resendVerificationCode(payload) {
+    return api().post('/resend-verify-code', payload)
+  },
+
   checkUser(payload){
     return api().post('/user-exists',payload)
   }
