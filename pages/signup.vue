@@ -80,20 +80,21 @@ export default {
 
       try {
         const { data } = await this.$API.user.register(this.form)
-        console.log(JSON.stringify(data, null, 2))
 
         this.$store.dispatch('user/setUser', data.data)
         localStorage.setItem('token', data?.data?.token)
 
-        if (data?.data?.role?.name === 'Investor') {
-          this.$router.replace('/investor')
-        } else if (data?.data?.role?.name === 'superadmin') {
-          this.$router.replace('/admin')
-        } else if (data?.data?.role?.name === 'admin') {
-          this.$router.replace('/admin')
-        }
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Account created successfully',
+          color: 'success',
+        })
+
+        this.$router.replace('/verify-email/?email=' + data?.data?.email)
       } catch (err) {
-        console.log(JSON.stringify(err, null, 2))
+        this.$store.dispatch('alert/setAlert', {
+          message: err.msg,
+          color: 'error',
+        })
       } finally {
         this.registering = false
       }
