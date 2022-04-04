@@ -1,9 +1,9 @@
 import user from './user'
-import utils from './utils'
+import bank from './bank'
 
 const $Api = {
   user,
-  utils
+  bank
 }
 
-export default $Api
+export default $Api 
