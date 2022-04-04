@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <v-progress-circular indeterminate color="primary" v-else/>
+    <v-progress-circular indeterminate color="primary" v-else />
   </div>
 </template>
 
@@ -84,7 +84,7 @@ export default {
   },
 
   methods: {
-   async LOGIN() {
+    async LOGIN() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
@@ -92,24 +92,36 @@ export default {
       if (this.canLogin) {
         this.isLogining = true
         try {
-       const {data} = await  this.$API.user.login(this.form)
-       localStorage.setItem('token', data?.token)
+          const { data } = await this.$API.user.login(this.form)
+          localStorage.setItem('token', data?.token)
 
-       const details = await this.$API.user.fetchDetails()      
-       this.$store.dispatch('user/setUser', details.data)
+          const details = await this.$API.user.fetchDetails()
+          this.$store.dispatch('user/setUser', details.data)
 
-
-       if(data?.data?.role?.name === 'Investor'){
-         this.$router.replace('/investor')
-       }else if(data?.data?.role?.name === 'superadmin'){
-         this.$router.replace('/admin')
-       }else if(data?.data?.role?.name === 'admin'){
-         this.$router.replace('/admin')
-       }
-
+          if (details?.data?.data?.emailVerifiedStatus == 'verified') {
+            if (data?.data?.role?.name === 'Investor') {
+              this.$router.replace('/investor')
+            } else if (data?.data?.role?.name === 'superadmin') {
+              this.$router.replace('/admin')
+            } else if (data?.data?.role?.name === 'admin') {
+              this.$router.replace('/admin')
+            }
+          } else {
+            this.$router.replace(
+              '/verify-email/?email=' + details.data.data.email
+            )
+          }
         } catch (err) {
-          console.log(JSON.stringify(err,null,2))
-          // this.$toast.error(err.message)
+          this.$store.dispatch('alert/setAlert', {
+            message: err.msg,
+            color: 'error',
+          })
+
+          if(err.msg == "Your email address is not verified."){
+             this.$router.replace(
+              '/verify-email/?email=' + this.form.email
+            )
+          }
         } finally {
           this.isLogining = false
         }
