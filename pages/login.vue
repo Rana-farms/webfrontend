@@ -93,12 +93,11 @@ export default {
         this.isLogining = true
         try {
        const {data} = await  this.$API.user.login(this.form)
-
-       this.$store.dispatch('user/setUser', data)
-
        localStorage.setItem('token', data?.token)
 
-       console.log(data.token)
+       const details = await this.$API.user.fetchDetails()      
+       this.$store.dispatch('user/setUser', details.data)
+
 
        if(data?.data?.role?.name === 'Investor'){
          this.$router.replace('/investor')
