@@ -82,7 +82,6 @@ export default {
         const { data } = await this.$API.user.register(this.form)
 
         this.$store.dispatch('user/setUser', data.data)
-        localStorage.setItem('token', data?.data?.token)
 
         this.$store.dispatch('alert/setAlert', {
           message: 'Account created successfully',

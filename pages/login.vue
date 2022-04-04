@@ -93,12 +93,13 @@ export default {
         this.isLogining = true
         try {
           const { data } = await this.$API.user.login(this.form)
-          localStorage.setItem('token', data?.token)
 
           const details = await this.$API.user.fetchDetails()
           this.$store.dispatch('user/setUser', details.data)
 
           if (details?.data?.data?.emailVerifiedStatus == 'verified') {
+            localStorage.setItem('token', data?.token)
+
             if (data?.data?.role?.name === 'Investor') {
               this.$router.replace('/investor')
             } else if (data?.data?.role?.name === 'superadmin') {
@@ -117,10 +118,8 @@ export default {
             color: 'error',
           })
 
-          if(err.msg == "Your email address is not verified."){
-             this.$router.replace(
-              '/verify-email/?email=' + this.form.email
-            )
+          if (err.msg == 'Your email address is not verified.') {
+            this.$router.replace('/verify-email/?email=' + this.form.email)
           }
         } finally {
           this.isLogining = false

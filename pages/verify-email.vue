@@ -66,6 +66,8 @@ export default {
         })
 
         if (this.isLoggedIn) {
+          localStorage.setItem('token', this.token)
+
           this.redirect()
         } else {
           this.$router.replace('/login')
@@ -114,6 +116,7 @@ export default {
 
   computed: {
     ...mapGetters({
+      token: 'user/token',
       isLoggedIn: 'user/isLoggedIn',
       isAdmin: 'user/isAdmin',
       isSuperAdmin: 'user/isSuperAdmin',
