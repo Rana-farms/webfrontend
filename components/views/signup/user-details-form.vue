@@ -1,7 +1,6 @@
 <template>
   <div class="form">
-
-    <div class=" flex flex-col gap-5">
+    <div class="flex flex-col gap-5">
       <v-text-field
         v-model="data.fullname"
         ref="fullname"
@@ -44,24 +43,30 @@
       ></v-text-field>
     </div>
 
-    <v-btn color="primary" @click="NEXT" class="my-3" elevation="0" large block
-      >Next <v-icon right>mdi-chevron-right</v-icon> </v-btn
-    >
+    <v-btn
+      color="primary"
+      @click="NEXT"
+      :loading="isCheckingUser"
+      class="my-3"
+      elevation="0"
+      large
+      block
+      >Next <v-icon right>mdi-chevron-right</v-icon>
+    </v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  props:{
+  props: {
     current: {
       type: Number,
-      default: 0
+      default: 0,
     },
-    value:{
+    value: {
       type: Object,
-      default: ''
-    }
-
+      default: '',
+    },
   },
   data() {
     return {
@@ -72,6 +77,7 @@ export default {
         email: '',
         address: '',
       },
+      isCheckingUser: false,
       rules: {
         fullname: [
           (v) => !!v || 'Name is required',
@@ -93,15 +99,37 @@ export default {
     }
   },
   methods: {
-    NEXT() {
+    async NEXT() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canMoveOn) {
-        this.$emit('input', Object.assign({}, this.value, { ...this.data }))
-        this.$emit('move',this.current+=1)
+        if (await this.checkUserAlreadyExists()) {
+          this.$emit('input', Object.assign({}, this.value, { ...this.data }))
+          this.$emit('move', (this.current += 1))
+        }
+      }
+    },
 
+    async checkUserAlreadyExists() {
+      try {
+        this.isCheckingUser = true
+        await this.$API.user.checkUser({
+          email: this.data.email,
+          phone: this.data.phone,
+        })
+
+        return true
+      } catch (err) {
+        this.$store.dispatch('alert/setAlert', {
+          message: err.msg,
+          color: 'error',
+        })
+
+        return false
+      } finally {
+        this.isCheckingUser = false
       }
     },
   },

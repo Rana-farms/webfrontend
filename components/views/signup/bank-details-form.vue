@@ -6,6 +6,7 @@
         ref="bank_id"
         name="Bank Name"
         label="Bank Name"
+        :loading="isLoadingBanks"
         outlined
         hide-details="auto"
         :items="banks"
@@ -30,7 +31,9 @@
         ref="account_name"
         name="Account Name"
         label="Account Name"
+        :loading="isResolvingAccount"
         outlined
+        disabled
         hide-details="auto"
         :rules="rules.account_name"
       ></v-text-field>
@@ -80,6 +83,9 @@ export default {
         account_name: '',
       },
       banks: [],
+      isLoadingBanks: false,
+      isResolvingAccount: false,
+      bankLoader: 0,
       rules: {
         bank_id: [
           (v) => !!v || 'Bank name is required',
@@ -91,7 +97,6 @@ export default {
         ],
         account_name: [
           (v) => !!v || 'Account name is required',
-          //   v => (v && v.length <= 50) || 'Account name must be less than 50 characters',
         ],
       },
     }
@@ -112,8 +117,47 @@ export default {
     },
 
     async getBanks() {
-      const { data } = await this.$API.utils.fetchBanks()
-      this.banks = data.data
+      try {
+        this.bankLoader++
+        this.isLoadingBanks = true
+        const { data } = await this.$API.bank.fetchBanks()
+        this.banks = data.data
+      } catch (err) {
+        if (this.bankLoader < +4) {
+          this.getBanks()
+        } else {
+          this.$store.dispatch('alert/setAlert', {
+            message: 'Reload page',
+            color: 'error',
+            timeout: 10000,
+            top: true,
+            right: true,
+          })
+        }
+      } finally {
+        this.isLoadingBanks = false
+      }
+    },
+
+    async fetchAccountDetails() {
+      try {
+        this.data.account_name = ''
+        this.isResolvingAccount = true
+        const { data } = await this.$API.bank.resolveAccount({
+          bank_id: this.data.bank_id,
+          account_no: this.data.account_no,
+        })
+
+        this.data.account_name = data.data.account_name
+      } catch (err) {
+        this.$store.dispatch('alert/setAlert', {
+          message: err.msg || 'Something went wrong',
+          color: 'error',
+          timeout: 10000,
+        })
+      } finally {
+        this.isResolvingAccount = false
+      }
     },
   },
 
@@ -140,13 +184,16 @@ export default {
         .every((val) => val == true)
     },
   },
+
   watch: {
-    banks: {
-      deep: true,
-      immediate: true,
-      handler(val) {
-        // console.log(JSON.stringify(val, null, 2))
-      },
+    'data.bank_id'(val) {
+      if (val && this.data.account_no.toString().length == 10)
+        this.fetchAccountDetails()
+    },
+
+    'data.account_no'(val) {
+      if (this.data.bank_id && val.toString().length == 10)
+        this.fetchAccountDetails()
     },
   },
 }
