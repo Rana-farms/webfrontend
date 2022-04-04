@@ -15,5 +15,9 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
+  },
+
+  checkUser(payload){
+    return api().post('/user-exists',payload)
   }
 }
