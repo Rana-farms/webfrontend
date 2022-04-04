@@ -1,12 +1,18 @@
 <template>
   <v-app>
     <Nuxt />
+    <notification-alert />
   </v-app>
 </template>
 
 <script>
-export default {}
+import NotificationAlert from '~/components/views/notification-alert.vue'
+
+export default {
+  components: {
+    NotificationAlert,
+  },
+}
 </script>
 
-<style>
-</style>
+<style></style>
