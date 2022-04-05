@@ -94,23 +94,16 @@ export default {
         try {
           const { data } = await this.$API.user.login(this.form)
 
+          localStorage.setItem('token', data?.token)
           const details = await this.$API.user.fetchDetails()
           this.$store.dispatch('user/setUser', details.data)
 
-          if (details?.data?.data?.emailVerifiedStatus == 'verified') {
-            localStorage.setItem('token', data?.token)
-
-            if (data?.data?.role?.name === 'Investor') {
-              this.$router.replace('/investor')
-            } else if (data?.data?.role?.name === 'superadmin') {
-              this.$router.replace('/admin')
-            } else if (data?.data?.role?.name === 'admin') {
-              this.$router.replace('/admin')
-            }
-          } else {
-            this.$router.replace(
-              '/verify-email/?email=' + details.data.data.email
-            )
+          if (data?.data?.role?.name === 'Investor') {
+            this.$router.replace('/investor')
+          } else if (data?.data?.role?.name === 'superadmin') {
+            this.$router.replace('/admin')
+          } else if (data?.data?.role?.name === 'admin') {
+            this.$router.replace('/admin')
           }
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {
