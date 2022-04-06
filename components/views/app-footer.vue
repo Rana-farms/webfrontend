@@ -16,13 +16,13 @@
         <span class="title">Company</span>
         <ul>
           <li>
-            <router-link to="/about-us" class="text-light-dark"
+            <router-link to="/who-we-are" class="text-light-dark"
               >Who we are</router-link
             >
           </li>
 
           <li>
-            <router-link to="/purpose" class="text-light-dark"
+            <router-link to="/what-we-do" class="text-light-dark"
               >What we do</router-link
             >
           </li>
