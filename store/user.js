@@ -67,7 +67,7 @@ export const mutations = {
 export const actions = {
   setUser({ commit }, data) {
     commit('setUser', data.data)
-    commit('setToken', data.token)
+    commit('setToken', data.data?.token)
   },
 
   async fetchDetails({ commit }) {
