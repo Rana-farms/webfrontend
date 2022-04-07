@@ -43,5 +43,13 @@ export default {
 
   checkUser(payload){
     return api().post('/user-exists',payload)
-  }
+  },
+
+  changePassword(payload) {
+    return api().post(`/change-password`, payload,{
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+  },
 }
