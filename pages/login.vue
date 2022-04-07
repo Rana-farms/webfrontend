@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="login__form bg-white md:shadow rounded-md">
+    <div class="login__form bg-white md:shadow rounded-md" v-if="!isLogining">
       <router-link to="/">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
@@ -51,9 +51,11 @@
       >
 
       <div class="text-center text-sm">
-        Don't have an account ? <router-link to="/sigup">Sign in</router-link>
+        Don't have an account ? <router-link to="/signup">Sign up</router-link>
       </div>
     </div>
+
+    <v-progress-circular indeterminate color="primary" v-else />
   </div>
 </template>
 
@@ -82,13 +84,39 @@ export default {
   },
 
   methods: {
-    LOGIN() {
+    async LOGIN() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canLogin) {
         this.isLogining = true
+        try {
+          const { data } = await this.$API.user.login(this.form)
+
+          localStorage.setItem('token', data?.token)
+          const details = await this.$API.user.fetchDetails()
+          this.$store.dispatch('user/setUser', details.data)
+
+          if (data?.data?.role?.name === 'Investor') {
+            this.$router.replace('/investor')
+          } else if (data?.data?.role?.name === 'superadmin') {
+            this.$router.replace('/admin')
+          } else if (data?.data?.role?.name === 'admin') {
+            this.$router.replace('/admin')
+          }
+        } catch (err) {
+          this.$store.dispatch('alert/setAlert', {
+            message: err.msg,
+            color: 'error',
+          })
+
+          if (err.msg == 'Your email address is not verified.') {
+            this.$router.replace('/verify-email/?email=' + this.form.email)
+          }
+        } finally {
+          this.isLogining = false
+        }
       }
     },
   },

@@ -9,7 +9,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Rana Farms - Intelligence in Agricultural service & investment',
+    title: 'RANA Farms - Intelligence in Agricultural service & investment',
     htmlAttrs: {
       lang: 'en',
     },
@@ -21,9 +21,9 @@ export default {
         content: 'width=device-width, initial-scale=1'
       },
       {
-        hid: 'Rana Farms - Intelligence in Agricultural service & investment',
-        name: 'Rana Farms - Intelligence in Agricultural service & investment',
-        content: 'Rana Farms - Intelligence in Agricultural service & investment'
+        hid: 'RANA Farms - Intelligence in Agricultural service & investment',
+        name: 'RANA Farms - Intelligence in Agricultural service & investment',
+        content: 'RANA Farms - Intelligence in Agricultural service & investment'
       },
       {
         name: 'format-detection',
@@ -51,6 +51,9 @@ export default {
   }, 
  {
     src: '~/plugins/app-mixin',
+ },
+ {
+    src: '~/plugins/api',
  }
 
 ],
@@ -69,6 +72,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -94,6 +98,10 @@ export default {
     },
   },
 
+  env:{
+    baseURL:process.env.BASE_URL
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     postcss: {
@@ -103,4 +111,7 @@ export default {
       },
     },
   },
+  router: {
+    middleware: ['user']
+  }
 }

@@ -13,18 +13,22 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
     "@mdi/font": "^6.1.95",
+    "@8bu/vue-otp-input": "^1.2.2",
+    "@bachdgvn/vue-otp-input": "^1.0.8",
+    "@nuxtjs/axios": "^5.13.6",
+    "apexcharts": "^3.26.3",
     "core-js": "^3.19.3",
+    "countup.js": "^2.1.0",
     "nuxt": "^2.15.8",
     "vue": "^2.6.14",
+    "vue-apexcharts": "^1.6.1",
+    "vue-countup-v2": "^4.0.0",
+    "vue-device-detector-js": "^1.0.2",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "vuetify": "^2.6.1",
-    "webpack": "^4.46.0",
-    "apexcharts": "^3.26.3",
-    "vue-apexcharts": "^1.6.1",
-    "vue-device-detector-js": "^1.0.2"
+    "webpack": "^4.46.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",

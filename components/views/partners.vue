@@ -4,7 +4,7 @@
     <img src="/images/partners/WHITEFIELD.png" alt="WHITEFIELD" />
     <img src="/images/partners/afex.png" alt="afex" />
     <img src="/images/partners/tajbank.png" alt="tajbank" />
-    <img src="/images/partners/jaiz.png" alt="jaiz" />
+    <img src="/images/partners/takaful.png" alt="jaiz" />
     <img src="/images/partners/ncx.png" alt="Nigerian Commodity Exchange" />
     <img src="/images/partners/nk.png" alt="NOOR Takaful" />
     <img src="/images/partners/RIFAN.png" alt="RIFAN" />

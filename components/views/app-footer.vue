@@ -5,9 +5,9 @@
         <div>
           <img src="/images/logo.png" alt="" />
           <span class="call-us">CALL US DIRECTLY</span>
-          <a class="phone" href="tel:+234 709 5854 795">+234 709 5854 795</a>
-          <a class="email" href="mailto:Hello@ranafarms.com"
-            >Hello@ranafarms.com</a
+          <a class="phone" href="tel:+234 805 2040 002">+234 805 2040 002</a>
+          <a class="email" href="mailto:info@rana.com.ng"
+            >info@rana.com.ng</a
           >
         </div>
       </div>
@@ -17,22 +17,34 @@
         <ul>
           <li>
             <router-link to="/about-us" class="text-light-dark"
-              >About Us</router-link
+              >Who we are</router-link
             >
           </li>
-          <li>Project</li>
 
-          <li>Blog</li>
+          <li>
+            <router-link to="/purpose" class="text-light-dark"
+              >What we do</router-link
+            >
+          </li>
+      
+
+          <li><a href="https://www.hope.com/" target="_blank">Bitcoin</a></li>
         </ul>
       </div>
 
       <div class="sectionx__3 col-span-12 md:col-span-4 lg:col-span-3">
         <span class="title">Quick links</span>
         <ul>
-          <li>Faq</li>
+
+           <li>
+            <router-link to="/signup" class="text-light-dark"
+              >Sign up</router-link
+            >
+          </li>
+          
           <li>
             <router-link to="/contact-us" class="text-light-dark"
-              >contact us</router-link
+              >Contact us</router-link
             >
           </li>
         </ul>
@@ -62,7 +74,7 @@
       class="flex flex-col md:flex-row gap-5 justify-between py-10 items-center"
     >
       <span class="copyright"
-        >© {{ new Date().getFullYear() }} Rana Farm Limited. All rights
+        >© {{ new Date().getFullYear() }} RANA Farms Limited. All rights
         reserved.</span
       >
 

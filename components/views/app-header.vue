@@ -13,7 +13,7 @@
         <img class="app-header__logo" src="/images/logo.png" alt=""
       /></router-link>
       <v-spacer></v-spacer>
-      <div class="hidden md:flex">
+      <div class="hidden md:flex items-center">
         <v-hover v-slot="{ hover }">
           <nuxt-link to="/about-us">
             <v-btn
@@ -59,7 +59,10 @@
             >
           </nuxt-link>
         </v-hover>
+        <a href="https://www.hope.com/" target="_blank"
+        ><img class="ml-6 " src="/images/bitcoin.svg"></a>
       </div>
+      
 
       <v-spacer></v-spacer>
 
@@ -84,6 +87,9 @@
         <router-link to="/about-us"> Who we are </router-link>
         <router-link to="/purpose"> What we do </router-link>
         <router-link to="/contact-us"> Contact us </router-link>
+         <li>
+          <a href="https://www.hope.com/" target="_blank">Bitcoin</a>
+        </li>
       </div>
       <div class="grid items-center grid-cols-2 gap-1 mt-2">
         <v-btn text to="/login">Login</v-btn>
@@ -134,7 +140,14 @@ export default {
     margin-right: 20px;
   }
 }
-
+.icons8-bitcoin {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIKdmlld0JveD0iMCAwIDQ4IDQ4IgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxwYXRoIGZpbGw9IiNmZmMxMDciIGQ9Ik00NCwyNGMwLDExLjA0NC04Ljk1NiwyMC0yMCwyMFM0LDM1LjA0NCw0LDI0UzEyLjk1Niw0LDI0LDRTNDQsMTIuOTU2LDQ0LDI0eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmY4ZTEiIGQ9Ik0xNywzNFYxNGg4LjE5OWMyLjQxLDAsNC4yMzQsMC40NjUsNS40OCwxLjM5NXMxLjg2NywyLjI5MywxLjg2Nyw0LjA4NmMwLDAuOTgtMC4yNSwxLjg0NC0wLjc0NiwyLjU5Yy0wLjUsMC43NDYtMS4xOTUsMS4yOTMtMi4wODYsMS42NDFjMS4wMTYsMC4yNTgsMS44MTYsMC43NzMsMi40MDIsMS41NTVDMzIuNzAzLDI2LjA0MywzMywyNi45OTIsMzMsMjguMTIxYzAsMS45MjItMC42MDksMy4zNzktMS44MjgsNC4zNjdTMjguMjE5LDMzLjk4LDI1Ljk2NSwzNEgxN3ogTTIxLDIyaDQuMzYzYzIuMDYzLTAuMDM1LDMuMDk4LTAuODI0LDMuMDk4LTIuNDQ1YzAtMC45MDYtMC4yNjItMS41NTktMC43ODUtMS45NTdTMjYuMzI4LDE3LDI1LjE5OSwxN0gyMVYyMnogTTIxLDI1djZoNC44NDRDMjYuODA1LDMxLDI5LDMwLjUzMSwyOSwyOC4zOTFTMjcuODgzLDI1LjAyNywyNiwyNUgyMXoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmOGUxIiBkPSJNMjAgMTFoM3Y1aC0zVjExek0yNSAxMWgzdjVoLTNWMTF6TTIwIDMyaDN2NWgtM1YzMnpNMjUgMzJoM3Y1aC0zVjMyeiI+PC9wYXRoPjwvc3ZnPg==')
+    50% 50% no-repeat;
+  background-size: 100%;
+}
 .mobile-popup {
   width: 100%;
   background-color: #fff;
@@ -143,15 +156,16 @@ export default {
   left: 0;
   display: none;
   padding: 10px;
-
   &--show {
     display: block;
   }
-
   &__links {
     a {
       display: block;
       padding: 10px;
+    }
+    li {
+      list-style-type:none;
     }
   }
 }

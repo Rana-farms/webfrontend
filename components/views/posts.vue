@@ -1,5 +1,5 @@
 <template>
-  <div class="posts">
+  <div class="posts" v-if="1 == 2">
     <span class="posts__title">Our latest Posts</span>
 
     <div class="container flex flex-wrap items-center gap-8 justify-center">
