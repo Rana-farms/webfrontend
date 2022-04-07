@@ -17,6 +17,22 @@ export default {
     })
   },
 
+  updateDetails(payload,role = 'investor') {
+    return api().put(`/${role}/profile`, payload,{
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+  },
+
+  updateNextOfKin(payload,role = 'investor') {
+    return api().post(`/${role}/next-of-kin`, payload,{
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+  },
+
   verifyEmail(payload) {
     return api().post('/verify-code', payload)
   },
