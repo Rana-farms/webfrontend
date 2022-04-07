@@ -1,3 +1,5 @@
+import API from '@/api'
+
 export const state = () => ({
   isLoggedIn: false,
   user: null,
@@ -11,10 +13,31 @@ export const state = () => ({
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   user: (state) => state.user,
+  profile(state){
+    if(state.user)
+    return{
+      id: state.user.id,
+      username: state.user.username,
+      fullname: state.user.fullname,
+      email: state.user.email,
+      phone: state.user.phone,
+      address: state.user.address,
+      role: state.user.role.name,
+      status: state.user.status,
+    }
+  },
   token: (state) => state.token,
   role: (state) => state.role?.name,
   nextOfKin: (state) => state.nextOfKin,
-  bank: (state) => state.bank,
+  bank(state){
+    if(state.bank)
+    return{
+      bank_id: state.user.bank.id,
+      account_no: state.user.bank.accountNumber,
+      account_name: state.user.bank.accountName,
+      bank_name: state.user.bank.bankName,
+    }
+  },
   wallet: (state) => state.wallet,
   isSuperAdmin: (state) => state.role?.name === 'superadmin',
   isAdmin: (state) => state.role?.name === 'admin',
@@ -52,7 +75,17 @@ export const mutations = {
 export const actions = {
   setUser({ commit }, data) {
     commit('setUser', data.data)
-    commit('setToken', data.token)
+    commit('setToken', data.data?.token)
+  },
+
+  async fetchDetails({ commit }) {
+    try {
+      const api = await API.user.fetchDetails()
+      commit('setUser', api.data.data)
+      return api.data.data
+    } catch (err) {
+      return err
+    }
   },
 
   logoutUser({ commit }) {

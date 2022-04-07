@@ -3,8 +3,7 @@
     <app-header />
     <v-main>
       <Nuxt />
-
-
+          <notification-alert />
     </v-main>
     <app-footer />
   </v-app>
@@ -26,7 +25,6 @@ export default {
     return {}
   },
   mounted(){
-    console.log(process.env.baseURL)
     this.login()
   },
 

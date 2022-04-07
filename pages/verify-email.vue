@@ -66,7 +66,7 @@ export default {
         })
 
         if (this.isLoggedIn) {
-          localStorage.setItem('token', this.token)
+         // localStorage.setItem('token', this.token)
 
           this.redirect()
         } else {

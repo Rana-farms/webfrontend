@@ -111,4 +111,7 @@ export default {
       },
     },
   },
+  router: {
+    middleware: ['user']
+  }
 }
