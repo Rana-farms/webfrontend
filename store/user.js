@@ -29,7 +29,15 @@ export const getters = {
   token: (state) => state.token,
   role: (state) => state.role?.name,
   nextOfKin: (state) => state.nextOfKin,
-  bank: (state) => state.bank,
+  bank(state){
+    if(state.bank)
+    return{
+      bank_id: state.user.bank.id,
+      account_no: state.user.bank.accountNumber,
+      account_name: state.user.bank.accountName,
+      bank_name: state.user.bank.bankName,
+    }
+  },
   wallet: (state) => state.wallet,
   isSuperAdmin: (state) => state.role?.name === 'superadmin',
   isAdmin: (state) => state.role?.name === 'admin',
