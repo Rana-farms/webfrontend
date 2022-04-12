@@ -7,9 +7,22 @@
       disable-sort
       disable-pagination
       hide-default-footer
-      :items="data"
+      :items="investements"
+      :loading="isLoadingInvestments"
       class="elevation-0"
-    ></v-data-table>
+    >
+      <template v-slot:[`item.action`]="{ item }">
+        <v-btn
+          rounded
+          style="margin: 20px 0px"
+          elevation="0"
+          small
+          color="primary"
+          :to="`/investor/investments/${item.id}`"
+          >View</v-btn
+        >
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -26,41 +39,35 @@ export default {
           value: 'name',
         },
         { text: 'TRUSTEE', value: 'trustee' },
-        { text: 'MINIMUM INVESTMENT', value: 'minimum_investment' },
-        { text: 'UNIT PRICE', value: 'unit_price' },
-        { text: ' LOCK-UP PERIOD', value: 'lock' },
-        { text: 'INSURANCE FEE', value: 'fee' },
+        { text: 'MINIMUM INVESTMENT', value: 'minimumUnit' },
+        { text: 'UNIT PRICE', value: 'unitPrice' },
+        { text: ' LOCK-UP PERIOD', value: 'lockUpPeriod' },
+        { text: 'INSURANCE FEE', value: 'insuranceFee' },
+        { text: 'ACTION', value: 'action' },
       ],
-      data: [
-        {
-          name: 'Agricultural Commodity Trust ',
-          trustee: 'RANA Farms Limited',
-          minimum_investment: '1,000,000 units',
-          unit_price: 'NGN 1',
-          lock: '1 year',
-          fee: '4%',
-          link: '',
-        },
-        {
-          name: 'Agricultural Logistics Trust',
-          trustee: 'RANA Farms Limited',
-          minimum_investment: '500,000 units',
-          unit_price: 'NGN 1',
-          lock: '2 years',
-          fee: '3%',
-          link: '',
-        },
-        {
-          name: 'Agricultural Storage Trust',
-          trustee: 'RANA Farms Limited',
-          minimum_investment: '1,000,000 units',
-          unit_price: 'NGN 1',
-          lock: '5 years',
-          fee: '-',
-          link: '',
-        },
-      ],
+      investements: [],
+      isLoadingInvestments: false,
     }
+  },
+  mounted() {
+    this.getAllInvestments()
+  },
+  methods: {
+    async getAllInvestments() {
+      try {
+        this.isLoadingInvestments = true
+        const { data } = await this.$API.investment.fetchAllInvestments()
+        console.log(JSON.stringify(data, null, 2))
+        this.investements = data.data
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isLoadingInvestments = false
+      }
+    },
   },
 }
 </script>
