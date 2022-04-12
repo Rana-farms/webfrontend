@@ -1,58 +1,54 @@
 <template>
   <div class="login">
-    <div class="login__form bg-white md:shadow rounded-md" v-if="!isLogining">
+    <div v-if="!isReseting" class="login__form bg-white md:shadow rounded-md">
       <router-link to="/">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
       <span class="block text-center font-bold mt-2 text-3xl"
-        >Welcome Back !</span
+        >Reset Password!</span
       >
       <span class="text-light-dark block text-center tracking-wider text-lg"
-        >Sign in to continue to Rana</span
+        >Enter your new password!</span
       >
-
-      <div class="mt-4 flex flex-col gap-5">
+      <div class="flex flex-col mt-5 gap-5">
         <v-text-field
-          v-model="form.email"
-          ref="email"
-          name="Email"
-          label="Email"
-          outlined
-          hide-details="auto"
-          :rules="rules.email"
-        ></v-text-field>
-
-        <v-text-field
-          v-model="form.password"
+          v-model.trim="data.password"
           ref="password"
-          name="password"
-          label="password"
-          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show ? 'text' : 'password'"
-          @click:append="show = !show"
-          outlined
+          block
+          placeholder="Enter new password"
+          label=" Password"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show1 ? ' type' : 'password'"
+          @click:append="show1 = !show1"
           hide-details="auto"
           :rules="rules.password"
+          outlined
         ></v-text-field>
-      </div>
-      <div class="flex justify-end">
-        <a href="/forgot-password" class="cursor-pointer border-none">Forgot password ?</a>
+
+        <v-text-field
+          v-model.trim="data.password_confirmation"
+          block
+          ref="password_confirmation"
+          placeholder="Confirm new password"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show2 ? ' type' : 'password'"
+          @click:append="show2 = !show2"
+          label="Confirm Password"
+          :rules="rules.password_confirmation"
+          hide-details="auto"
+          outlined
+        ></v-text-field>
       </div>
 
       <v-btn
         color="primary"
-        @click="LOGIN"
-        :loading="isLogining"
+        @click="RESET_PASSWORD"
         class="my-3"
         elevation="0"
         large
         block
-        >Login</v-btn
+        >RESET</v-btn
       >
-
-      <div class="text-center text-sm">
-        Don't have an account ? <router-link to="/signup">Sign up</router-link>
-      </div>
     </div>
 
     <v-progress-circular indeterminate color="primary" v-else />
@@ -62,81 +58,84 @@
 <script>
 export default {
   layout: 'auth',
+
   data() {
     return {
-      show: false,
-      form: {
-        email: '',
+      isReseting: false,
+      data: {
         password: '',
+        password_confirmation: '',
+        token: this.$route.query.token,
       },
+      show1: false,
+      show2: false,
       rules: {
-        email: [
-          (v) => !!v || 'Email is required',
-          (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
-        ],
         password: [
           (v) => !!v || 'Password is required',
-          //  (v) => v.length >= 6 || 'Password must be at least 6 characters',
+          (v) =>
+            (v && v.length >= 6) || 'Password must be at least 6 characters',
+        ],
+        password_confirmation: [
+          (v) => !!v || 'Confirm password is required',
+          (v) => v === this.data.password || 'Passwords must match',
         ],
       },
-      isLogining: false,
     }
   },
 
+  mounted() {
+    if (!this.$route.query.token) {
+      this.$router.push('/login')
+    }
+
+    // console.log(this.$route.query.token)
+  },
+
   methods: {
-    async LOGIN() {
+  async  RESET_PASSWORD() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
-      if (this.canLogin) {
-        this.isLogining = true
+      if (this.canMoveOn) {
+        this.isReseting = true
         try {
-          const { data } = await this.$API.user.login(this.form)
+          const { data } = await this.$API.user.resetPassword(this.data)
 
-          localStorage.setItem('token', data?.token)
-          const details = await this.$API.user.fetchDetails()
-          this.$store.dispatch('user/setUser', details.data)
+          this.$store.dispatch('alert/setAlert', {
+            message:
+              data?.message || 'New password has been set, you can now login',
+            color: 'success',
+          })
 
-          if (data?.data?.role?.name === 'Investor') {
-            this.$router.replace('/investor')
-          } else if (data?.data?.role?.name === 'superadmin') {
-            this.$router.replace('/admin')
-          } else if (data?.data?.role?.name === 'admin') {
-            this.$router.replace('/admin')
-          }
+          this.$router.push('/login')
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {
             message: err.msg,
             color: 'error',
           })
-
-          if (err.msg == 'Your email address is not verified.') {
-            this.$router.replace('/verify-email/?email=' + this.form.email)
-          }
         } finally {
-          this.isLogining = false
+          this.isReseting = false
         }
       }
     },
   },
-
   computed: {
     form() {
       return {
-        email: this.form.email,
-        password: this.form.password,
+        password: this.data.password,
+        password_confirmation: this.data.password_confirmation,
       }
     },
 
-    canLogin() {
+    canMoveOn() {
       const rules = Object.keys(this.rules)
 
       return rules
         .map((rule) => {
           return Object.keys(this.rules[rule])
             .map((field, index) => {
-              return this.rules[rule][index](this.form[rule])
+              return this.rules[rule][index](this.data[rule])
             })
             .every((val) => val == true)
         })
@@ -145,7 +144,6 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 @import '~assets/scss/breakpoints.scss';
 

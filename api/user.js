@@ -9,6 +9,14 @@ export default {
     return api().post('/register', payload)
   },
 
+  forgotPassword(payload) {
+    return api().post('/forgot-password', payload)
+  },
+
+  resetPassword(payload) {
+    return api().post('/reset-password', payload)
+  },
+
   fetchDetails(role = 'investor') {
     return api().get(`/${role}/profile`, {
       headers: {
