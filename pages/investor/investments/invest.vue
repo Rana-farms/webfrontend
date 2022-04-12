@@ -9,6 +9,7 @@
         <div class="block mt-10 w-full">
           <v-text-field
             placeholder="Trust"
+            disabled
             label="Trust"
             v-model="trust"
             class="mb-0 pa-0"
@@ -53,7 +54,7 @@ export default {
   layout: 'investor',
   data() {
     return {
-      trust: '',
+      trust: this.$route.query.name,
       number_of_units: '',
       amount: '',
     }

@@ -1,19 +1,23 @@
 <template>
   <div class="login">
-    <div class="login__form bg-white md:shadow rounded-md" v-if="!isLogining">
+    <div
+      class="login__form bg-white md:shadow rounded-md"
+      v-if="!isSendingLink"
+    >
       <router-link to="/">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
       <span class="block text-center font-bold mt-2 text-3xl"
-        >Welcome Back !</span
+        >Forgot Password!</span
       >
       <span class="text-light-dark block text-center tracking-wider text-lg"
-        >Sign in to continue to Rana</span
+        >Enter the email associated with your account and we will send an email
+        with instructions to reset your password.</span
       >
 
       <div class="mt-4 flex flex-col gap-5">
         <v-text-field
-          v-model="form.email"
+          v-model="data.email"
           ref="email"
           name="Email"
           label="Email"
@@ -21,37 +25,21 @@
           hide-details="auto"
           :rules="rules.email"
         ></v-text-field>
-
-        <v-text-field
-          v-model="form.password"
-          ref="password"
-          name="password"
-          label="password"
-          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show ? 'text' : 'password'"
-          @click:append="show = !show"
-          outlined
-          hide-details="auto"
-          :rules="rules.password"
-        ></v-text-field>
-      </div>
-      <div class="flex justify-end">
-        <a href="/forgot-password" class="cursor-pointer border-none">Forgot password ?</a>
       </div>
 
       <v-btn
         color="primary"
-        @click="LOGIN"
-        :loading="isLogining"
+        @click="SENDLINK"
+        :loading="isSendingLink"
         class="my-3"
         elevation="0"
         large
         block
-        >Login</v-btn
+        >RESET</v-btn
       >
 
       <div class="text-center text-sm">
-        Don't have an account ? <router-link to="/signup">Sign up</router-link>
+        Remembered login details ? <router-link to="/login">login</router-link>
       </div>
     </div>
 
@@ -65,57 +53,41 @@ export default {
   data() {
     return {
       show: false,
-      form: {
+      data: {
         email: '',
-        password: '',
       },
       rules: {
-        email: [
-          (v) => !!v || 'Email is required',
-          (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
-        ],
-        password: [
-          (v) => !!v || 'Password is required',
-          //  (v) => v.length >= 6 || 'Password must be at least 6 characters',
-        ],
+        email: [(v) => !!v || 'Email is required'],
       },
-      isLogining: false,
+      isSendingLink: false,
     }
   },
-
   methods: {
-    async LOGIN() {
+    async SENDLINK() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canLogin) {
-        this.isLogining = true
+        this.isSendingLink = true
         try {
-          const { data } = await this.$API.user.login(this.form)
+          const { data } = await this.$API.user.forgotPassword({
+            email: this.data.email,
+            url: window.location.origin,
+          })
 
-          localStorage.setItem('token', data?.token)
-          const details = await this.$API.user.fetchDetails()
-          this.$store.dispatch('user/setUser', details.data)
-
-          if (data?.data?.role?.name === 'Investor') {
-            this.$router.replace('/investor')
-          } else if (data?.data?.role?.name === 'superadmin') {
-            this.$router.replace('/admin')
-          } else if (data?.data?.role?.name === 'admin') {
-            this.$router.replace('/admin')
-          }
+          this.$store.dispatch('alert/setAlert', {
+            message:
+              data?.message || 'A reset link has been sent to your email',
+            color: 'success',
+          })
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {
             message: err.msg,
             color: 'error',
           })
-
-          if (err.msg == 'Your email address is not verified.') {
-            this.$router.replace('/verify-email/?email=' + this.form.email)
-          }
         } finally {
-          this.isLogining = false
+          this.isSendingLink = false
         }
       }
     },
@@ -124,8 +96,7 @@ export default {
   computed: {
     form() {
       return {
-        email: this.form.email,
-        password: this.form.password,
+        email: this.data.email,
       }
     },
 
