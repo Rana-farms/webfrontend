@@ -9,13 +9,13 @@
       <v-spacer></v-spacer>
 
       <div class="hidden md:flex gap-5">
-        <router-link to="/profile" class="inline-flex gap-1 items-center">
+        <router-link to="/investor/settings/profile" class="inline-flex gap-1 items-center">
           <span
             class="h-8 w-8 bg-primary rounded-full flex items-center justify-center"
           >
             <v-icon color="#fff">mdi-account</v-icon></span
           >
-          <span class="text-gray-500">Overcomer</span>
+          <span class="text-gray-500">{{profile.fullname}}</span>
         </router-link>
         <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
 
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -49,6 +50,9 @@ export default {
         })
       })
     }, 1000)
+  },
+  computed:{
+    ...mapGetters({profile:'user/profile'})
   },
   watch: {
     $route() {
