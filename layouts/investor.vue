@@ -82,14 +82,10 @@
 </template>
 
 <script>
-import InvestorHeader from '~/components/investor/investor-header.vue'
-import InvestorSidebar from '~/components/investor/investor-sidebar.vue'
 import AppFooter from '~/components/views/app-footer.vue'
 import NotificationAlert from '~/components/views/notification-alert.vue'
 export default {
   components: {
-    InvestorHeader,
-    InvestorSidebar,
     AppFooter,
     NotificationAlert,
   },
