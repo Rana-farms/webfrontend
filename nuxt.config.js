@@ -51,6 +51,9 @@ export default {
   }, 
  {
     src: '~/plugins/app-mixin',
+ },
+ {
+    src: '~/plugins/api',
  }
 
 ],
@@ -69,6 +72,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -94,6 +98,10 @@ export default {
     },
   },
 
+  env:{
+    baseURL:process.env.BASE_URL
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     postcss: {
@@ -103,4 +111,7 @@ export default {
       },
     },
   },
+  router: {
+    middleware: ['user','route-mesh']
+  }
 }

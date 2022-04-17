@@ -1,25 +1,18 @@
 import Vue from 'vue'
-
+import {mapGetters} from 'vuex'
 Vue.mixin({
   computed: {
-    INVESTOR() {
-      return this.$store.state.ui.INVESTOR
-    },
-    USER() {
-      return {
-        id: '2345rgefrg',
-        name: 'John Doe',
-        email: 'jande@gmail.com',
-      }
-    },
-  },
-
-  methods: {
-    toggleInvestorDrawer(state) {
-      if (state === undefined) {
-        state = !this.INVESTOR.drawer
-      }
-      this.$store.commit('ui/TOGGLE_INVESTOR_DRAWER', state)
-    },
-  },
+     ...mapGetters({
+      $user: 'user/profile',
+      $profile: 'user/profile',
+      $isLoggedIn: 'user/isLoggedIn',
+      $isAdmin: 'user/isAdmin',
+      $isSuperAdmin: 'user/isSuperAdmin',
+      $isInvestor: 'user/isInvestor',
+      token: 'user/token',
+      $bank: 'user/bank',
+      $nextOfKin: 'user/nextOfKin',
+      $role: 'user/role',
+     })
+  }
 })
