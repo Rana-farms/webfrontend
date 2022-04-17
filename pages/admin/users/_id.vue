@@ -1,26 +1,28 @@
 <template>
   <div class="page">
-    <span class="block font-semibold text-2xl">Wallet</span>
+          <span class="block font-semibold mb-5 text-2xl">User Profile</span>
 
-    <div
-      class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"
-    >
-      <div>
-        <span class="block text-center text-gray-400">Wallet Balance</span>
-        <span class="font-semibold text-center text-2xl md:text-4xl block"
-          >₦5,040,010.00</span
-        >
-        <div class="grid grid-cols-2 gap-2 mt-8">
-          <v-btn color="primary" large elevation="0">Deposit</v-btn>
-          <v-btn color="yellow" dark large elevation="0" to="/investor/wallet/withdraw">Withdraw</v-btn>
-        </div>
-      </div>
-    </div>
+      {{$route.params.id}}
 
-    <div class="mt-10">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="mt-10">
       <span class="font-semibold block text-lg mb-1">Transaction History</span>
       <v-data-table :headers="headers" :items="desserts" class="elevation-0">
-        <template v-slot:[`item.date`]="{ item }">
+        <template  v-slot:[`item.date`]="{ item }">
           <div class="inline-flex gap-1">
             <v-btn color="green" icon v-if="item.type == 'deposit'">
               <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
@@ -49,8 +51,8 @@
 
 <script>
 export default {
-  layout: 'investor',
-  data() {
+    layout: 'admin',
+      data() {
     return {
       headers: [
         { text: 'DATE', value: 'date' },
@@ -85,6 +87,7 @@ export default {
       ],
     }
   },
+
 }
 </script>
 

@@ -1,11 +1,15 @@
 <template>
   <v-app id="inspire">
+    <!-- <investor-sidebar /> -->
+    <!-- <investor-header /> -->
+
     <v-navigation-drawer
       v-model="drawer"
       app
       width="235"
       clipped
       mobile-breakpoint="1025"
+      disable-resize-watcher
       color="#fff"
     >
       <div class="block md:hidden">
@@ -15,8 +19,8 @@
               <v-icon color="grey" size="40">mdi-account</v-icon>
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title>{{ USER.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ USER.email }}</v-list-item-subtitle>
+              <v-list-item-title>{{ $profile.fullname }}</v-list-item-title>
+              <v-list-item-subtitle>{{ $profile.email }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -42,7 +46,6 @@
         </v-list>
       </div>
     </v-navigation-drawer>
-    <!--  -->
 
     <v-app-bar app :height="60" color="#fff" clipped-left elevation="0">
       <div class="app-header md:px-3 flex items-center">
@@ -54,13 +57,16 @@
         <v-spacer></v-spacer>
 
         <div class="hidden md:flex gap-5">
-          <router-link to="/profile" class="inline-flex gap-1 items-center">
+          <router-link
+            to="/investor/settings/profile"
+            class="inline-flex gap-1 items-center"
+          >
             <span
               class="h-8 w-8 bg-primary rounded-full flex items-center justify-center"
             >
               <v-icon color="#fff">mdi-account</v-icon></span
             >
-            <span class="text-gray-500">Overcomer</span>
+            <span class="text-gray-500">{{ $profile.fullname }}</span>
           </router-link>
           <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
 
@@ -68,18 +74,25 @@
         </div>
       </div>
     </v-app-bar>
-
     <v-main>
       <Nuxt />
     </v-main>
+    <notification-alert />
   </v-app>
 </template>
 
 <script>
+import AppFooter from '~/components/views/app-footer.vue'
+import NotificationAlert from '~/components/views/notification-alert.vue'
 export default {
+  components: {
+    AppFooter,
+    NotificationAlert,
+  },
   data() {
     return {
       drawer: false,
+      showPopup: false,
       selectedItem: 1,
       items: [
         {
@@ -91,7 +104,7 @@ export default {
         {
           text: 'Users',
           icon: 'mdi-account-multiple-outline',
-          link: '/investor/investments',
+          link: '/admin/users',
         },
         {
           text: 'Settings',
@@ -105,12 +118,33 @@ export default {
     if (this.$device.isDesktop) {
       this.drawer = true
     }
+
+    setTimeout(() => {
+      this.$nextTick(() => {
+        document.addEventListener('click', (event) => {
+          try {
+            if (
+              !this.$refs.popup.contains(event.target) &&
+              !this.$refs.menu.contains(event.target)
+            ) {
+              this.showPopup = false
+            }
+          } catch (e) {
+            this.showPopup = false
+          }
+        })
+      })
+    }, 1000)
   },
-  methods: {},
+  watch: {
+    $route() {
+      this.showPopup = false
+    },
+  },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #inspire {
   background-color: #f5f6f8;
 }
