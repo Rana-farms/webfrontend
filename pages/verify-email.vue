@@ -38,8 +38,6 @@
 
 <script>
 import OtpInput from '@bachdgvn/vue-otp-input'
-import { mapGetters } from 'vuex'
-
 export default {
   layout: 'auth',
   components: {
@@ -65,7 +63,7 @@ export default {
           color: 'success',
         })
 
-        if (this.isLoggedIn) {
+        if (this.$isLoggedIn) {
          // localStorage.setItem('token', this.token)
 
           this.redirect()
@@ -106,23 +104,13 @@ export default {
     },
 
     redirect() {
-      if (this.isInvestor) {
+      if (this.$isInvestor) {
         this.$router.replace('/investor')
-      } else if (this.isAdmin || this.isSuperAdmin) {
+      } else if (this.$isAdmin || this.$isSuperAdmin) {
         this.$router.replace('/admin')
       }
     },
-  },
-
-  computed: {
-    ...mapGetters({
-      token: 'user/token',
-      isLoggedIn: 'user/isLoggedIn',
-      isAdmin: 'user/isAdmin',
-      isSuperAdmin: 'user/isSuperAdmin',
-      isInvestor: 'user/isInvestor',
-    }),
-  },
+  }
 }
 </script>
 <style lang="scss">
