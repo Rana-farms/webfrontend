@@ -2,8 +2,30 @@
   <div class="page">
           <span class="block font-semibold mb-5 text-2xl">User Profile</span>
 
-      {{$route.params.id}}
+          <div class=" inline-flex mt-10 rounded-lg bg-white shadow items-center  mx-auto gap-10 flex-wrap p-10">
+              <div>
+                  <span class=" font-semibold text-3xl block">Diane nonye</span>
+                  <span class=" text-gray-400 block">Dianenonye@gmail.com</span>
+              </div>
 
+              <div class="p-5 rounded-lg" style="background-color:#9D1E230D">
+                  <span class="block text-gray-400 text-sm">Total Investment</span>
+                  <span class=" text-primary font-semibold text-lg block">₦12,000,000.00</span>
+              </div>
+
+                 <div class="p-5 rounded-lg" style="background-color:#F2FAF4">
+                  <span class="block text-gray-400 text-sm">Total Recieved</span>
+                  <span class=" text-green-500 font-semibold text-lg block">₦15,400,000.00</span>
+              </div>
+
+                 <div class="p-5 rounded-lg" style="background-color:#FFE8E845">
+                  <span class="block text-gray-400 text-sm">Current Investment</span>
+                  <span class=" text-yellow-500 font-semibold text-lg block">₦5,000,000.00</span>
+              </div>
+              
+          </div>
+
+    
 
 
 
@@ -58,6 +80,7 @@ export default {
         { text: 'DATE', value: 'date' },
         { text: 'DESCRIPTION', value: 'description' },
         { text: 'AMOUNT', value: 'amount' },
+        { text: 'CHARGE', value: 'charge' },
         { text: 'STATUS', value: 'status' },
       ],
       desserts: [
@@ -65,6 +88,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'withdraw to bank',
           type: 'withdraw',
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'pending',
         },
@@ -72,7 +96,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'Deposit',
           type: 'deposit',
-
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'success',
         },
@@ -80,7 +104,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'withdraw to bank',
           type: 'withdraw',
-
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'failed',
         },
