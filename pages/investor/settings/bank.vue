@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 export default {
   data(){
     return{
@@ -143,8 +142,6 @@ export default {
   },
 
   computed: {
-        ...mapGetters({$bank: 'user/bank'}),
-
     form() {
       return {
         bank_id: this.bank.bank_id,

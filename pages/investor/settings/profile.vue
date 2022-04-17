@@ -224,7 +224,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({ $nextOfKin: 'user/nextOfKin', $profile: 'user/profile' }),
     userForm() {
       return {
         fullname: this.profile.fullname,
