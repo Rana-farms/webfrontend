@@ -1,50 +1,41 @@
 <template>
   <div class="page">
-          <span class="block font-semibold mb-5 text-2xl">User Profile</span>
+    <span class="block font-semibold mb-5 text-2xl">User Profile</span>
 
-          <div class=" inline-flex mt-10 rounded-lg bg-white shadow items-center  mx-auto gap-10 flex-wrap p-10">
-              <div>
-                  <span class=" font-semibold text-3xl block">Diane nonye</span>
-                  <span class=" text-gray-400 block">Dianenonye@gmail.com</span>
-              </div>
+    <div
+      class="inline-flex mt-5 rounded-lg bg-white shadow items-center mx-auto gap-10 flex-wrap p-10"
+    >
+      <div>
+        <span class="font-semibold text-3xl block">Diane nonye</span>
+        <span class="text-gray-400 block">Dianenonye@gmail.com</span>
+      </div>
 
-              <div class="p-5 rounded-lg" style="background-color:#9D1E230D">
-                  <span class="block text-gray-400 text-sm">Total Investment</span>
-                  <span class=" text-primary font-semibold text-lg block">₦12,000,000.00</span>
-              </div>
+      <div class="p-5 rounded-lg" style="background-color: #9d1e230d">
+        <span class="block text-gray-400 text-sm">Total Investment</span>
+        <span class="text-primary font-semibold text-lg block"
+          >₦12,000,000.00</span
+        >
+      </div>
 
-                 <div class="p-5 rounded-lg" style="background-color:#F2FAF4">
-                  <span class="block text-gray-400 text-sm">Total Recieved</span>
-                  <span class=" text-green-500 font-semibold text-lg block">₦15,400,000.00</span>
-              </div>
+      <div class="p-5 rounded-lg" style="background-color: #f2faf4">
+        <span class="block text-gray-400 text-sm">Total Recieved</span>
+        <span class="text-green-500 font-semibold text-lg block"
+          >₦15,400,000.00</span
+        >
+      </div>
 
-                 <div class="p-5 rounded-lg" style="background-color:#FFE8E845">
-                  <span class="block text-gray-400 text-sm">Current Investment</span>
-                  <span class=" text-yellow-500 font-semibold text-lg block">₦5,000,000.00</span>
-              </div>
-              
-          </div>
+      <div class="p-5 rounded-lg" style="background-color: #ffe8e845">
+        <span class="block text-gray-400 text-sm">Current Investment</span>
+        <span class="text-yellow-500 font-semibold text-lg block"
+          >₦5,000,000.00</span
+        >
+      </div>
+    </div>
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <div class="mt-10">
+    <div class="mt-10">
       <span class="font-semibold block text-lg mb-1">Transaction History</span>
       <v-data-table :headers="headers" :items="desserts" class="elevation-0">
-        <template  v-slot:[`item.date`]="{ item }">
+        <template v-slot:[`item.date`]="{ item }">
           <div class="inline-flex gap-1">
             <v-btn color="green" icon v-if="item.type == 'deposit'">
               <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
@@ -73,8 +64,8 @@
 
 <script>
 export default {
-    layout: 'admin',
-      data() {
+  layout: 'admin',
+  data() {
     return {
       headers: [
         { text: 'DATE', value: 'date' },
@@ -111,7 +102,6 @@ export default {
       ],
     }
   },
-
 }
 </script>
 

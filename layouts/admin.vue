@@ -109,7 +109,7 @@ export default {
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
-          link: '/investor/settings',
+          link: '/admin/settings',
         },
       ],
     }

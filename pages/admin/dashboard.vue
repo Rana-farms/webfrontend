@@ -22,7 +22,7 @@
       <div class="flex justify-between items-center">
         <span class="font-semibold block text-lg mb-3">Deposit History</span>
 
-        <v-btn color="primary" text>
+        <v-btn color="primary" to="/admin/deposits" text>
           See more<v-icon right>mdi-chevron-right</v-icon></v-btn
         >
       </div>
@@ -34,7 +34,7 @@
         hide-default-footer
         class="elevation-0"
       >
-        <template v-slot:item.status="{ item }">
+        <template v-slot:[`item.status`]="{ item }">
           <span
             class="uppercase md:my-6 block"
             :class="{
@@ -52,7 +52,7 @@
       <div class="flex justify-between items-center">
         <span class="font-semibold block text-lg mb-3">WIthdrawal Request</span>
 
-        <v-btn color="primary" text>
+        <v-btn color="primary" to="/admin/withdrawals" text>
           See more<v-icon right>mdi-chevron-right</v-icon></v-btn
         >
       </div>
@@ -64,7 +64,7 @@
         hide-default-footer
         class="elevation-0"
       >
-        <template v-slot:item.status="{ item }">
+        <template v-slot:[`item.status`]="{ item }">
           <span
             class="uppercase"
             :class="{
@@ -76,8 +76,8 @@
           >
         </template>
 
-        <template v-slot:item.id="{ item }">
-          <v-btn class="md:my-5" color="primary" elevation="0">Approve</v-btn>
+        <template v-slot:[`item.id`]="{ item }">
+          <v-btn class="md:my-5" :disabled="item.status == 'success' || item.status == 'failed'" color="primary" elevation="0">Approve</v-btn>
         </template>
       </v-data-table>
     </div>
@@ -157,7 +157,7 @@ export default {
           investor: 'Jane Doe',
           amount: '₦3,000,000.00',
           fee: '₦3,000',
-          status: 'pending',
+          status: 'success',
         },
         {
           id: 1,
