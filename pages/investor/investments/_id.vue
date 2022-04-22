@@ -40,7 +40,7 @@
       </div>
 
       <div >
-        <v-btn elevation="0" :to="`/investor/investments/invest/?id=${investment.id}&name=${investment.name}`" large color="primary"
+        <v-btn elevation="0" :to="`/investor/investments/invest/?id=${investment.id}`" large color="primary"
           >Invest</v-btn
         >
       </div>
@@ -64,6 +64,7 @@ export default {
       try {
         const { data } = await this.$API.investment.fetchInvestmentById(this.$route.params.id)
         this.investment = data.data
+        this.$store.dispatch('investment/holdInvestment', this.investment)
       } catch (error) {
         this.$router.replace('/investor/investments')
       }
