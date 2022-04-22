@@ -32,5 +32,13 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
+  },
+
+  fetchAllUserInvestments(){
+    return api().get(`/investor/investments`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
   }
 }
