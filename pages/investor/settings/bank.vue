@@ -48,7 +48,7 @@
       ></v-text-field>
 
       <div class="flex justify-end">
-        <v-btn elevation="0" color="primary" :disabled="JSON.stringify($bank) === JSON.stringify(bank)" large>Save Changes</v-btn>
+        <v-btn elevation="0" color="primary" :disabled="JSON.stringify($bank) === JSON.stringify(bank)" :loading="isUpdatingAccount" @click="updateBankDetails" large>Save Changes</v-btn>
       </div>
     </div>
   </div>
@@ -66,6 +66,7 @@ export default {
       },
       bankList: [],
       isLoadingBanks: false,
+      isUpdatingAccount:false,
       isResolvingAccount: false,
       bankLoader: 0,
       rules: {
@@ -139,6 +140,27 @@ export default {
         this.isResolvingAccount = false
       }
     },
+    
+    async updateBankDetails(){
+      try{
+        this.isUpdatingAccount = true
+        const {data} = await this.$API.bank.updateAccount(this.bank)
+        this.$store.dispatch('alert/setAlert', {
+          message: data.msg || 'Bank details updated successfully',
+          color: 'success',
+          timeout: 10000,
+        })
+
+      }catch(err){
+             this.$store.dispatch('alert/setAlert', {
+          message: err.msg || 'Something went wrong',
+          color: 'error',
+          timeout: 10000,
+        })
+      }finally{
+        this.isUpdatingAccount = false
+      }
+    }
   },
 
   computed: {
@@ -182,7 +204,6 @@ export default {
       handler(val){
          if (val != null) {
           this.bank = { ...val }
-          console.log(JSON.stringify(this.bank, null, 2))
         }
       }
     }
