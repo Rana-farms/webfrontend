@@ -33,10 +33,10 @@
 
 
     <div  class="mt-5" v-if="investments.length > 0" >
-   <div class="flex h-full gap-5  flex-wrap cursor-pointer">
+   <div class="flex h-full grid-cols-2 gap-5  flex-wrap cursor-pointer">
        <div v-ripple="true"  v-for="(investment,index) in investments" :key="index" class="inline-block box-border mx-auto mx-md-0 h-auto bg-white p-6 rounded-lg shadow-md  max-w-sm w-11/12">
          <div class="block mb-2"><span class=" font-bold">Order No: #</span>{{investment.id}}</div>
-         <span class="block  font-semibold text-lg text-gray-500">Agricultural</span>
+         <span class="block  font-semibold text-lg text-gray-500">{{investment.investmentName}}</span>
          <div class="block mt-1 font-semibold tracking-wider "><span class=" font-semibold text-gray-500">Amount:</span>{{formatToNaira(Number(investment.amount))}}</div>
         <div class="flex items-end mt-4"> 
 
