@@ -99,7 +99,8 @@ export default {
   },
 
   env:{
-    baseURL:process.env.BASE_URL
+    baseURL:process.env.BASE_URL,
+    paystack_key:process.env.PAYSTACK_PUBLIC_KEY
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

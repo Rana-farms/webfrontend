@@ -5,7 +5,7 @@
     <div class="text-sm">
       <span class="text-gray-400 tracking-wider">Available funds</span>
       <span class="block font-semibold text-2xl">₦5,040,010</span>
-            <span class=" font-semibold">26.5%</span> <span class="text-gray-400">Profits</span>
+            <span class=" font-semibold">26.5%</span><span class="text-gray-400">interest</span>
 
     </div>
   </div>

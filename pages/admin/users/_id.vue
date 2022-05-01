@@ -1,19 +1,34 @@
 <template>
   <div class="page">
-    <span class="block font-semibold text-2xl">Wallet</span>
+    <span class="block font-semibold mb-5 text-2xl">User Profile</span>
 
     <div
-      class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"
+      class="inline-flex mt-5 rounded-lg bg-white shadow items-center mx-auto gap-10 flex-wrap p-10"
     >
       <div>
-        <span class="block text-center text-gray-400">Wallet Balance</span>
-        <span class="font-semibold text-center text-2xl md:text-4xl block"
-          >₦5,040,010.00</span
+        <span class="font-semibold text-3xl block">Diane nonye</span>
+        <span class="text-gray-400 block">Dianenonye@gmail.com</span>
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #9d1e230d">
+        <span class="block text-gray-400 text-sm">Total Investment</span>
+        <span class="text-primary font-semibold text-lg block"
+          >₦12,000,000.00</span
         >
-        <div class="grid grid-cols-2 gap-2 mt-8">
-          <v-btn color="primary" large elevation="0">Deposit</v-btn>
-          <v-btn color="yellow" dark large elevation="0" to="/investor/wallet/withdraw">Withdraw</v-btn>
-        </div>
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #f2faf4">
+        <span class="block text-gray-400 text-sm">Total Recieved</span>
+        <span class="text-green-500 font-semibold text-lg block"
+          >₦15,400,000.00</span
+        >
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #ffe8e845">
+        <span class="block text-gray-400 text-sm">Current Investment</span>
+        <span class="text-yellow-500 font-semibold text-lg block"
+          >₦5,000,000.00</span
+        >
       </div>
     </div>
 
@@ -49,13 +64,14 @@
 
 <script>
 export default {
-  layout: 'investor',
+  layout: 'admin',
   data() {
     return {
       headers: [
         { text: 'DATE', value: 'date' },
         { text: 'DESCRIPTION', value: 'description' },
         { text: 'AMOUNT', value: 'amount' },
+        { text: 'CHARGE', value: 'charge' },
         { text: 'STATUS', value: 'status' },
       ],
       desserts: [
@@ -63,6 +79,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'withdraw to bank',
           type: 'withdraw',
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'pending',
         },
@@ -70,7 +87,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'Deposit',
           type: 'deposit',
-
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'success',
         },
@@ -78,7 +95,7 @@ export default {
           date: '12 oct. 2021, 07:29PM',
           description: 'withdraw to bank',
           type: 'withdraw',
-
+          charge: '₦3,000,000.00',
           amount: '₦3,000,000.00',
           status: 'failed',
         },
