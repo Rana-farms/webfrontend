@@ -106,6 +106,11 @@ export default {
           icon: 'mdi-account-multiple-outline',
           link: '/admin/users',
         },
+         {
+          text: 'Docs',
+          icon: 'mdi-file-document-multiple-outline',
+          link: '/admin/documents',
+        },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
