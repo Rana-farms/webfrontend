@@ -85,6 +85,7 @@
 import AppFooter from '~/components/views/app-footer.vue'
 import NotificationAlert from '~/components/views/notification-alert.vue'
 export default {
+  middleware: ['investor-auth'],
   components: {
     AppFooter,
     NotificationAlert,
