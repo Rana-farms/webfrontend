@@ -9,9 +9,9 @@
         <div
           v-for="doc in 5"
           :key="doc"
-          class="shadow-sm cursor-pointer inline-block text-center rounded-md p-8 bg-white"
+          class="shadow-sm cursor-pointer inline-block text-center rounded-md p-5 bg-white"
         >
-          <v-icon color="#6E97B5" size="120">mdi-file-document-outline</v-icon>
+            <img class="block mx-auto my-3" src="/images/doc-icon.svg"/>
           <span class="mt-1 text-center block ">January monthly report</span>
         </div>
       </div>
