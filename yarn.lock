@@ -9011,6 +9011,11 @@ vue-countup-v2@^4.0.0:
   resolved "https://registry.yarnpkg.com/vue-countup-v2/-/vue-countup-v2-4.0.0.tgz#061a1ac8ee4aa207bb9d23d2bcc1d53a5f7c3675"
   integrity sha512-XjKeHo1ndRlJtXvHd6B1eWOpbrJDdNU3rdYZwVPv2YlUXbvthsBT4kms5Fc/mn9RdXPrMX2H/ktAAQtKjWFisw==
 
+vue-currency-filter@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/vue-currency-filter/-/vue-currency-filter-5.2.0.tgz#7f9bdf36cc7fb998cfbb3b60072f40b800a8cdfa"
+  integrity sha512-31XXEtXLDf3A7mdIAoyEkZTwpti22omp4MjoVKv0ksIC8Gk9RqW5xzeqvubeIlrxACvCPjKNTwqTmUrxFplDHw==
+
 vue-device-detector-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vue-device-detector-js/-/vue-device-detector-js-1.0.2.tgz#0d1cc45a0bcf0724bf13b8fbd056e1e52b4b4444"

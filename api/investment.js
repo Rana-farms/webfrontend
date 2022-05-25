@@ -40,5 +40,13 @@ export default {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     })
+  },
+
+  fetchMetrics(){
+    return api().get(`/investor/dashboard-metrics`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
   }
 }
