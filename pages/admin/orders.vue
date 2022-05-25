@@ -241,7 +241,7 @@
       <div class="bg-white p-5 rounded-md shadow">
         <div class="flex mb-3 justify-between">
           <span class="font-semibold text-xl">Create Order</span>
-          <v-btn color="#908DAA" icon><v-icon>mdi-close</v-icon></v-btn>
+          <v-btn @click="cancelCreatedOrder" color="#908DAA" icon><v-icon>mdi-close</v-icon></v-btn>
         </div>
         <div class="grid gap-5 mt-5 mb-5">
           <v-text-field
@@ -368,6 +368,10 @@ export default {
     createOrder() {
       this.createOderDialog = false
     },
+
+    cancelCreatedOrder(){
+       this.createOderDialog = false
+    }
   },
 }
 </script>
