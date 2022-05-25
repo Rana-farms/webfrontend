@@ -6,10 +6,10 @@
       </span>
 
       <div>
-        <v-btn color="primary" small text>
+        <!-- <v-btn color="primary" small text>
           <v-icon left>mdi-cog</v-icon> Manage Roles</v-btn
-        >
-        <v-btn color="primary" small elevation="0">
+        > -->
+        <v-btn color="primary" small elevation="0" @click="initiateInvite">
           <v-icon left>mdi-plus</v-icon> Invite</v-btn
         >
       </div>
@@ -77,15 +77,57 @@
             outlined
           />
 
+          <div class="flex justify-between">
+            <v-btn color="error" elevation="0">Cancel</v-btn>
 
-
-          <div class=" flex justify-between">
-              <v-btn color="error" elevation="0">Cancel</v-btn>
-
-              <v-btn color="success" elevation="0">Remove</v-btn>
+            <v-btn color="success" elevation="0">Remove</v-btn>
           </div>
         </div>
       </v-card>
+    </v-dialog>
+
+<!-- Invite Dialog -->
+    <v-dialog
+      v-model="inviteDialog"
+      max-width="500px"
+      transition="dialog-transition"
+    >
+      <div class="bg-white p-5 rounded-md shadow">
+        <div class="flex mb-3 justify-between">
+          <span class="font-semibold text-xl">Send Invite</span>
+          <v-btn @click="cancelInvite" color="#908DAA" icon
+            ><v-icon>mdi-close</v-icon></v-btn
+          >
+        </div>
+        <div class="grid gap-5 mt-5 mb-5">
+          <v-text-field
+            label="Name"
+            outlined
+            hide-details="auto"
+            placeholder="Name"
+          ></v-text-field>
+
+          <v-text-field
+            label="Email"
+            type="email"
+            outlined
+            hide-details="auto"
+            placeholder="Email"
+          ></v-text-field>
+
+          <v-select
+            label="Role"
+            :items="role"
+            outlined
+            hide-details="auto"
+            placeholder="Select Role"
+          ></v-select>
+        </div>
+
+        <v-btn color="primary" elevation="0" @click="sendInvite"
+          >Continue</v-btn
+        >
+      </div>
     </v-dialog>
   </div>
 </template>
@@ -94,6 +136,7 @@
 export default {
   data() {
     return {
+      inviteDialog: false,
       roles: [
         { text: 'Investor', value: 'investor' },
         { text: 'Admin', value: 'admin' },
@@ -106,7 +149,7 @@ export default {
           sortable: false,
           value: 'fullname',
         },
-        { text: ' email', value: 'email' },
+        { text: 'Email', value: 'email' },
         { text: 'Phone Number', value: 'phone' },
         { text: 'Role', value: 'role' },
         { text: 'Actions', value: 'action' },
@@ -139,7 +182,7 @@ export default {
       ],
       isLoadingMembers: false,
       changeRoleDialog: false,
-      changeIndex:-1
+      changeIndex: -1,
     }
   },
 
@@ -147,10 +190,22 @@ export default {
     changeRole(id) {
       this.changeRoleDialog = true
 
-      this.changeIndex = this.members.findIndex(member => member.id === id)
+      this.changeIndex = this.members.findIndex((member) => member.id === id)
     },
 
     removeMember(id) {},
+
+    initiateInvite() {
+      this.inviteDialog = true
+    },
+
+    cancelInvite() {
+      this.inviteDialog = false
+    },
+
+    sendInvite() {
+      this.inviteDialog = false
+    },
   },
 }
 </script>
