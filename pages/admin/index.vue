@@ -4,7 +4,7 @@
 export default {
   // middleware redirect
   middleware({ redirect }) {
-    return redirect('/investor/dashboard')
+    return redirect('/admin/dashboard')
   },
 }
 </script>

@@ -32,7 +32,7 @@ export const getters = {
   bank(state){
     if(state.bank)
     return{
-      bank_id: state.user.bank.id,
+      bank_id: state.user.bank.bankId,
       account_no: state.user.bank.accountNumber,
       account_name: state.user.bank.accountName,
       bank_name: state.user.bank.bankName,
