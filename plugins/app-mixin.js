@@ -70,6 +70,9 @@ Vue.mixin({
       $bank: 'user/bank',
       $nextOfKin: 'user/nextOfKin',
       $role: 'user/role',
+      $wallet: 'user/wallet',
+      $transactions: 'user/transactions',
+      $investments: 'user/investments',
      })
   }
 })
