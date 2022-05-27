@@ -1,26 +1,16 @@
 <template>
-  <div class="bg-white p-5 shadow rounded-md">
+  <div class="bg-white p-5 shadow rounded-md" v-if="plans != null && plans.length > 0">
     <span class="block font-semibold text-xl mb-2">Investments Plans</span>
 
-    <div class="flex mb-1 justify-between font-semibold">
-      <span>Agricultural Commodity Trust </span>
-      <span>15,000 units</span>
+   <div v-for="(plan,index) in plans" :key="index">
+      <div class="flex mb-1 justify-between font-semibold">
+      <span>{{plan.name}} </span>
+      <span>{{Intl.NumberFormat().format(plan.unitsBought )}} units</span>
     </div>
-    <v-progress-linear value="60" rounded height="8"></v-progress-linear>
-
-    <div class="flex mb-1 mt-8 justify-between font-semibold">
-      <span>Agricultural Logistics Trust </span>
-      <span>8,000 units</span>
-    </div>
-    <v-progress-linear value="60" rounded height="8"></v-progress-linear>
-
-    <div class="flex mb-1 mt-8 justify-between font-semibold">
-      <span>Agricultural Storage Trust </span>
-      <span>10,000 units</span>
-    </div>
-    <v-progress-linear value="60" rounded height="8"></v-progress-linear>
-
-    <div class="mt-12">
+    <v-progress-linear :value="(plan.unitsBought / 1000000) * 100" rounded height="8"></v-progress-linear>
+   </div>
+   
+    <!-- <div class="mt-12">
       <span class="font-semibold block mb-2 text-lg"
         >Documentation & record</span
       >
@@ -47,12 +37,17 @@
           <v-btn color="primary"  outlined elevation="0">DOWNLOAD</v-btn>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
+  props:{
+    plans:{
+      default:null
+    }
+  },
   data() {
     return {}
   },
