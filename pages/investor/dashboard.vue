@@ -16,7 +16,7 @@
       <investor-analytics />
 
       <div class="lg:w-2/5">
-        <investment-plans />
+        <investment-plans :plans="metrics.investments" />
       </div>
     </div>
   </div>
@@ -48,6 +48,7 @@ export default {
         netIncome: null,
         availableFunds: null,
         capitalBalance: null,
+        investments:null
       },
     }
   },
