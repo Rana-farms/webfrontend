@@ -111,6 +111,11 @@ export default {
           icon: 'mdi-chart-line',
           link: '/investor/investments',
         },
+         {
+          text: 'Orders',
+          icon: 'mdi-inbox-outline',
+          link: '/investor/orders',
+        },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
