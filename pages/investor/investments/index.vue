@@ -9,42 +9,78 @@
         >
       </div>
     </div>
-    <div
-      class="flex-1 flex items-center justify-center"
-      v-if="isLoadingInvestments"
+
+    <v-data-table
+      :headers="headers"
+      disable-sort
+      disable-pagination
+      hide-default-footer
+      :items="investments"
+      :loading="isLoadingInvestments"
+      class="elevation-0"
     >
-      <v-progress-circular color="primary" indeterminate></v-progress-circular>
-    </div>
-    <div class="flex-1 flex items-center justify-center" v-if="investmentFetched && investments.length == 0">
-      <div class="max-w-sm text-center">
-        <span class="block mb-5 font-semibold text-gray-700"
-          >You haven't made any Investments</span
+          <template v-slot:no-data>
+        <div
+          class="w-full flex items-center justify-center h-60"
+          v-if="!isLoadingInvestments && investments.length == 0 && !errorLoading"
         >
-        <v-btn
-          color="primary"
-          rounded
-          to="/investor/investments/plans"
-          outlined
-        >
-          Invest Now <v-icon right>mdi-chevron-right</v-icon></v-btn
-        >
-      </div>
-    </div>
-
-
-    <div  class="mt-5" v-if="investments.length > 0" >
-   <div class="flex h-full grid-cols-2 gap-5  flex-wrap cursor-pointer">
-       <div v-ripple="true"  v-for="(investment,index) in investments" :key="index" class="inline-block box-border mx-auto mx-md-0 h-auto bg-white p-6 rounded-lg shadow-md  max-w-sm w-11/12">
-         <div class="block mb-2"><span class=" font-bold">Order No: #</span>{{investment.id}}</div>
-         <span class="block  font-semibold text-lg text-gray-500">{{investment.investmentName}}</span>
-         <div class="block mt-1 font-semibold tracking-wider "><span class=" font-semibold text-gray-500">Amount:</span>{{formatToNaira(Number(investment.amount))}}</div>
-        <div class="flex items-end mt-4"> 
-
-          <div class=" inline-block bg-green-100 tracking-wider font-semibold capitalize text-green-700 px-5 py-1 rounded-lg">{{investment.status}}</div>
+          <div class="text-center text-flame">
+            <span class="block text-center"
+              >You currently have not made any investment</span
+            >
+          </div>
         </div>
-       </div>
-   </div>
-    </div>
+
+        <div
+          class="w-full flex items-center justify-center h-60"
+          v-if="!isLoadingInvestments && errorLoading"
+        >
+          <div class="text-center text-flame">
+            <v-icon size="50" color="primary"
+              >mdi-format-list-bulleted-square</v-icon
+            >
+            <span class="block text-center"
+              >Error loading your investments...</span
+            >
+            <v-btn color="primary" text @click="getMyInvestments">
+              <v-icon left>mdi-refresh</v-icon> Retry</v-btn
+            >
+          </div>
+        </div>
+      </template>
+
+      <template v-slot:loading>
+        <div class="w-full flex items-center justify-center h-72">
+          <div class="text-center text-flame">
+            <v-icon size="40" color="primary"
+              >mdi-format-list-bulleted-square</v-icon
+            >
+            <span class="block mt-2 font-semibold text-center"
+              >Loading your investments...</span
+            >
+          </div>
+        </div>
+      </template>
+
+      <template v-slot:[`item.units`]="{ item }">
+        {{ Intl.NumberFormat().format(item.units) }}
+      </template>
+
+        <template v-slot:[`item.amount`]="{ item }">
+        {{ item.amount | currency }}
+      </template>
+
+      <template v-slot:[`item.status`]="{ item }">
+        <span
+          class="uppercase"
+          :class="{
+            'text-green-500': item.status.toLowerCase() == 'active',
+            'text-red-500': item.status.toLowerCase() == 'inactive',
+          }"
+          >{{ item.status }}</span
+        >
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -53,9 +89,24 @@ export default {
   layout: 'investor',
   data() {
     return {
-      investments: [],
+      headers: [
+        {
+          text: 'INVESTMENT NAME',
+          align: 'start',
+          sortable: false,
+          value: 'investmentName',
+        },
+        { text: 'UNITS', value: 'units' },
+        { text: 'AMOUNT', value: 'amount' },
+        { text: 'START DATE', value: 'startDate' },
+        { text: 'END DATE', value: 'dueDate' },
+        { text: ' STATUS', value: 'status' },
+      ],
+      investments: [
+  
+      ],
       isLoadingInvestments: false,
-      investmentFetched: false,
+      errorLoading:false,
     }
   },
   mounted() {
@@ -63,23 +114,27 @@ export default {
   },
   methods: {
     async getMyInvestments() {
-              this.investmentFetched = false
+      this.errorLoading = false
       try {
         this.isLoadingInvestments = true
         const { data } = await this.$API.investment.fetchAllUserInvestments()
-        console.log(JSON.stringify(data, null, 2))
-        this.investmentFetched = true
         this.investments = data.data
       } catch (error) {
         this.$store.dispatch('alert/setAlert', {
           message: error.msg,
           color: 'error',
         })
+        this.errorLoading = true
       } finally {
         this.isLoadingInvestments = false
-
-        
       }
+    },
+  },
+  investments: {
+    deep: true,
+    immediate: true,
+    handler(val) {
+      console.log(JSON.stringify(val))
     },
   },
 }

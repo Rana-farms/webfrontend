@@ -5,10 +5,10 @@
     <div
       class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"
     >
-      <div>
+      <div v-if="$wallet && $wallet.balance">
         <span class="block text-center text-gray-400">Wallet Balance</span>
         <span class="font-semibold text-center text-2xl md:text-4xl block"
-          >₦5,040,010.00</span
+          >{{ $wallet.balance | currency}}</span
         >
         <div class="grid grid-cols-2 gap-2 mt-8">
           <v-btn color="primary" large elevation="0">Deposit</v-btn>
