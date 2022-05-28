@@ -207,7 +207,9 @@ export default {
         return (
           this.form.units >= this.minimumUnits &&
           this.form.units <= this.maximumUnits &&
-          this.form.amount >= Number(this.investment.unitPrice)
+          this.form.amount >= Number(this.investment.unitPrice) &&
+          Number(this.form.units) === this.form.units &&
+          this.form.units % 1 === 0
         )
       } else {
         return false
