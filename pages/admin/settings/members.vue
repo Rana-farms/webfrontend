@@ -138,6 +138,7 @@
     <v-dialog
       v-model="inviteDialog"
       max-width="500px"
+      :persistent="isInviting"
       transition="dialog-transition"
     >
       <div class="bg-white p-5 rounded-md shadow">
@@ -151,13 +152,15 @@
           <v-text-field
             label="Name"
             outlined
+            v-model="inviteForm.fullname"
             hide-details="auto"
-            placeholder="Name"
+            placeholder="Full Name"
           ></v-text-field>
 
           <v-text-field
             label="Email"
             type="email"
+            v-model="inviteForm.email"
             outlined
             hide-details="auto"
             placeholder="Email"
@@ -165,14 +168,17 @@
 
           <v-select
             label="Role"
-            :items="role"
+            :items="roles"
             outlined
+            v-model="inviteForm.role"
             hide-details="auto"
+            item-key="value"
+            item-text="text"
             placeholder="Select Role"
           ></v-select>
         </div>
 
-        <v-btn color="primary" elevation="0" @click="sendInvite"
+        <v-btn color="primary" :loading="isInviting" :disabled="!canInvite" elevation="0" @click="sendInvite"
           >Continue</v-btn
         >
       </div>
@@ -209,6 +215,12 @@ export default {
       selectedMember: null,
       newRole: null,
       isManagingRole: false,
+      inviteForm:{
+        fullname:"",
+        email:"",
+        role:""
+      },
+      isInviting: false,
     }
   },
   mounted() {
@@ -277,10 +289,34 @@ export default {
       this.inviteDialog = false
     },
 
-    sendInvite() {
-      this.inviteDialog = false
+    async sendInvite() {
+       try {
+        this.isInviting = true
+        await this.$API.admin.inviteAdmin(this.inviteForm)
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Invite sent!',
+          color: 'success',
+        })
+
+        await this.getAllAdmins()
+        this.inviteDialog = false
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isInviting = false
+      }
+      
     },
   },
+
+  computed:{
+    canInvite(){
+      return this.inviteForm.fullname && this.inviteForm.email && this.inviteForm.role
+    }
+  }
 }
 </script>
 

@@ -16,4 +16,12 @@ export default {
       },
     })
   },
+
+  inviteAdmin(payload) {
+    return api().post(`/admin/invite-admin`, payload, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
 }
