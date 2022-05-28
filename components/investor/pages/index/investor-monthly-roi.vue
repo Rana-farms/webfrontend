@@ -1,11 +1,15 @@
 <template>
-  <div
-    class="flex items-center shadow-sm rounded-md p-5 bg-white"
-    v-if="roi != null"
-  >
-    <div>
+  <div class="bg-white shadow-sm rounded-md flex items-center p-5">
+    <v-skeleton-loader
+      v-if="roi == null"
+      class="mx-auto"
+      type="article"
+      width="100%"
+      height="100px"
+    ></v-skeleton-loader>
+    <div v-else>
       <div class="flex items-center">
-        <div class="flex-1">
+        <div class="flex-1" v-if="roi != null">
           <span class="block font-semibold text-2xl">{{ roi | currency }}</span>
           <span class="text-sm text-gray-400 tracking-wider">Monthly ROI</span>
         </div>

@@ -92,7 +92,7 @@ export const actions = {
       commit('setUser', api.data.data)
       return api.data.data
     } catch (err) {
-      return err
+      return Promise.reject(err)
     }
   },
 
