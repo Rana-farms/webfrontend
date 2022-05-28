@@ -1,15 +1,10 @@
 <template>
-  <div>
+  <div class="page">
     <div class="flex justify-between">
-      <span class="font-semibold text-xl block mb-5" style="color: #211a55"
-        >{{ members.length }} Team Member{{ members.length > 1 ? 's' : '' }}
-      </span>
+      <span class="block font-semibold mb-5 text-2xl">Admins</span>
 
       <div>
-        <!-- <v-btn color="primary" small text>
-          <v-icon left>mdi-cog</v-icon> Manage Roles</v-btn
-        > -->
-        <v-btn color="primary" small elevation="0" @click="initiateInvite">
+        <v-btn color="primary" elevation="0" @click="inviteDialog = true">
           <v-icon left>mdi-plus</v-icon> Invite</v-btn
         >
       </div>
@@ -23,8 +18,17 @@
       :items="members"
       :loading="isLoadingMembers"
       class="elevation-0"
-      height="300px"
     >
+      <template v-slot:[`item.fullname`]="{ item }">
+        <div class="flex items-center gap-1">
+          <span>{{ item.fullname }}</span>
+          <span
+            class="text-white bg-primary px-2 opacity-60 text-xs rounded-full"
+            v-if="$profile.id === item.id"
+            >you</span
+          >
+        </div>
+      </template>
       <template v-slot:[`item.action`]="{ item }">
         <v-menu open-on-hover offset-y bottom max-width="94vw">
           <template v-slot:activator="{ on, attrs }">
@@ -41,7 +45,7 @@
                   </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item @click="removeMember(item.id)">
+                <v-list-item @click="initiateAdminRemoval(item)" v-if="item.id !== $profile.id">
                   <v-list-item-content>
                     <v-list-item-title> Remove</v-list-item-title>
                   </v-list-item-content>
@@ -118,7 +122,11 @@
           />
 
           <div class="flex justify-between">
-            <v-btn color="error" @click="changeRoleDialog = false" elevation="0" v-if="!isManagingRole"
+            <v-btn
+              color="error"
+              @click="changeRoleDialog = false"
+              elevation="0"
+              v-if="!isManagingRole"
               >Cancel</v-btn
             >
 
@@ -144,7 +152,7 @@
       <div class="bg-white p-5 rounded-md shadow">
         <div class="flex mb-3 justify-between">
           <span class="font-semibold text-xl">Send Invite</span>
-          <v-btn @click="cancelInvite" color="#908DAA" icon
+          <v-btn @click="inviteDialog = false" color="#908DAA" icon
             ><v-icon>mdi-close</v-icon></v-btn
           >
         </div>
@@ -178,8 +186,46 @@
           ></v-select>
         </div>
 
-        <v-btn color="primary" :loading="isInviting" :disabled="!canInvite" elevation="0" @click="sendInvite"
+        <v-btn
+          color="primary"
+          :loading="isInviting"
+          :disabled="!canInvite"
+          elevation="0"
+          @click="sendInvite"
           >Continue</v-btn
+        >
+      </div>
+    </v-dialog>
+
+    <v-dialog
+      v-model="removeAdminDialog"
+      max-width="500px"
+      :persistent="isRemoving"
+      transition="dialog-transition"
+    >
+      <div class="bg-white p-5 rounded-md shadow">
+        <div class="flex mb-3 justify-between">
+          <span class="font-semibold text-xl">Remove Admin</span>
+          <v-btn @click="removeAdminDialog = false" color="#908DAA" icon
+            ><v-icon>mdi-close</v-icon></v-btn
+          >
+        </div>
+        <div class="grid gap-5 my-6">
+          <span class="text-xl"
+            >Are you sure you want to remove
+            <span class="font-semibold">{{
+              selectedMember && selectedMember.fullname
+            }}</span>
+            from Administration?</span
+          >
+        </div>
+
+        <v-btn
+          color="primary"
+          :loading="isRemoving"
+          elevation="0"
+          @click="removeAdmin"
+          >Yes</v-btn
         >
       </div>
     </v-dialog>
@@ -188,11 +234,12 @@
 
 <script>
 export default {
+  layout: 'admin',
   data() {
     return {
       inviteDialog: false,
+      removeAdminDialog: false,
       roles: [
-        // { text: 'Investor', value: 'investor' },
         { text: 'Admin', value: 'admin' },
         { text: 'Super Admin', value: 'super-admin' },
       ],
@@ -215,12 +262,13 @@ export default {
       selectedMember: null,
       newRole: null,
       isManagingRole: false,
-      inviteForm:{
-        fullname:"",
-        email:"",
-        role:""
+      inviteForm: {
+        fullname: '',
+        email: '',
+        role: '',
       },
       isInviting: false,
+      isRemoving: false,
     }
   },
   mounted() {
@@ -279,18 +327,36 @@ export default {
       }
     },
 
-    removeMember(id) {},
-
-    initiateInvite() {
-      this.inviteDialog = true
+    initiateAdminRemoval(admin) {
+      this.removeAdminDialog = true
+      this.selectedMember = admin
     },
 
-    cancelInvite() {
-      this.inviteDialog = false
+    async removeAdmin() {
+      try {
+        this.isRemoving = true
+        await this.$API.admin.removeAdmin({
+          user_id: this.selectedMember.id,
+        })
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Admin Removed!',
+          color: 'success',
+        })
+
+        await this.getAllAdmins()
+        this.removeAdminDialog = false
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isRemoving = false
+      }
     },
 
     async sendInvite() {
-       try {
+      try {
         this.isInviting = true
         await this.$API.admin.inviteAdmin(this.inviteForm)
         this.$store.dispatch('alert/setAlert', {
@@ -308,16 +374,30 @@ export default {
       } finally {
         this.isInviting = false
       }
-      
     },
   },
 
-  computed:{
-    canInvite(){
-      return this.inviteForm.fullname && this.inviteForm.email && this.inviteForm.role
-    }
-  }
+  computed: {
+    canInvite() {
+      return (
+        this.inviteForm.fullname &&
+        this.inviteForm.email &&
+        this.inviteForm.role
+      )
+    },
+  },
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import '~assets/scss/breakpoints.scss';
+
+.page {
+  min-height: 100%;
+  padding: 10px;
+
+  @include media-breakpoint-up(sm) {
+    padding: 30px;
+  }
+}
+</style>

@@ -36,10 +36,6 @@ export default {
          {
             text:'Profile',
             link:'/admin/settings/profile'
-        },
-        {
-          text: 'Members',
-          link: '/admin/settings/members',
         }
       ],
     }

@@ -16,9 +16,9 @@
     <div class="flex flex-col lg:flex-row gap-4">
       <admin-analytics />
 
-     <div class="lg:w-2/5">
-         <investment-plans :plans="metrics.investments" />
-     </div>
+      <div class="lg:w-2/5">
+        <investment-plans :plans="metrics.investments" />
+      </div>
     </div>
 
     <div class="mt-10">
