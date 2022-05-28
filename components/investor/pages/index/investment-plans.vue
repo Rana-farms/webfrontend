@@ -33,13 +33,15 @@
           <span>{{ Intl.NumberFormat().format(plan.unitsBought) }} units</span>
         </div>
         <v-progress-linear
-          :value="(plan.unitsBought / 1000000) * 100"
+          :value="
+            (plan.unitsBought / (plan.unitsBought + plan.unitsRemaining)) * 100
+          "
           rounded
           height="8"
         ></v-progress-linear>
       </div>
 
-      <div v-if="plans && plans.length == 0" >
+      <div v-if="plans && plans.length == 0">
         <v-btn color="primary" text block to="/investor/investments/plans"
           >No Plan Invest Now <v-icon>mdi-chevron-right</v-icon></v-btn
         >

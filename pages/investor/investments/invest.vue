@@ -26,7 +26,11 @@
             v-model="units"
             @blur="validateUnits"
             :min="minimumUnits"
-            :hint="`Minimum Unit is ${minimumUnits}`"
+            :hint="`Minimum Unit is ${Intl.NumberFormat().format(
+              minimumUnits
+            )} and  Maximum Unit is ${Intl.NumberFormat().format(
+              maximumUnits
+            )}`"
             outlined
           ></v-text-field>
 
@@ -65,6 +69,7 @@ export default {
       trust: '',
       minimumUnits: null,
       isInvesting: false,
+      maximumUnits: null,
       form: {
         investment_id: this.$route.query.id,
         units: null,
@@ -201,6 +206,7 @@ export default {
       if (this.investment) {
         return (
           this.form.units >= this.minimumUnits &&
+          this.form.units <= this.maximumUnits &&
           this.form.amount >= Number(this.investment.unitPrice)
         )
       } else {
@@ -215,6 +221,7 @@ export default {
           this.getInvestment()
         } else {
           this.minimumUnits = Number(investment.minimumUnit)
+          this.maximumUnits = Number(investment.unitsRemaining)
           this.trust = investment.name
           this.form.units = this.minimumUnits
           this.units = this.minimumUnits
