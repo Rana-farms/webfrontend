@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import api from './api'
 
 export default {
@@ -18,10 +19,9 @@ export default {
   },
 
   confirmMinimumInvestment(payload) {
-    console.log(payload)
-    return api().post(`/confirm-minimum-unit`,payload, {
+    return api().post(`/confirm-minimum-unit`, payload, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
@@ -29,24 +29,24 @@ export default {
   makeInvestment(payload) {
     return api().post(`/investor/investment`, payload, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
 
-  fetchAllUserInvestments(){
+  fetchAllUserInvestments() {
     return api().get(`/investor/investments`, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
 
-  fetchMetrics(){
-    return api().get(`/investor/dashboard-metrics`, {
+  fetchMetrics(role = 'investor') {
+    return api().get(`/${role}/dashboard-metrics`, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
-  }
+  },
 }
