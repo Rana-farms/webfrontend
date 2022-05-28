@@ -85,6 +85,7 @@
 import AppFooter from '~/components/views/app-footer.vue'
 import NotificationAlert from '~/components/views/notification-alert.vue'
 export default {
+  middleware: ['admin-auth'],
   components: {
     AppFooter,
     NotificationAlert,
@@ -102,16 +103,16 @@ export default {
         },
 
         {
-          text: 'Users',
+          text: 'Investors',
           icon: 'mdi-account-multiple-outline',
-          link: '/admin/users',
+          link: '/admin/investors',
         },
-         {
+        {
           text: 'Docs',
           icon: 'mdi-file-document-multiple-outline',
           link: '/admin/documents',
         },
-         {
+        {
           text: 'Orders',
           icon: 'mdi-inbox-outline',
           link: '/admin/orders',
@@ -120,6 +121,11 @@ export default {
           text: 'Settings',
           icon: 'mdi-cog-outline',
           link: '/admin/settings',
+        },
+        {
+          text: 'Logout',
+          icon: 'mdi-logout',
+          link: '/logout',
         },
       ],
     }

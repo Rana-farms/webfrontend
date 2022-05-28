@@ -1,0 +1,226 @@
+<template>
+  <div class="page">
+    <span class="block font-semibold mb-5 text-2xl">User Profile</span>
+
+ <v-skeleton-loader v-if="user == null"
+        class="mx-auto"
+        type="card"
+        width="100%"
+        height="160px"
+      ></v-skeleton-loader>
+
+    <div v-else
+      class="inline-flex gap-10 flex-wrap items-center  mt-5 rounded-lg bg-white shadow  mx-auto  p-10"
+    >
+    <div>
+        <span class="font-semibold text-3xl block">{{user.fullname}}</span>
+        <span class="text-gray-400 block mb-1">{{user.email}}</span>
+        <span class=" text-green-500 bg-green-100 rounded-lg py-1 px-2" v-if="user.isVerified">Verified</span>
+        <span class=" text-yellow-500 bg-yellow-100 rounded-lg py-1 px-2" v-else>Pending verification</span>
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #9d1e230d">
+        <span class="block text-gray-400 text-sm">Total Investment</span>
+        <span class="text-primary font-semibold text-lg block"
+          >₦12,000,000.00</span
+        >
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #f2faf4">
+        <span class="block text-gray-400 text-sm">Total Recieved</span>
+        <span class="text-green-500 font-semibold text-lg block"
+          >₦15,400,000.00</span
+        >
+      </div>
+
+      <div class="p-5 rounded-lg" style="background-color: #ffe8e845">
+        <span class="block text-gray-400 text-sm">Current Investment</span>
+        <span class="text-yellow-500 font-semibold text-lg block"
+          >₦5,000,000.00</span
+        >
+      </div>
+    </div>
+
+    <!-- <div class="mt-10">
+      <span class="font-semibold block text-lg mb-1">Transaction History</span>
+      <v-data-table :headers="headers" :items="desserts" class="elevation-0">
+        <template v-slot:[`item.date`]="{ item }">
+          <div class="inline-flex gap-1">
+            <v-btn color="green" icon v-if="item.type == 'deposit'">
+              <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
+            >
+            <v-btn v-else color="red" icon>
+              <v-icon>mdi-arrow-bottom-left-thin</v-icon></v-btn
+            >
+            <span class="text-gray-600">{{ item.date }}</span>
+          </div>
+        </template>
+        <template v-slot:[`item.status`]="{ item }">
+          <span
+            class="uppercase"
+            :class="{
+              'text-green-500': item.status.toLowerCase() == 'success',
+              'text-yellow-500': item.status.toLowerCase() == 'pending',
+              'text-red-500': item.status.toLowerCase() == 'failed',
+            }"
+            >{{ item.status }}</span
+          >
+        </template>
+      </v-data-table>
+    </div> -->
+
+    <div class="mt-12">
+       <span class="font-semibold block text-xl mb-2">User Investments</span>
+         <v-data-table
+      :headers="investmentsHeaders"
+      disable-sort
+           :items="user && user.investments || []"
+      :loading="user == null"
+      class="elevation-0"
+    >
+          <template v-slot:no-data>
+        <div
+          class="w-full flex items-center justify-center h-60"
+          v-if="user.investments.length == 0 "
+        >
+          <div class="text-center text-flame">
+            <span class="block text-center"
+              >{{user.fullname}}  has not made any investment</span
+            >
+          </div>
+        </div>
+
+      </template>
+
+      <template v-slot:loading>
+        <div class="w-full flex items-center justify-center h-72">
+          <div class="text-center text-flame">
+            <v-icon size="40" color="primary"
+              >mdi-format-list-bulleted-square</v-icon
+            >
+            <span class="block mt-2 font-semibold text-center"
+              >Loading investments...</span
+            >
+          </div>
+        </div>
+      </template>
+
+      <template v-slot:[`item.units`]="{ item }">
+        {{ Intl.NumberFormat().format(item.units) }}
+      </template>
+
+        <template v-slot:[`item.amount`]="{ item }">
+        {{ item.amount | currency }}
+      </template>
+
+      <template v-slot:[`item.status`]="{ item }">
+        <span
+          class="uppercase"
+          :class="{
+            'text-green-500': item.status.toLowerCase() == 'active',
+            'text-red-500': item.status.toLowerCase() == 'inactive',
+          }"
+          >{{ item.status }}</span
+        >
+      </template>
+    </v-data-table>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  layout: 'admin',
+  data() {
+    return {
+          investmentsHeaders: [
+        {
+          text: 'INVESTMENT NAME',
+          align: 'start',
+          sortable: false,
+          value: 'investmentName',
+        },
+        { text: 'UNITS', value: 'units' },
+        { text: 'AMOUNT', value: 'amount' },
+        { text: 'START DATE', value: 'startDate' },
+        { text: 'END DATE', value: 'dueDate' },
+        { text: ' STATUS', value: 'status' },
+      ],
+
+      headers: [
+        { text: 'DATE', value: 'date' },
+        { text: 'DESCRIPTION', value: 'description' },
+        { text: 'AMOUNT', value: 'amount' },
+        { text: 'CHARGE', value: 'charge' },
+        { text: 'STATUS', value: 'status' },
+      ],
+      desserts: [
+        {
+          date: '12 oct. 2021, 07:29PM',
+          description: 'withdraw to bank',
+          type: 'withdraw',
+          charge: '₦3,000,000.00',
+          amount: '₦3,000,000.00',
+          status: 'pending',
+        },
+        {
+          date: '12 oct. 2021, 07:29PM',
+          description: 'Deposit',
+          type: 'deposit',
+          charge: '₦3,000,000.00',
+          amount: '₦3,000,000.00',
+          status: 'success',
+        },
+        {
+          date: '12 oct. 2021, 07:29PM',
+          description: 'withdraw to bank',
+          type: 'withdraw',
+          charge: '₦3,000,000.00',
+          amount: '₦3,000,000.00',
+          status: 'failed',
+        },
+      ],
+
+      user:null,
+    }
+  },
+  mounted(){
+   this.getUser();
+  },
+  methods: {
+    async getUser(){
+     try{
+       const {data} = await this.$API.user.fetchUserById(this.$route.params.id)
+        this.user = data.data
+     }catch(error){
+         this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+     }
+    }
+  },
+  watch:{
+    user:{
+      handler(user){
+        console.log(JSON.stringify(user, null, 2))
+      },
+      immediate: true,
+      deep:true
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~assets/scss/breakpoints.scss';
+
+.page {
+  min-height: 100%;
+  padding: 10px;
+
+  @include media-breakpoint-up(sm) {
+    padding: 30px;
+  }
+}
+</style>

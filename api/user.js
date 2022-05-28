@@ -60,4 +60,12 @@ export default {
       },
     })
   },
+
+  fetchUserById(id) {
+    return api().get(`/admin/users/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
 }
