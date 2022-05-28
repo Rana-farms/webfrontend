@@ -66,10 +66,12 @@
 
       <v-spacer></v-spacer>
 
-      <div class="hidden md:flex">
+      <div class="hidden md:flex" v-if="!$isLoggedIn">
         <v-btn text small to="/login">Login</v-btn>
         <v-btn small to="/signup" elevation="0" color="primary">Sign up</v-btn>
       </div>
+
+     <div  v-else class="hidden md:flex"  ><v-btn  color="primary" outlined to="/dashboard" rounded> <v-icon left>mdi-chevron-right</v-icon> Dashboard</v-btn></div>
 
       <span class="inline-flex md:hidden" ref="menu">
         <v-btn @click="showPopup = !showPopup" icon>
@@ -84,17 +86,18 @@
       :class="{ 'mobile-popup--show': showPopup }"
     >
       <div class="mobile-popup__links">
-        <router-link to="/about-us"> Who we are </router-link>
+        <router-link to="/about-us"> Who we arssse </router-link>
         <router-link to="/purpose"> What we do </router-link>
         <router-link to="/contact-us"> Contact us </router-link>
          <li>
           <a href="https://www.hope.com/" target="_blank">Bitcoin</a>
         </li>
       </div>
-      <div class="grid items-center grid-cols-2 gap-1 mt-2">
+      <div class="grid items-center grid-cols-2 gap-1 mt-2" v-if="!$isLoggedIn">
         <v-btn text to="/login">Login</v-btn>
         <v-btn large to="/signup" elevation="0" color="primary">Sign up</v-btn>
       </div>
+      <v-btn color="primary" to="/dashboard" outlined rounded> <v-icon left>mdi-chevron-right</v-icon> Dashboard</v-btn>
     </div>
   </v-app-bar>
 </template>

@@ -2,7 +2,7 @@
   <div class="page">
     <span class="block font-semibold mb-5 text-2xl">Investment</span>
 
-    <div class="bg-white flex  p-8 rounded-lg shadow-md mt-10" v-if="investment">
+    <div class="bg-white flex p-3 p-md-8 rounded-lg shadow-md mt-10" v-if="investment">
       <div class="flex-1">
         <span class="font-bold text-primary uppercase text-lg"
         >{{ investment.name }}

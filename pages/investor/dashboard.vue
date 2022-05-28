@@ -4,17 +4,19 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-4"
     >
-      <investor-monthly-roi />
-      <investor-net-income />
-      <investor-available-funds />
-      <investor-captial-accoun-bal />
+      <investor-monthly-roi
+        :roi="metrics.monthlyRoi"
+        :percentageIncrease="metrics.percentageSinceLastMonths"
+      />
+      <investor-net-income :income="metrics.netIncome" />
+      <investor-available-funds :funds="metrics.availableFunds" />
+      <investor-captial-accoun-bal :balance="metrics.capitalBalance" />
     </div>
-
     <div class="flex flex-col lg:flex-row gap-4">
       <investor-analytics />
 
       <div class="lg:w-2/5">
-        <investment-plans />
+        <investment-plans :plans="metrics.investments" />
       </div>
     </div>
   </div>
@@ -37,6 +39,22 @@ export default {
     InvestorCaptialAccounBal,
     InvestorAnalytics,
     InvestmentPlans,
+  },
+  data() {
+    return {
+      metrics: {
+        monthlyRoi: null,
+        percentageSinceLastMonths: null,
+        netIncome: null,
+        availableFunds: null,
+        capitalBalance: null,
+        investments:null
+      },
+    }
+  },
+  async mounted() {
+    const { data } = await this.$API.investment.fetchMetrics()
+    this.metrics = data.data
   },
 }
 </script>

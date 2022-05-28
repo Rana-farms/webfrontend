@@ -36,7 +36,9 @@
         ></v-text-field>
       </div>
       <div class="flex justify-end">
-        <a href="/forgot-password" class="cursor-pointer border-none">Forgot password ?</a>
+        <a href="/forgot-password" class="cursor-pointer border-none"
+          >Forgot password ?</a
+        >
       </div>
 
       <v-btn
@@ -93,17 +95,17 @@ export default {
         this.isLogining = true
         try {
           const { data } = await this.$API.user.login(this.form)
-
           localStorage.setItem('token', data?.token)
+
+          console.log(JSON.stringify(data, null, 2))
+
           const details = await this.$API.user.fetchDetails()
           this.$store.dispatch('user/setUser', details.data)
 
-          if (data?.data?.role?.name === 'Investor') {
+          if (data.data.role.name == 'Admin') {
+            this.$router.replace('/admin')
+          } else if (data.data.role.name == 'Investor') {
             this.$router.replace('/investor')
-          } else if (data?.data?.role?.name === 'superadmin') {
-            this.$router.replace('/admin')
-          } else if (data?.data?.role?.name === 'admin') {
-            this.$router.replace('/admin')
           }
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {

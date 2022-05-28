@@ -53,13 +53,14 @@
           <img class="app-header__logo" src="/images/logo.png" alt=""
         /></router-link>
 
-        <v-app-bar-nav-icon color="primary" @click="drawer = !drawer" />
+         <div class=" hidden md:inline-block"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
         <v-spacer></v-spacer>
+         <div class="md:hidden"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
 
         <div class="hidden md:flex gap-5">
           <router-link
             to="/investor/settings/profile"
-            class="inline-flex gap-1 items-center"
+            class="inline-flex gap-2 items-center"
           >
             <span
               class="h-8 w-8 bg-primary rounded-full flex items-center justify-center"
@@ -69,8 +70,6 @@
             <span class="text-gray-500">{{ $profile.fullname }}</span>
           </router-link>
           <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
-
-          <v-btn color="primary" icon> <v-icon>mdi-cog-outline</v-icon></v-btn>
         </div>
       </div>
     </v-app-bar>
@@ -111,10 +110,20 @@ export default {
           icon: 'mdi-chart-line',
           link: '/investor/investments',
         },
+         {
+          text: 'Orders',
+          icon: 'mdi-inbox-outline',
+          link: '/investor/orders',
+        },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
           link: '/investor/settings',
+        },
+          {
+          text: 'Logout',
+          icon: 'mdi-logout',
+          link: '/logout',
         },
       ],
     }

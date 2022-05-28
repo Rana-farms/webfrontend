@@ -17,8 +17,8 @@ export default {
     return api().post('/reset-password', payload)
   },
 
-  fetchDetails(role = 'investor') {
-    return api().get(`/${role}/profile`, {
+  fetchDetails() {
+    return api().get(`/profile`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -26,7 +26,7 @@ export default {
   },
 
   updateDetails(payload,role = 'investor') {
-    return api().put(`/${role}/profile`, payload,{
+    return api().put(`/profile`, payload,{
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },

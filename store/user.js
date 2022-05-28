@@ -8,39 +8,43 @@ export const state = () => ({
   nextOfKin: null,
   bank: null,
   wallet: null,
+  transactions:null,
+  investments:null,
 })
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   user: (state) => state.user,
-  profile(state){
-    if(state.user)
-    return{
-      id: state.user.id,
-      username: state.user.username,
-      fullname: state.user.fullname,
-      email: state.user.email,
-      phone: state.user.phone,
-      address: state.user.address,
-      role: state.user.role.name,
-      status: state.user.status,
-    }
+  profile(state) {
+    if (state.user)
+      return {
+        id: state.user.id,
+        username: state.user.username,
+        fullname: state.user.fullname,
+        email: state.user.email,
+        phone: state.user.phone,
+        address: state.user.address,
+        role: state.user.role.name,
+        status: state.user.status,
+      }
   },
   token: (state) => state.token,
   role: (state) => state.role?.name,
   nextOfKin: (state) => state.nextOfKin,
-  bank(state){
-    if(state.bank)
-    return{
-      bank_id: state.user.bank.bankId,
-      account_no: state.user.bank.accountNumber,
-      account_name: state.user.bank.accountName,
-      bank_name: state.user.bank.bankName,
-    }
+  bank(state) {
+    if (state.bank)
+      return {
+        bank_id: state.user.bank.bankId,
+        account_no: state.user.bank.accountNumber,
+        account_name: state.user.bank.accountName,
+        bank_name: state.user.bank.bankName,
+      }
   },
+  investments: (state) => state.investments,
+  transactions: (state) => state.transactions,
   wallet: (state) => state.wallet,
-  isSuperAdmin: (state) => state.role?.name === 'superadmin',
-  isAdmin: (state) => state.role?.name === 'admin',
+  isSuperAdmin: (state) => state.role?.name === 'Super Admin',
+  isAdmin: (state) => state.role?.name === 'Admin',
   isInvestor: (state) => state.role?.name === 'Investor',
 }
 
@@ -50,12 +54,16 @@ export const mutations = {
 
     if (user) {
       state.isLoggedIn = true
-      state.role = user.role
-      state.nextOfKin = user.nextOfKin
-      state.bank = user.bank
-      state.wallet = user.wallet
+      state.role = user?.role
+      state.nextOfKin = user?.nextOfKin
+      state.bank = user?.bank
+      state.wallet = user?.wallet
+      state.transactions = user?.transactions,
+      state.investments = user?.investments
 
-      console.log(JSON.stringify(user, null, 2))
+      if (process.env.NODE_ENV === 'development') {
+        console.log(JSON.stringify(user, null, 2))
+      }
     }
   },
 
@@ -84,7 +92,7 @@ export const actions = {
       commit('setUser', api.data.data)
       return api.data.data
     } catch (err) {
-      return err
+      return Promise.reject(err)
     }
   },
 

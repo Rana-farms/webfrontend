@@ -9,6 +9,7 @@
 import NotificationAlert from '~/components/views/notification-alert.vue'
 
 export default {
+  middleware: ['auth'],
   components: {
     NotificationAlert,
   },

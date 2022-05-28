@@ -25,6 +25,7 @@
     "vue": "^2.6.14",
     "vue-apexcharts": "^1.6.1",
     "vue-countup-v2": "^4.0.0",
+    "vue-currency-filter": "^5.2.0",
     "vue-device-detector-js": "^1.0.2",
     "vue-paystack": "^2.0.4",
     "vue-server-renderer": "^2.6.14",
