@@ -48,13 +48,20 @@ export default {
         netIncome: null,
         availableFunds: null,
         capitalBalance: null,
-        investments:null
+        investments: null,
       },
     }
   },
   async mounted() {
-    const { data } = await this.$API.investment.fetchMetrics()
-    this.metrics = data.data
+    try {
+      const { data } = await this.$API.investment.fetchMetrics()
+      this.metrics = data.data
+    } catch (error) {
+      this.$store.dispatch('alert/setAlert', {
+        message: error.msg,
+        color: 'error',
+      })
+    }
   },
 }
 </script>

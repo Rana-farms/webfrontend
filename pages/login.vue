@@ -97,16 +97,11 @@ export default {
           const { data } = await this.$API.user.login(this.form)
           localStorage.setItem('token', data?.token)
 
-          console.log(JSON.stringify(data, null, 2))
 
           const details = await this.$API.user.fetchDetails()
           this.$store.dispatch('user/setUser', details.data)
+          this.$router.replace('/dashboard')
 
-          if (data.data.role.name == 'Admin') {
-            this.$router.replace('/admin')
-          } else if (data.data.role.name == 'Investor') {
-            this.$router.replace('/investor')
-          }
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {
             message: err.msg,

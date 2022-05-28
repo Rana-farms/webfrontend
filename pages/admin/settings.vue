@@ -33,13 +33,13 @@ export default {
   data() {
     return {
       items: [
+         {
+            text:'Profile',
+            link:'/admin/settings/profile'
+        },
         {
           text: 'Members',
           link: '/admin/settings/members',
-        },
-        {
-            text:'Profile',
-            link:'/admin/settings/profile'
         }
       ],
     }

@@ -4,18 +4,21 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-4"
     >
-      <admin-monthly-roi />
-      <admin-net-income />
-      <admin-available-funds />
-      <admin-captial-accoun-bal />
+      <admin-monthly-roi
+        :roi="metrics.monthlyRoi"
+        :percentageIncrease="metrics.percentageSinceLastMonths"
+      />
+      <admin-net-income :income="metrics.netIncome" />
+      <admin-available-funds :funds="metrics.availableFunds" />
+      <admin-captial-accoun-bal :balance="metrics.capitalBalance" />
     </div>
 
     <div class="flex flex-col lg:flex-row gap-4">
       <admin-analytics />
 
-      <div class="bg-white p-5 shadow rounded-md lg:w-2/5">
-        <investment-plans />
-      </div>
+     <div class="lg:w-2/5">
+         <investment-plans :plans="metrics.investments" />
+     </div>
     </div>
 
     <div class="mt-10">
@@ -77,7 +80,13 @@
         </template>
 
         <template v-slot:[`item.id`]="{ item }">
-          <v-btn class="md:my-5" :disabled="item.status == 'success' || item.status == 'failed'" color="primary" elevation="0">Approve</v-btn>
+          <v-btn
+            class="md:my-5"
+            :disabled="item.status == 'success' || item.status == 'failed'"
+            color="primary"
+            elevation="0"
+            >Approve</v-btn
+          >
         </template>
       </v-data-table>
     </div>
@@ -104,6 +113,15 @@ export default {
   },
   data() {
     return {
+      metrics: {
+        monthlyRoi: null,
+        percentageSinceLastMonths: null,
+        netIncome: null,
+        availableFunds: null,
+        capitalBalance: null,
+        investments: null,
+      },
+
       depositHistoryHeaders: [
         { text: 'NAME OF INVESTMENT PLAN', value: 'trust' },
         { text: 'NAME OF INVESTOR', value: 'investor' },
@@ -174,6 +192,17 @@ export default {
           status: 'pending',
         },
       ],
+    }
+  },
+  async mounted() {
+    try {
+      const { data } = await this.$API.investment.fetchMetrics('admin')
+      this.metrics = data.data
+    } catch (error) {
+      this.$store.dispatch('alert/setAlert', {
+        message: error.msg,
+        color: 'error',
+      })
     }
   },
 }

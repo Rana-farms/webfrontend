@@ -31,7 +31,7 @@
         :items="$transactions"
         class="elevation-0"
       >
-        <template v-slot:[`item.created_at`]="{ item }">
+        <template v-slot:[`item.dateCreated`]="{ item }">
           <div class="inline-flex gap-1">
             <v-btn
               color="green"
@@ -44,7 +44,7 @@
               <v-icon>mdi-arrow-bottom-left-thin</v-icon></v-btn
             >
             <span class="text-gray-600">{{
-              format(new Date(item.created_at), 'MMM do, y ')
+              format(new Date(item.dateCreated), 'MMM do, y ')
             }}</span>
           </div>
         </template>
@@ -57,9 +57,9 @@
             class="uppercase"
             :class="{
               'text-green-500':
-                item.status.toLowerCase() == 'successful' || item.status == 1,
+                item.status.toLowerCase() == 'success',
               'text-yellow-500':
-                item.status.toLowerCase() == 'pending' || item.status == 0,
+                item.status.toLowerCase() == 'pending',
               'text-red-500': item.status.toLowerCase() == 'failed',
             }"
             >{{ item.status }}</span
@@ -77,62 +77,6 @@
           </div>
         </template>
       </v-data-table>
-
-      <div class="mt-12" v-if="1 == 2">
-        <span class="font-semibold block text-xl mb-2">User Investments</span>
-        <v-data-table
-          :headers="investmentsHeaders"
-          disable-sort
-          :items="(user && user.investments) || []"
-          :loading="user == null"
-          class="elevation-0"
-        >
-          <template v-slot:no-data>
-            <div
-              class="w-full flex items-center justify-center h-60"
-              v-if="user.investments.length == 0"
-            >
-              <div class="text-center text-flame">
-                <span class="block text-center"
-                  >{{ user.fullname }} has not made any investment</span
-                >
-              </div>
-            </div>
-          </template>
-
-          <template v-slot:loading>
-            <div class="w-full flex items-center justify-center h-72">
-              <div class="text-center text-flame">
-                <v-icon size="40" color="primary"
-                  >mdi-format-list-bulleted-square</v-icon
-                >
-                <span class="block mt-2 font-semibold text-center"
-                  >Loading investments...</span
-                >
-              </div>
-            </div>
-          </template>
-
-          <template v-slot:[`item.units`]="{ item }">
-            {{ Intl.NumberFormat().format(item.units) }}
-          </template>
-
-          <template v-slot:[`item.amount`]="{ item }">
-            {{ item.amount | currency }}
-          </template>
-
-          <template v-slot:[`item.status`]="{ item }">
-            <span
-              class="uppercase"
-              :class="{
-                'text-green-500': item.status.toLowerCase() == 'active',
-                'text-red-500': item.status.toLowerCase() == 'inactive',
-              }"
-              >{{ item.status }}</span
-            >
-          </template>
-        </v-data-table>
-      </div>
     </div>
   </div>
 </template>
@@ -145,7 +89,7 @@ export default {
     return {
       format: format,
       headers: [
-        { text: 'DATE', value: 'created_at' },
+        { text: 'DATE', value: 'dateCreated' },
         { text: 'DESCRIPTION', value: 'transaction_type' },
         { text: 'AMOUNT', value: 'amount' },
         { text: 'STATUS', value: 'status' },
