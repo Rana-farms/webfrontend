@@ -24,4 +24,12 @@ export default {
       },
     })
   },
+
+  removeAdmin(payload) {
+    return api().post(`/admin/remove-admin`, payload, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
 }

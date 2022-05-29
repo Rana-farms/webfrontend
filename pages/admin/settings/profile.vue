@@ -17,6 +17,23 @@
         outlined
       ></v-text-field>
 
+      
+      <v-select 
+        block
+        disabled
+        placeholder="Select Role"
+        label="Role"
+        v-model="profile.role"
+        ref="role"
+        class="mt-3 mb-6 pa-0"
+        hide-details="auto"
+        :items="roles"
+        item-value="text"
+        item-text="text"
+        :rules="profileRules.role"
+        outlined
+      />
+
       <v-text-field
         block
         placeholder="Enter your phone number"
@@ -43,20 +60,18 @@
         outlined
       />
 
-      <v-select
+        <v-text-field
         block
-        placeholder="Select Role"
-        label="Role"
-        v-model="profile.role"
-        ref="role"
+        placeholder="Enter your address"
+        label="Residential Address"
+        v-model="profile.address"
+        ref="address"
         class="mt-3 mb-6 pa-0"
         hide-details="auto"
-        :items="roles"
-        item-key="name"
-        item-text="text"
-        :rules="profileRules.role"
+        :rules="profileRules.address"
         outlined
       />
+
 
       <div class="flex justify-end">
         <v-btn
@@ -79,19 +94,21 @@ export default {
     return {
       profile: null,
       roles: [
-        { text: 'Investor', value: 'investor' },
         { text: 'Admin', value: 'admin' },
         { text: 'Super Admin', value: 'superadmin' },
       ],
 
       profileRules: {
         fullname: [(v) => !!v || 'Name is required'],
-        phone: [(v) => !!v || 'Phone number is required'],
+        phone: [(v) => !!v || 'Phone number is required',
+          (v) => /^\d{11}$/.test(v) || 'Phone number must be 11 digits'
+        ],
         email: [
           (v) => !!v || 'Email is required',
           (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
         ],
-        role: [(v) => !!v || 'Role is required'],
+                address: [(v) => !!v || 'Address is required'],
+
       },
       profileUpdating: false,
     }
@@ -109,6 +126,7 @@ export default {
             fullname: this.profile.fullname,
             phone: this.profile.phone,
             address: this.profile.address,
+           // role: this.roles.find((r) => r.text === this.profile.role).value,
           })
 
           await this.$store.dispatch('user/fetchDetails')
@@ -133,7 +151,7 @@ export default {
         fullname: this.profile.fullname,
         phone: this.profile.phone,
         email: this.profile.email,
-        role: this.profile.role,
+        address: this.profile.address,
       }
     },
 

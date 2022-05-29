@@ -144,7 +144,9 @@ export default {
       nextOfKin: null,
       profileRules: {
         fullname: [(v) => !!v || 'Name is required'],
-        phone: [(v) => !!v || 'Phone number is required'],
+        phone: [(v) => !!v || 'Phone number is required',
+         (v) => /^\d{11}$/.test(v) || 'Phone number must be 11 digits'
+        ],
         email: [
           (v) => !!v || 'Email is required',
           (v) => /.+@.+\..+/.test(v) || 'Email must be valid',

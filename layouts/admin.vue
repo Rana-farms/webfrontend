@@ -48,18 +48,19 @@
     </v-navigation-drawer>
 
     <v-app-bar app :height="60" color="#fff" clipped-left elevation="0">
-      <div class="app-header md:px-3 flex items-center">
+       <div class="app-header md:px-3 flex items-center">
         <router-link to="/">
           <img class="app-header__logo" src="/images/logo.png" alt=""
         /></router-link>
 
-        <v-app-bar-nav-icon color="primary" @click="drawer = !drawer" />
+         <div class=" hidden md:inline-block"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
         <v-spacer></v-spacer>
+         <div class="md:hidden"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
 
         <div class="hidden md:flex gap-5">
           <router-link
-            to="/investor/settings/profile"
-            class="inline-flex gap-1 items-center"
+            to="/admin/settings/profile"
+            class="inline-flex gap-2 items-center"
           >
             <span
               class="h-8 w-8 bg-primary rounded-full flex items-center justify-center"
@@ -69,8 +70,6 @@
             <span class="text-gray-500">{{ $profile.fullname }}</span>
           </router-link>
           <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
-
-          <v-btn color="primary" icon> <v-icon>mdi-cog-outline</v-icon></v-btn>
         </div>
       </div>
     </v-app-bar>
@@ -106,6 +105,11 @@ export default {
           text: 'Investors',
           icon: 'mdi-account-multiple-outline',
           link: '/admin/investors',
+        },
+          {
+          text: 'Admins',
+          icon: 'mdi-account-multiple-outline',
+          link: '/admin/admins',
         },
         {
           text: 'Docs',
