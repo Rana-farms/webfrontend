@@ -101,9 +101,9 @@ export default {
           link: '/investor/dashboard',
         },
         {
-          text: 'Wallet',
+          text: 'Transactions',
           icon: 'mdi-wallet-outline',
-          link: '/investor/wallet',
+          link: '/investor/transactions',
         },
         {
           text: 'Investments',

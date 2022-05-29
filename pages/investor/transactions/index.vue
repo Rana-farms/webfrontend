@@ -6,18 +6,19 @@
       class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"
     >
       <div v-if="$wallet && $wallet.balance">
-        <span class="block text-center text-gray-400">Wallet Balance</span>
+        <span class="block text-center text-gray-400">Available Funds</span>
         <span class="font-semibold text-center text-2xl md:text-4xl block">{{
           $wallet.balance | currency
         }}</span>
-        <div class="grid grid-cols-2 gap-2 mt-8">
-          <v-btn color="primary" large elevation="0">Deposit</v-btn>
+        <div class=" text-center mt-8">
+          <!-- <v-btn color="primary" large elevation="0">Deposit</v-btn> -->
           <v-btn
-            color="yellow"
+            color="primary"
             dark
+            :disabled="$wallet && $wallet.balance == 0"
             large
             elevation="0"
-            to="/investor/wallet/withdraw"
+            to="/investor/transactions/withdraw"
             >Withdraw</v-btn
           >
         </div>
