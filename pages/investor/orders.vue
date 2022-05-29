@@ -101,17 +101,17 @@
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Delivered :</span>
-          <span>{{ selectedOrder.weight }}</span>
+          <span>{{ selectedOrder.weight }}Tonnes</span>
         </div>
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Received :</span>
-          <span>{{ selectedOrder.weightReceived }}</span>
+          <span>{{ selectedOrder.weightReceived }}Tonnes</span>
         </div>
 
         <div class="py-1 mt-2 mb-3">
           <span class="font-semibold">Weight Loss :</span>
-          <span>{{ selectedOrder.weightLoss }}%</span>
+          <span>{{ selectedOrder.weightLoss }}Tonnes</span>
         </div>
 
         <v-divider></v-divider>
