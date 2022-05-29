@@ -85,16 +85,13 @@ export default {
         ],
         phone: [
           (v) => !!v || 'Phone is required',
-          // v => v.length <= 20 || 'Phone must be less than 20 characters',
+          (v) => /^\d{11}$/.test(v) || 'Phone number must be 11 digits',
         ],
         email: [
           (v) => !!v || 'Email is required',
           (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
         ],
-        address: [
-          (v) => !!v || 'Address is required',
-          //  v => v.length <= 20 || 'Address must be less than 20 characters',
-        ],
+        address: [(v) => !!v || 'Address is required'],
       },
     }
   },
