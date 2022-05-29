@@ -7,5 +7,13 @@ export default {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
-  }
+  },
+
+  makeWithdrawal(payload) {
+    return api().post(`/investor/withdrawal`, payload, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
 }
