@@ -109,13 +109,6 @@ export default {
     },
   },
   watch: {
-    form: {
-      deep: true,
-      immediate: true,
-      handler(val) {
-        console.log(JSON.stringify(val, null, 2))
-      },
-    },
     el(el) {
       if (el == 0) {
         this.progress = 0

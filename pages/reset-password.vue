@@ -88,7 +88,6 @@ export default {
       this.$router.push('/login')
     }
 
-    // console.log(this.$route.query.token)
   },
 
   methods: {

@@ -16,9 +16,7 @@ export const getters = {
 export const mutations = {
   setAlert(state, alert) {
     state.alert = null
-    console.log(JSON.stringify(alert, null, 2))
     state.alert = alert
-    console.log(JSON.stringify(state.alert, null, 2))
 
     state.show = true
   },

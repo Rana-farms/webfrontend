@@ -118,9 +118,7 @@ export default {
       this.errorLoading = false
       try {
         this.isLoadingUsers = true
-        console.log('loading users...')
         const { data } = await this.$API.investor.fetchAllInvestors()
-        console.log(JSON.stringify(data, null, 2))
         this.users = data.data
       } catch (error) {
         this.$store.dispatch('alert/setAlert', {

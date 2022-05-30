@@ -58,7 +58,9 @@
             class="uppercase"
             :class="{
               'text-green-500':
-                item.status.toLowerCase() == 'success',
+                item.status.toLowerCase() == 'completed',
+                'text-gray-500':
+                item.status.toLowerCase() == 'processing',
               'text-yellow-500':
                 item.status.toLowerCase() == 'pending',
               'text-red-500': item.status.toLowerCase() == 'failed',

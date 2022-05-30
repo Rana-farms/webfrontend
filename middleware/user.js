@@ -14,7 +14,6 @@ export default async function ({ store, redirect, route }) {
         await store.dispatch('user/fetchDetails')
       }
     } catch (err) {
-      console.log('error redirect')
       if (route.name !== 'error') redirect('/error')
     }
   }

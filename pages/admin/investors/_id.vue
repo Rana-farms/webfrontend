@@ -228,16 +228,7 @@ export default {
         })
       }
     },
-  },
-  watch: {
-    user: {
-      handler(user) {
-        //console.log(JSON.stringify(user, null, 2))
-      },
-      immediate: true,
-      deep: true,
-    },
-  },
+  }
 }
 </script>
 
