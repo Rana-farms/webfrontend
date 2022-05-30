@@ -10,7 +10,7 @@ export default {
   },
 
   updateOrder(payload,code){
-    return api().put(`/admin/order/${code}`,payload,{
+    return api().post(`/admin/order/${code}`,payload,{
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       }

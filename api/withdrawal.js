@@ -18,7 +18,7 @@ export default {
   },
 
   approveWithdrawal(id) {
-    return api().post(`/admin/approve-withdrawal/${id}`, payload, {
+    return api().post(`/admin/approve-withdrawal/${id}`,null, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },

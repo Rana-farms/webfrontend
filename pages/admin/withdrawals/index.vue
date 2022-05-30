@@ -82,7 +82,7 @@
             elevation="0"
             :to="`/admin/withdrawals/${item.id}`"
           >
-            <span v-if="item.status.toLowerCase() === 'processing'">
+            <span v-if="item.status.toLowerCase() === 'pending'">
               Approve
             </span>
             <span v-else> View </span>
