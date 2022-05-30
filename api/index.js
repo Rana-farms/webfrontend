@@ -4,6 +4,7 @@ import investment from './investment'
 import investor from './investor'
 import admin from './admin'
 import order from './order'
+import withdrawal from './withdrawal'
 
 const $Api = {
   user,
@@ -11,7 +12,8 @@ const $Api = {
   investment,
   investor,
   admin,
-  order
+  order,
+  withdrawal
 }
 
 export default $Api 
