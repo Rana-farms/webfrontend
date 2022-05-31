@@ -9,6 +9,14 @@ export default {
     })
   },
 
+  updateOrder(payload,code){
+    return api().post(`/admin/order/${code}`,payload,{
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }
+    })
+  },
+
   deleteOrder(code){
     return api().delete(`/admin/order/${code}`,{
       headers: {

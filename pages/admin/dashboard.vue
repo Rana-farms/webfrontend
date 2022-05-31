@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="mt-10">
+    <!-- <div class="mt-10">
       <div class="flex justify-between items-center">
         <span class="font-semibold block text-lg mb-3">Deposit History</span>
 
@@ -49,9 +49,9 @@
           >
         </template>
       </v-data-table>
-    </div>
+    </div> -->
 
-    <div class="mt-12">
+    <!-- <div class="mt-12">
       <div class="flex justify-between items-center">
         <span class="font-semibold block text-lg mb-3">WIthdrawal Request</span>
 
@@ -89,7 +89,7 @@
           >
         </template>
       </v-data-table>
-    </div>
+    </div> -->
   </div>
 </template>
 

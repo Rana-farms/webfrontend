@@ -4,7 +4,6 @@
 
     <v-data-table
       :headers="headers"
-      disable-sort
       disable-pagination
       hide-default-footer
       :items="users"
@@ -92,8 +91,6 @@ export default {
       headers: [
         {
           text: 'NAME OF INVESTOR',
-          align: 'start',
-          sortable: false,
           value: 'fullname',
         },
         { text: ' EMAIL', value: 'email' },
@@ -118,9 +115,7 @@ export default {
       this.errorLoading = false
       try {
         this.isLoadingUsers = true
-        console.log('loading users...')
         const { data } = await this.$API.investor.fetchAllInvestors()
-        console.log(JSON.stringify(data, null, 2))
         this.users = data.data
       } catch (error) {
         this.$store.dispatch('alert/setAlert', {

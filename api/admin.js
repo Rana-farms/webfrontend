@@ -32,4 +32,12 @@ export default {
       },
     })
   },
+
+  createROI(payload) {
+    return api().post(`/admin/create-roi`, payload, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
 }

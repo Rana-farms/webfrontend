@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <span class="block font-semibold text-2xl">Wallet</span>
+    <span class="block font-semibold text-2xl">Profits</span>
 
     <div
       class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"
@@ -58,7 +58,9 @@
             class="uppercase"
             :class="{
               'text-green-500':
-                item.status.toLowerCase() == 'success',
+                item.status.toLowerCase() == 'completed',
+                'text-gray-500':
+                item.status.toLowerCase() == 'processing',
               'text-yellow-500':
                 item.status.toLowerCase() == 'pending',
               'text-red-500': item.status.toLowerCase() == 'failed',

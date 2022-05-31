@@ -22,9 +22,6 @@ export default {
       snackbar: false,
     }
   },
-  mounted(){
-    console.log("notification mounted");
-  },
 
   computed: {
     ...mapGetters({ alert: 'alert/alert', show:'alert/show' }),
@@ -32,16 +29,8 @@ export default {
   watch: {
     show(){
       if(this.show && this.alert !== null){
-        console.log('alert should show')
         this.snackbar = true
         this.$store.dispatch('alert/resetStatus');
-      }
-    },
-    alert:{
-      deep:true,
-      immediate: true,
-      handler(val){
-        console.log(JSON.stringify(val, null, 2))
       }
     }
   },

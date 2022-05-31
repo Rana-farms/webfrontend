@@ -39,11 +39,11 @@
           <div class="rounded" style="width: 250px">
             <v-list elevation="1">
               <v-list-item-group color="primary">
-                <v-list-item @click="initiateChangeRole(item)">
+                <!-- <v-list-item @click="initiateChangeRole(item)">
                   <v-list-item-content>
                     <v-list-item-title> Change Role</v-list-item-title>
                   </v-list-item-content>
-                </v-list-item>
+                </v-list-item> -->
 
                 <v-list-item @click="initiateAdminRemoval(item)" v-if="item.id !== $profile.id">
                   <v-list-item-content>
@@ -174,7 +174,7 @@
             placeholder="Email"
           ></v-text-field>
 
-          <v-select
+          <!-- <v-select
             label="Role"
             :items="roles"
             outlined
@@ -183,7 +183,7 @@
             item-key="value"
             item-text="text"
             placeholder="Select Role"
-          ></v-select>
+          ></v-select> -->
         </div>
 
         <v-btn
@@ -239,10 +239,10 @@ export default {
     return {
       inviteDialog: false,
       removeAdminDialog: false,
-      roles: [
-        { text: 'Admin', value: 'admin' },
-        { text: 'Super Admin', value: 'super-admin' },
-      ],
+      // roles: [
+      //   { text: 'Admin', value: 'admin' },
+      //   { text: 'Super Admin', value: 'super-admin' },
+      // ],
       headers: [
         {
           text: 'Name ',
@@ -265,7 +265,7 @@ export default {
       inviteForm: {
         fullname: '',
         email: '',
-        role: '',
+        //role: '',
       },
       isInviting: false,
       isRemoving: false,
@@ -381,8 +381,8 @@ export default {
     canInvite() {
       return (
         this.inviteForm.fullname &&
-        this.inviteForm.email &&
-        this.inviteForm.role
+        this.inviteForm.email
+        //this.inviteForm.role
       )
     },
   },

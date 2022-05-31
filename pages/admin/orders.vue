@@ -110,17 +110,17 @@
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Delivered :</span>
-          <span>{{ selectedOrder.weight }}</span>
+          <span>{{ selectedOrder.weight }}Tonnes</span>
         </div>
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Received :</span>
-          <span>{{ selectedOrder.weightReceived }}</span>
+          <span>{{ selectedOrder.weightReceived }}Tonnes</span>
         </div>
 
         <div class="py-1 mt-2 mb-3">
           <span class="font-semibold">Weight Loss :</span>
-          <span>{{ selectedOrder.weightLoss }}%</span>
+          <span>{{ selectedOrder.weightLoss }}Tonnes</span>
         </div>
 
         <v-divider></v-divider>
@@ -143,116 +143,174 @@
       v-model="editOrderDialog"
       max-width="500px"
       transition="dialog-transition"
+      :persistent="isEditingOrder"
     >
-      <div class="bg-white p-5 rounded-md shadow">
+      <div v-if="selectedOrder" class="bg-white p-5 rounded-md shadow">
         <span class="uppercase pb-2 font-semibold text-xl text-primary block"
-          >Order No: #013</span
+          >Order No: #{{selectedOrder.code}}</span
         >
         <v-divider></v-divider>
 
         <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Order approved</span>
+          <!-- <span class="capitalize font-semibold">Order approved</span>
           <v-btn color="#888888" outlined small
             >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
+          > -->
+          <v-select
+            name="Order Approved"
+            label="Order Approved"
+            placeholder="Order Approved"
+            dense
+            hide-details="auto"
+            outlined
+            v-model="selectedOrder.orderStatus"
+            :items="Object.keys(approvedStatutes)"
+            :color="approvedStatutes[selectedOrder.orderStatus]"
+          ></v-select>
+        </div>
+
+         <div class="flex mt-5">
+           <v-text-field
+           name="Aggregated"
+           label="Aggregated"
+           placeholder="Aggregated"
+           hide-details="auto"
+           dense
+           v-model="selectedOrder.aggregated"
+            outlined
+         ></v-text-field>
         </div>
 
         <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">aggregation initiated</span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
+           <v-select
+            name="Aggregation Status"
+            label="Aggregation Status" 
+            placeholder="Aggregation Status"
+            dense
+            hide-details="auto"
+            outlined
+            v-model="selectedOrder.aggregationStatus"
+            :items="Object.keys(otherStatutes)"
+            :color="approvedStatutes[selectedOrder.aggregationStatus]"
+          ></v-select>
         </div>
 
         <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">negotiation </span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
+          <v-select
+            name="Negotiation"
+            label="Negotiation"
+            placeholder="Negotiation"
+            dense
+            hide-details="auto"
+            outlined
+            v-model="selectedOrder.negotiationStatus"
+            :items="Object.keys(otherStatutes)"
+            :color="approvedStatutes[selectedOrder.negotiationStatus]"
+          ></v-select>
         </div>
 
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">negotiation completed</span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
-
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Aggregation completed </span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
+       
 
         <div class="flex mt-5 gap-1">
-          <span class="capitalize font-semibold">Weight: </span>
-          <span>150 Tonnes</span>
+         <v-text-field
+           name="Weight"
+           label="Weight"
+           placeholder="Weight"
+           dense
+           v-model="selectedOrder.weight"
+           type="number"
+           hide-details="auto"
+            outlined
+            suffix="Tonnes"
+         ></v-text-field>
         </div>
 
-        <div class="flex mt-5 gap-1">
-          <span class="capitalize font-semibold">Aggregated: </span>
+      
+        <div class="flex mt-5 justify-between">
+          <v-select
+           name="Loading off produce"
+           label="Loading off produce"
+           placeholder="Loading off produce"
+           hide-details="auto"
+           dense
+           v-model="selectedOrder.produceLoading"
+            outlined
+             :items="Object.keys(otherStatutes)"
+            :color="approvedStatutes[selectedOrder.produceLoading]"
+         ></v-select>
+        </div>
+
+        <div class="flex mt-5">
+           <v-text-field
+           name="Product enroute to"
+           label="Product enroute to"
+           placeholder="Product enroute to"
+           hide-details="auto"
+           dense
+           v-model="selectedOrder.location"
+            outlined
+         ></v-text-field>
         </div>
 
         <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Loading off produce </span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
+           <v-select
+           name="Delivery complete"
+           label="Delivery complete"
+           placeholder="Delivery complete"
+           hide-details="auto"
+           dense
+           v-model="selectedOrder.deliveryStatus"
+            outlined
+             :items="Object.keys(otherStatutes)"
+            :color="approvedStatutes[selectedOrder.deliveryStatus]"
+         ></v-select>
         </div>
 
-        <div class="flex mt-5 gap-1">
-          <span class="capitalize font-semibold">Product enroute to: </span>
-          <span>150 Tonnes</span>
+        <div class="flex mt-5">
+            <v-text-field
+           name="Weight Recieved"
+           label="Weight Recieved"
+           placeholder="Weight Recieved"
+           dense
+           v-model="selectedOrder.weightReceived"
+           type="number"
+           hide-details="auto"
+            outlined
+            suffix="Tonnes"
+         ></v-text-field>
         </div>
 
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">offloading produce </span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
+        <div class="flex mt-5">
+          <v-text-field
+           name="Weight Loss"
+           label="Weight Loss"
+           placeholder="Weight Loss"
+           dense
+           v-model="selectedOrder.weightLoss"
+           type="number"
+           hide-details="auto"
+            outlined
+            suffix="Tonnes"
+         ></v-text-field>
         </div>
 
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">delivery complete </span>
-          <v-btn color="#888888" outlined small
-            >Success <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
+       
 
-        <div class="flex mt-5 gap-1">
-          <span class="capitalize font-semibold">Weight Recieved: </span>
-          <span>150 Tonnes</span>
+        <div class="mt-5">
+           <v-select
+           name="Payment Status"
+           label="Payment Status"
+           placeholder="Payment Status"
+           hide-details="auto"
+           dense
+           v-model="selectedOrder.paymentStatus"
+            outlined
+             :items="Object.keys(otherStatutes)"
+            :color="approvedStatutes[selectedOrder.paymentStatus]"
+         ></v-select>
         </div>
-
-        <div class="flex mt-5 gap-1">
-          <span class="capitalize font-semibold">Total Weight Loss: </span>
-          <span>250kg</span>
-        </div>
-
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Awaiting payment </span>
-          <v-btn color="#888888" outlined small
-            >initiating <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
-
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Payment Recieved </span>
-          <v-btn color="#888888" outlined small
-            >Pending <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
-
-        <div class="flex mt-5 justify-between">
-          <span class="capitalize font-semibold">Payment Status </span>
-          <v-btn color="#888888" outlined small
-            >Pending <v-icon right>mdi-check</v-icon></v-btn
-          >
-        </div>
-
         <div class="my-4">
-          <v-btn color="primary" elevation="0" @click="saveChanges"
+          <v-btn color="primary" :loading="isEditingOrder" :disabled="!canEditOrder" elevation="0" @click="saveChanges"
             >Save Changes</v-btn
           >
         </div>
@@ -321,6 +379,8 @@
             outlined
             v-model="createForm.weight"
             ref="weight"
+            suffix="Tonnes"
+            type="number"
             :rules="createFormRules.weight"
             hide-details="auto"
             placeholder="Enter Weight"
@@ -348,6 +408,8 @@
           <v-text-field
             label="Weight Recieved"
             v-model="createForm.weight_received"
+            suffix="Tonnes"
+            type="number"
             ref="weight_received"
             :rules="createFormRules.weight_received"
             outlined
@@ -357,6 +419,8 @@
           <v-text-field
             label="Weight Loss"
             v-model="createForm.weight_loss"
+            suffix="Tonnes"
+            type="number"
             ref="weight_loss"
             :rules="createFormRules.weight_loss"
             outlined
@@ -408,6 +472,7 @@ export default {
       },
       isCreatingOrder: false,
       isDeletingOrder: false,
+      isEditingOrder: false,
       createFormRules: {
         name: [(v) => !!v || 'Field is required'],
         weight: [(v) => !!v || 'Field is required'],
@@ -416,6 +481,16 @@ export default {
         weight_received: [(v) => !!v || 'Field is required'],
         weight_loss: [(v) => !!v || 'Field is required'],
       },
+      approvedStatutes:{
+        'Initiated':'grey',
+        'Approved':'success',
+        'Pending':'yellow',
+      },
+       otherStatutes:{
+        'Initiated':'grey',
+        'Pending':'yellow',
+        'Approved':'success',
+      }
     }
   },
   mounted() {
@@ -435,11 +510,39 @@ export default {
 
     editOrder(order) {
       this.editOrderDialog = true
-      this.selectedOrder = order
+      this.selectedOrder ={...order}
     },
 
-    saveChanges() {
-      this.editOrderDialog = false
+    async saveChanges() {
+         try {
+        this.isEditingOrder = true
+        await this.$API.order.updateOrder({
+          weight: this.selectedOrder.weight,
+          location: this.selectedOrder.location,
+          aggregated: this.selectedOrder.aggregated,
+          weight_received: this.selectedOrder.weightReceived,
+          weight_loss: this.selectedOrder.weightLoss,
+          order_status: this.selectedOrder.orderStatus,
+          aggregation_status: this.selectedOrder.aggregationStatus,
+          negotiation_status: this.selectedOrder.negotiationStatus,
+          delivery_status: this.selectedOrder.deliveryStatus,
+          payment_status: this.selectedOrder.paymentStatus,
+          produce_loading: this.selectedOrder.produceLoading,
+        }, this.selectedOrder.code)
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Order Deleted Successfully',
+          color: 'success',
+        })
+        await this.getAllOrders()
+        this.editOrderDialog = false
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isEditingOrder = false
+      }
     },
 
     deleteOrder(order) {
@@ -544,6 +647,19 @@ export default {
         })
         .every((val) => val == true)
     },
+
+    canEditOrder(){
+      if(this.selectedOrder){
+        if(JSON.stringify(this.selectedOrder) !== JSON.stringify(this.orderList.find(order => this.selectedOrder.id === order.id) )){
+          if(!!this.selectedOrder.weight  && !!this.selectedOrder.location  && !!this.selectedOrder.weightLoss && !!this.selectedOrder.weightReceived && !!this.selectedOrder.aggregated){
+            return true
+          }else{
+            return false
+          }
+        }
+      }
+      return false
+    }
   },
   watch: {
     createOderDialog(val) {
@@ -552,7 +668,7 @@ export default {
           this.createForm[form] = null
         })
       }
-    },
+    }
   },
 }
 </script>

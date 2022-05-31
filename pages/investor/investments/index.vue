@@ -129,14 +129,7 @@ export default {
         this.isLoadingInvestments = false
       }
     },
-  },
-  investments: {
-    deep: true,
-    immediate: true,
-    handler(val) {
-      console.log(JSON.stringify(val))
-    },
-  },
+  }
 }
 </script>
 
