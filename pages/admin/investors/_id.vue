@@ -12,7 +12,7 @@
 
     <div
       v-else
-      class="inline-flex gap-10 flex-wrap items-center mt-5 rounded-lg bg-white shadow mx-auto p-10"
+      class="flex gap-10 flex-wrap justify-between items-center mt-5 rounded-lg bg-white shadow mx-auto p-10"
     >
       <div>
         <span class="font-semibold text-3xl block">{{ user.fullname }}</span>
@@ -25,6 +25,10 @@
         <span class="text-yellow-500 bg-yellow-100 rounded-lg py-1 px-2" v-else
           >Pending verification</span
         >
+      </div>
+
+      <div v-if="!user.isVerified">
+        <v-btn color="primary" :loading="isVerifying" @click="verifyUser"  elevation="0"  rounded>Verify</v-btn>
       </div>
 
       <div class="p-5 rounded-lg" style="background-color: #9d1e230d">
@@ -209,6 +213,7 @@ export default {
       ],
 
       user: null,
+      isVerifying: false,
     }
   },
   mounted() {
@@ -226,6 +231,27 @@ export default {
           message: error.msg,
           color: 'error',
         })
+      }
+    },
+      async verifyUser() {
+      try {
+        this.isVerifying = true
+         await this.$API.user.verifyUser(
+          this.$route.params.id
+        )
+        this.$store.dispatch('alert/setAlert', {
+          message: 'User verified successfully',
+          color: 'success',
+        })
+        this.user = null
+        this.getUser();
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      }finally{
+        this.isVerifying = false
       }
     },
   }

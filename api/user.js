@@ -20,23 +20,23 @@ export default {
   fetchDetails() {
     return api().get(`/profile`, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
 
-  updateDetails(payload,role = 'investor') {
-    return api().put(`/profile`, payload,{
+  updateDetails(payload, role = 'investor') {
+    return api().put(`/profile`, payload, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
 
-  updateNextOfKin(payload,role = 'investor') {
-    return api().post(`/${role}/next-of-kin`, payload,{
+  updateNextOfKin(payload, role = 'investor') {
+    return api().post(`/${role}/next-of-kin`, payload, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
@@ -49,20 +49,28 @@ export default {
     return api().post('/resend-verify-code', payload)
   },
 
-  checkUser(payload){
-    return api().post('/user-exists',payload)
+  checkUser(payload) {
+    return api().post('/user-exists', payload)
   },
 
   changePassword(payload) {
-    return api().post(`/change-password`, payload,{
+    return api().post(`/change-password`, payload, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
   },
 
   fetchUserById(id) {
     return api().get(`/admin/users/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  },
+
+  verifyUser(id) {
+    return api().post(`/admin/verify-user/${id}`,{}, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },

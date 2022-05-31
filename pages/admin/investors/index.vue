@@ -4,7 +4,6 @@
 
     <v-data-table
       :headers="headers"
-      disable-sort
       disable-pagination
       hide-default-footer
       :items="users"
@@ -92,8 +91,6 @@ export default {
       headers: [
         {
           text: 'NAME OF INVESTOR',
-          align: 'start',
-          sortable: false,
           value: 'fullname',
         },
         { text: ' EMAIL', value: 'email' },

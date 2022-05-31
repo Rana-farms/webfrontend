@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <span class="block font-semibold text-2xl">Wallet</span>
+    <span class="block font-semibold text-2xl">Profits</span>
 
     <div
       class="bg-white p-5 py-8 rounded-md shadow-md mt-10 flex justify-center"

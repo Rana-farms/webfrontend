@@ -482,15 +482,14 @@ export default {
         weight_loss: [(v) => !!v || 'Field is required'],
       },
       approvedStatutes:{
+        'Initiated':'grey',
         'Approved':'success',
         'Pending':'yellow',
-        'Rejected':'red'
       },
        otherStatutes:{
         'Initiated':'grey',
         'Pending':'yellow',
-        'Sucessful':'success',
-        'Rejected':'red'
+        'Approved':'success',
       }
     }
   },
