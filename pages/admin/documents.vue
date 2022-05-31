@@ -6,18 +6,81 @@
         >upload document</v-btn
       >
     </div>
-    <div class="mt-8">
-      <div class="flex gap-8 flex-wrap">
+
+    <v-data-table
+      :headers="headers"
+      hide-default-footer
+      :items="documents"
+      :loading="isLoadingDoc"
+      class="elevation-0" 
+    >
+    
+
+       <template v-slot:[`item.name`]="{ item }">
+       <div class="flex items-center">
+         <img class=" h-9 inline-block mr-2 my-2" src="/images/doc-icon.svg" />
+          <span class="text-sm">{{ item.name }}</span>
+       </div>
+      </template>
+
+
+      <template v-slot:[`item.dateCreated`]="{ item }">
+        <span class="text-gray-600">{{
+          format(new Date(item.dateCreated), 'MMM do, y ')
+        }}</span>
+      </template>
+
+      <template v-slot:no-data>
         <div
-          v-for="doc in documents"
-          :key="doc"
-          class="shadow-sm cursor-pointer inline-block text-center rounded-md p-5 bg-white"
+          class="w-full flex items-center justify-center h-60"
+          v-if="!isLoadingDoc && documents.length == 0 && !errorLoading"
         >
-          <img class="block mx-auto my-3" src="/images/doc-icon.svg" />
-          <span class="mt-1 text-center block">January monthly report</span>
+          <div class="text-center text-flame">
+            <span class="block text-center">No documents</span>
+          </div>
         </div>
-      </div>
-    </div>
+
+        <div
+          class="w-full flex items-center justify-center h-60"
+          v-if="!isLoadingDoc && errorLoading"
+        >
+          <div class="text-center text-flame">
+            <v-icon size="50" color="primary"
+              >mdi-format-list-bulleted-square</v-icon
+            >
+            <span class="block text-center">Error loading documents...</span>
+            <v-btn color="primary" text @click="getAllDocuments">
+              <v-icon left>mdi-refresh</v-icon> Retry</v-btn
+            >
+          </div>
+        </div>
+      </template>
+
+      <template v-slot:loading>
+        <div class="w-full flex items-center justify-center h-72">
+          <div class="text-center text-flame">
+            <v-icon size="40" color="primary"
+              >mdi-format-list-bulleted-square</v-icon
+            >
+            <span class="block mt-2 font-semibold text-center"
+              >Loading documents...</span
+            >
+          </div>
+        </div>
+      </template>
+
+         <template v-slot:[`item.action`]="{ item }">
+          <v-btn color="#2E42A5" icon >
+            <v-icon>mdi-download</v-icon></v-btn
+          >
+          <v-btn color="#0C9F09"  icon>
+            <v-icon>mdi-pencil-outline</v-icon></v-btn
+          >
+          <v-btn color="#F42F54" icon>
+            <v-icon>mdi-trash-can-outline</v-icon></v-btn
+          >
+        </template>
+    </v-data-table>
 
     <!-- Upload Document -->
     <v-dialog
@@ -77,8 +140,8 @@
             name="cac"
             class="d-none"
             type="file"
-            accept="application/pdf, image/png, image/jpg, image/jpeg"
-            @change="documentUpload"
+            accept="application/pdf, application/docx, application/txt, image/png, image/jpg, image/jpeg"
+            @change="selectFile"
           />
         </div>
 
@@ -96,11 +159,19 @@
 </template>
 
 <script>
+import { format } from 'date-fns'
 export default {
   layout: 'admin',
   data() {
     return {
       uploadDocDialog: false,
+      format: format,
+      headers: [
+        { text: 'NAME', value: 'name' },
+        { text: 'DATE', value: 'dateCreated' },
+        { text: 'CODE', value: 'code' },
+        { text: 'ACTION', value: 'action' },
+      ],
       form: {
         name: '',
         investment_id: '',
@@ -112,25 +183,21 @@ export default {
       documents: [],
       investments: [],
       readers: null,
+      isLoadingDoc:false,
       isUploadingDoc: false,
+      errorLoading:false,
+      formData: null,
     }
   },
   mounted() {
+    this.getAllDocuments()
     this.getAllInvestments()
   },
   methods: {
-    documentUpload(e) {
-      const files = e.target.files
-      if (files) {
-        this.form.formname = files[0].name
-      }
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        this.form.file = e.target.result
-      }
-      if (e.target.files.length > 0) {
-        reader.readAsDataURL(e.target.files[0])
-      }
+    selectFile(event) {
+      this.formData = new FormData()
+      this.formData.append('file', event.target.files[0])
+      this.form.file = event.target.files[0]
     },
 
     initiateUploadDocument() {
@@ -144,16 +211,17 @@ export default {
     async uploadDocument() {
       try {
         this.isUploadingDoc = true
+        this.formData.append('name', this.form.name)
+        await this.$API.document.createDocument(this.formData)
         await this.createROI()
-        await this.$API.document.createDocument({
-          name: this.form.name,
-          file: this.form.file,
-        })
 
         this.$store.dispatch('alert/setAlert', {
           message: 'Document uploaded successfully',
           color: 'success',
         })
+
+        await this.getAllDocuments()
+        this.uploadDocDialog = false
       } catch (error) {
         this.$store.dispatch('alert/setAlert', {
           message: error.msg,
@@ -188,6 +256,23 @@ export default {
         })
       }
     },
+
+    async getAllDocuments() {
+      try {
+        this.isLoadingDoc = true
+        this.errorLoading = false
+        const { data } = await this.$API.document.fetchAllDocuments()
+        this.documents = data.data
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+        this.errorLoading = true
+      }finally{
+        this.isLoadingDoc = false
+      }
+    },
   },
   computed: {
     price: {
@@ -213,9 +298,9 @@ export default {
     },
   },
   watch: {
-    form: {
-      handler() {
-        // console.log(JSON.stringify(this.form, null, 2))
+    documents: {
+      handler(val) {
+       // console.log(JSON.stringify(val, null, 2))
       },
       deep: true,
       immediate: true,
