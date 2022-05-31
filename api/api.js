@@ -23,7 +23,7 @@ export default () => {
         console.log(JSON.stringify(error.response, null, 2))
       }
 
-      console.log(JSON.stringify(error, null, 2))
+      //console.log(JSON.stringify(error, null, 2))
 
 
 
