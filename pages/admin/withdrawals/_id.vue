@@ -26,7 +26,7 @@
             <v-btn
               color="green"
               dark
-              @click="aproveWithdrawal"
+              @click="aproveWithdrawalPaystack"
               :loading="isApprovingWithdrawal"
               v-if="request.status.toLowerCase() == 'pending'"
               elevation="0"
@@ -76,6 +76,8 @@
           v-if="request.status.toLowerCase() == 'pending'"
           dark
           elevation="0"
+          :loading="isApprovingWithdrawal"
+          @click="bankPayment"
           rounded
           >Paied Manually <v-icon right>mdi-cash</v-icon></v-btn
         >
@@ -112,12 +114,35 @@ export default {
         })
       }
     },
+    
 
-    async aproveWithdrawal() {
+    async aproveWithdrawalPaystack() {
       try {
         this.isApprovingWithdrawal = true
 
         await this.$API.withdrawal.approveWithdrawal(
+          this.$route.params.id
+        )
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Withdrawal request approved successfully',
+          color: 'success',
+        })
+        this.getWithdrawal()
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isApprovingWithdrawal = false
+      }
+    },
+
+      async bankPayment() {
+      try {
+        this.isApprovingWithdrawal = true
+
+        await this.$API.withdrawal.paiedMannually(
           this.$route.params.id
         )
         this.$store.dispatch('alert/setAlert', {

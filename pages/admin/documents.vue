@@ -70,9 +70,11 @@
       </template>
 
          <template v-slot:[`item.action`]="{ item }">
+          <a :href="item.file" target="_blank">
           <v-btn color="#2E42A5" icon >
             <v-icon>mdi-download</v-icon></v-btn
           >
+          </a>
           <v-btn color="#0C9F09"  icon>
             <v-icon>mdi-pencil-outline</v-icon></v-btn
           >
@@ -168,9 +170,9 @@ export default {
       format: format,
       headers: [
         { text: 'NAME', value: 'name' },
-        { text: 'DATE', value: 'dateCreated' },
-        { text: 'CODE', value: 'code' },
-        { text: 'ACTION', value: 'action' },
+        { text: 'DATE', value: 'dateCreated',  align: 'center' },
+        { text: 'CODE', value: 'code', align: 'center' },
+        { text: 'ACTION', value: 'action', sortable: false, align: 'center' },
       ],
       form: {
         name: '',
