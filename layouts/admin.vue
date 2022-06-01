@@ -122,7 +122,7 @@ export default {
           link: '/admin/admins',
         },
         {
-          text: 'Docs',
+          text: 'Documents',
           icon: 'mdi-file-document-multiple-outline',
           link: '/admin/documents',
         },

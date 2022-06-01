@@ -37,7 +37,7 @@
             <v-btn
               color="green"
               icon
-              v-if="item.transaction_type == 'Investment'"
+              v-if="item.transaction_type == 'Investment' || item.transaction_type == 'ROI'"
             >
               <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
             >
@@ -58,7 +58,7 @@
             class="uppercase"
             :class="{
               'text-green-500':
-                item.status.toLowerCase() == 'completed',
+                item.status.toLowerCase() == 'success',
                 'text-gray-500':
                 item.status.toLowerCase() == 'processing',
               'text-yellow-500':

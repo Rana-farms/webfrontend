@@ -5,9 +5,7 @@
       <v-data-table
         :headers="withdrawalRequestHeaders"
         :items="withdrawalHistories"
-        disable-pagination
         :loading="isLoadingWithdrawals"
-        hide-default-footer
         class="elevation-0"
       >
         <template v-slot:no-data>

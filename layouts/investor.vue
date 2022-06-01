@@ -115,6 +115,11 @@ export default {
           icon: 'mdi-inbox-outline',
           link: '/investor/orders',
         },
+         {
+          text: 'Documents',
+          icon: 'mdi-file-document-multiple-outline',
+          link: '/investor/documents',
+        },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
