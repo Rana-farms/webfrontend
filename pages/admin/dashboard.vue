@@ -15,7 +15,7 @@
     </div>
 
     <div class="flex flex-col lg:flex-row gap-4">
-       <monthly-chart />
+       <monthly-chart :data="roiMetrics" />
 
       <div class="lg:w-2/5">
          <investment-plans :plans="metrics.investments" />
@@ -122,77 +122,7 @@ export default {
         capitalBalance: null,
         investments: null,
       },
-
-      depositHistoryHeaders: [
-        { text: 'NAME OF INVESTMENT PLAN', value: 'trust' },
-        { text: 'NAME OF INVESTOR', value: 'investor' },
-        { text: 'AMOUNT', value: 'amount' },
-        { text: 'DATE', value: 'date' },
-
-        { text: 'STATUS', value: 'status' },
-      ],
-      depositHistories: [
-        {
-          trust: 'Agricultural Commodity Trust ',
-          date: '12 oct. 2021, 07:29PM',
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          status: 'pending',
-        },
-        {
-          trust: 'Agricultural Logistic Trust ',
-          date: '12 oct. 2021, 07:29PM',
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          status: 'success',
-        },
-        {
-          trust: 'Agricultural Storage Trust ',
-          date: '12 oct. 2021, 07:29PM',
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          status: 'failed',
-        },
-      ],
-
-      withdrawalRequestHeaders: [
-        { text: 'NAME OF INVESTOR', value: 'investor' },
-        { text: 'AMOUNT', value: 'amount' },
-        { text: 'TRANSACTION FEE', value: 'fee' },
-
-        { text: 'STATUS', value: 'status' },
-        { text: ' ', value: 'id' },
-      ],
-      withdrawalHistories: [
-        {
-          id: 1,
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          fee: '₦3,000',
-          status: 'pending',
-        },
-        {
-          id: 1,
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          fee: '₦3,000',
-          status: 'success',
-        },
-        {
-          id: 1,
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          fee: '₦3,000',
-          status: 'pending',
-        },
-        {
-          id: 1,
-          investor: 'Jane Doe',
-          amount: '₦3,000,000.00',
-          fee: '₦3,000',
-          status: 'pending',
-        },
-      ],
+      roiMetrics:[]
     }
   },
   async mounted() {
@@ -205,7 +135,20 @@ export default {
         color: 'error',
       })
     }
+
+
+     try {
+      const { data } = await this.$API.investment.fetchROIMetrics('admin')
+      this.roiMetrics = data.data
+    } catch (error) {
+      this.$store.dispatch('alert/setAlert', {
+        message: error.msg,
+        color: 'error',
+      })
+    }
   },
+
+  
 }
 </script>
 <style lang="scss" scoped>

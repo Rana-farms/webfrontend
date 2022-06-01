@@ -13,7 +13,7 @@
       <captial-account-balance :balance="metrics.capitalBalance" />
     </div>
     <div class="flex flex-col lg:flex-row gap-4">
-      <monthly-chart />
+      <monthly-chart :data="roiMetrics" />
 
       <div class="lg:w-2/5">
         <investment-plans :plans="metrics.investments" />
@@ -50,12 +50,23 @@ export default {
         capitalBalance: null,
         investments: null,
       },
+      roiMetrics: [],
     }
   },
   async mounted() {
     try {
       const { data } = await this.$API.investment.fetchMetrics()
       this.metrics = data.data
+    } catch (error) {
+      this.$store.dispatch('alert/setAlert', {
+        message: error.msg,
+        color: 'error',
+      })
+    }
+
+    try {
+      const { data } = await this.$API.investment.fetchROIMetrics()
+      this.roiMetrics = data.data
     } catch (error) {
       this.$store.dispatch('alert/setAlert', {
         message: error.msg,

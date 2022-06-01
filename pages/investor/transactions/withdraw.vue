@@ -66,7 +66,7 @@
         >
 
         <span class="text-center block w-4/5 md:w-3/5 mx-auto text-gray-500"
-          >Your funds would be credited to your account within 24 hours</span
+          >Your withdrawal request is been processed</span
         >
       </div>
 
@@ -76,7 +76,7 @@
           style="width: 50%"
           class="mt-10"
           color="primary"
-          to="/investor/dashboard"
+          @click="home"
           large
           >Okay</v-btn
         >
@@ -96,7 +96,7 @@ export default {
         amount: '',
         password: '',
       },
-      minimumAmount: 100,
+      minimumAmount: 50000,
       maximumAmount: 1000000,
     }
   },
@@ -123,6 +123,10 @@ export default {
       } finally {
         this.isWithdrawing = false
       }
+    },
+    async home() {
+      await this.$store.dispatch('user/fetchDetails')
+      this.$router.replace('/dashboard')
     },
   },
   computed: {
