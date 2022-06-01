@@ -24,4 +24,12 @@ export default {
       },
     })
   },
+
+  paiedMannually(id) {
+    return api().post(`/admin/approve-withdrawal-manual/${id}`,null, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  }
 }

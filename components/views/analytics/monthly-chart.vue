@@ -24,7 +24,7 @@ export default {
       series: [
         {
           name: 'Monthly ROI',
-          type: 'column',
+          type: 'area',
           data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
         },
         // {
@@ -62,7 +62,7 @@ export default {
             type: 'vertical',
             opacityFrom: 0.85,
             opacityTo: 0.55,
-            stops: [0, 100, 100, 100],
+           // stops: [0, 100, 100, 100],
           },
         },
         labels: [
@@ -86,7 +86,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Points',
+            text: 'Monthy ROI',
           },
           min: 0,
         },
@@ -94,9 +94,9 @@ export default {
           shared: true,
           intersect: false,
           y: {
-            formatter: function (y) {
+             formatter: (y) => {
               if (typeof y !== 'undefined') {
-                return y.toFixed(0) + ' points'
+                return this.formatToNaira(Number(y)) 
               }
               return y
             },

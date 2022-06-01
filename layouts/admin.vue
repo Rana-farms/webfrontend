@@ -69,7 +69,7 @@
             >
             <span class="text-gray-500">{{ $profile.fullname }}</span>
           </router-link>
-          <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
+          <!-- <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn> -->
         </div>
       </div>
     </v-app-bar>
@@ -106,6 +106,11 @@ export default {
           icon: 'mdi-account-multiple-outline',
           link: '/admin/investors',
         },
+         {
+          text: 'Admins',
+          icon: 'mdi-account-multiple-outline',
+          link: '/admin/admins',
+        },
           {
           text: 'Transactions',
           icon: 'mdi-format-list-bulleted',
@@ -116,13 +121,8 @@ export default {
           icon: 'mdi-cash-multiple',
           link: '/admin/withdrawals',
         },
-          {
-          text: 'Admins',
-          icon: 'mdi-account-multiple-outline',
-          link: '/admin/admins',
-        },
         {
-          text: 'Docs',
+          text: 'Documents',
           icon: 'mdi-file-document-multiple-outline',
           link: '/admin/documents',
         },

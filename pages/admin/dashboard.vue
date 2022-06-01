@@ -4,20 +4,21 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-4"
     >
-      <admin-monthly-roi
+      <monthly-roi
         :roi="metrics.monthlyRoi"
         :percentageIncrease="metrics.percentageSinceLastMonths"
       />
-      <admin-net-income :income="metrics.netIncome" />
-      <admin-available-funds :funds="metrics.availableFunds" />
-      <admin-captial-accoun-bal :balance="metrics.capitalBalance" />
+      <net-income :income="metrics.netIncome" />
+      <available-funds :funds="metrics.availableFunds" />
+      <captial-account-balance :balance="metrics.capitalBalance" />
+      
     </div>
 
     <div class="flex flex-col lg:flex-row gap-4">
-      <admin-analytics />
+       <monthly-chart />
 
       <div class="lg:w-2/5">
-        <investment-plans :plans="metrics.investments" />
+         <investment-plans :plans="metrics.investments" />
       </div>
     </div>
 
@@ -94,21 +95,21 @@
 </template>
 
 <script>
-import AdminMonthlyRoi from '~/components/admin/pages/dashboard/admin-monthly-roi.vue'
-import AdminNetIncome from '~/components/admin/pages/dashboard/admin-net-income.vue'
-import AdminAvailableFunds from '~/components/admin/pages/dashboard/admin-available-funds.vue'
-import AdminCaptialAccounBal from '~/components/admin/pages/dashboard/admin-captial-accoun-bal.vue'
-import AdminAnalytics from '~/components/admin/pages/dashboard/admin-analytics.vue'
-import InvestmentPlans from '~/components/admin/pages/dashboard/admin-investment-plans.vue'
+import MonthlyRoi from '~/components/views/analytics/monthly-roi.vue'
+import NetIncome from '~/components/views/analytics/net-income.vue'
+import AvailableFunds from '~/components/views/analytics/available-funds.vue'
+import CaptialAccountBalance from '~/components/views/analytics/capital-account-balance.vue'
+import MonthlyChart from '~/components/views/analytics/monthly-chart.vue'
+import InvestmentPlans from '~/components/views/analytics/investment-plans.vue'
 
 export default {
   layout: 'admin',
   components: {
-    AdminMonthlyRoi,
-    AdminNetIncome,
-    AdminAvailableFunds,
-    AdminCaptialAccounBal,
-    AdminAnalytics,
+   MonthlyRoi,
+    NetIncome,
+    AvailableFunds,
+    CaptialAccountBalance,
+    MonthlyChart,
     InvestmentPlans,
   },
   data() {

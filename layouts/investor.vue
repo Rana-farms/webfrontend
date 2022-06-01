@@ -69,7 +69,7 @@
             >
             <span class="text-gray-500">{{ $profile.fullname }}</span>
           </router-link>
-          <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn>
+          <!-- <v-btn color="primary" icon> <v-icon>mdi-bell-outline</v-icon></v-btn> -->
         </div>
       </div>
     </v-app-bar>
@@ -114,6 +114,11 @@ export default {
           text: 'Orders',
           icon: 'mdi-inbox-outline',
           link: '/investor/orders',
+        },
+         {
+          text: 'Documents',
+          icon: 'mdi-file-document-multiple-outline',
+          link: '/investor/documents',
         },
         {
           text: 'Settings',

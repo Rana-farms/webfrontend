@@ -2,9 +2,6 @@
   <div class="page">
     <div class="mb-5 flex justify-between">
       <span class="font-semibold text-2xl">Documents</span>
-      <v-btn color="primary" elevation="0" @click="initiateUploadDocument"
-        >upload document</v-btn
-      >
     </div>
 
     <v-data-table
@@ -75,12 +72,6 @@
             <v-icon>mdi-download</v-icon></v-btn
           >
           </a>
-          <v-btn color="#0C9F09"  icon>
-            <v-icon>mdi-pencil-outline</v-icon></v-btn
-          >
-          <v-btn color="#F42F54" icon>
-            <v-icon>mdi-trash-can-outline</v-icon></v-btn
-          >
         </template>
     </v-data-table>
 
@@ -163,7 +154,7 @@
 <script>
 import { format } from 'date-fns'
 export default {
-  layout: 'admin',
+  layout: 'investor',
   data() {
     return {
       uploadDocDialog: false,
@@ -193,71 +184,10 @@ export default {
   },
   mounted() {
     this.getAllDocuments()
-    this.getAllInvestments()
+ 
   },
   methods: {
-    selectFile(event) {
-      this.formData = new FormData()
-      this.formData.append('file', event.target.files[0])
-      this.form.file = event.target.files[0]
-    },
-
-    initiateUploadDocument() {
-      this.uploadDocDialog = true
-    },
-
-    cancelUploadDocument() {
-      this.uploadDocDialog = false
-    },
-
-    async uploadDocument() {
-      try {
-        this.isUploadingDoc = true
-        this.formData.append('name', this.form.name)
-        await this.$API.document.createDocument(this.formData)
-        await this.createROI()
-
-        this.$store.dispatch('alert/setAlert', {
-          message: 'Document uploaded successfully',
-          color: 'success',
-        })
-
-        await this.getAllDocuments()
-        this.uploadDocDialog = false
-      } catch (error) {
-        this.$store.dispatch('alert/setAlert', {
-          message: error.msg,
-          color: 'error',
-        })
-      } finally {
-        this.isUploadingDoc = false
-      }
-    },
-    async createROI() {
-      try {
-        await this.$API.admin.createROI({
-          investment_id: this.form.investment_id,
-          amount: this.form.amount,
-        })
-      } catch (error) {
-        this.$store.dispatch('alert/setAlert', {
-          message: error.msg,
-          color: 'error',
-        })
-      }
-    },
-
-    async getAllInvestments() {
-      try {
-        const { data } = await this.$API.investment.fetchAllInvestments()
-        this.investments = data.data
-      } catch (error) {
-        this.$store.dispatch('alert/setAlert', {
-          message: error.msg,
-          color: 'error',
-        })
-      }
-    },
+  
 
     async getAllDocuments() {
       try {
@@ -275,39 +205,7 @@ export default {
         this.isLoadingDoc = false
       }
     },
-  },
-  computed: {
-    price: {
-      get() {
-        return this.formatToNaira(Number(this.form.amount))
-      },
-      set(val) {
-        const number = Number(val.toString().replace(/,/g, '').replace('₦', ''))
-        if (isNaN(number)) {
-          this.form.amount = 0
-        } else {
-          this.form.amount = number
-        }
-      },
-    },
-    canContinue() {
-      return (
-        this.form.name &&
-        this.form.investment_id &&
-        this.form.amount &&
-        this.form.file
-      )
-    },
-  },
-  watch: {
-    documents: {
-      handler(val) {
-       // console.log(JSON.stringify(val, null, 2))
-      },
-      deep: true,
-      immediate: true,
-    },
-  },
+  }
 }
 </script>
 
