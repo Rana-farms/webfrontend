@@ -4,16 +4,16 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center py-8 gap-4"
     >
-      <investor-monthly-roi
+      <monthly-roi
         :roi="metrics.monthlyRoi"
         :percentageIncrease="metrics.percentageSinceLastMonths"
       />
-      <investor-net-income :income="metrics.netIncome" />
-      <investor-available-funds :funds="metrics.availableFunds" />
-      <investor-captial-accoun-bal :balance="metrics.capitalBalance" />
+      <net-income :income="metrics.netIncome" />
+      <available-funds :funds="metrics.availableFunds" />
+      <captial-account-balance :balance="metrics.capitalBalance" />
     </div>
     <div class="flex flex-col lg:flex-row gap-4">
-      <investor-analytics />
+      <monthly-chart />
 
       <div class="lg:w-2/5">
         <investment-plans :plans="metrics.investments" />
@@ -23,21 +23,21 @@
 </template>
 
 <script>
-import InvestorMonthlyRoi from '~/components/investor/pages/index/investor-monthly-roi.vue'
-import InvestorNetIncome from '~/components/investor/pages/index/investor-net-income.vue'
-import InvestorAvailableFunds from '~/components/investor/pages/index/investor-available-funds.vue'
-import InvestorCaptialAccounBal from '~/components/investor/pages/index/investor-captial-accoun-bal.vue'
-import InvestorAnalytics from '~/components/investor/pages/index/investor-analytics.vue'
-import InvestmentPlans from '~/components/investor/pages/index/investment-plans.vue'
+import MonthlyRoi from '~/components/views/analytics/monthly-roi.vue'
+import NetIncome from '~/components/views/analytics/net-income.vue'
+import AvailableFunds from '~/components/views/analytics/available-funds.vue'
+import CaptialAccountBalance from '~/components/views/analytics/capital-account-balance.vue'
+import MonthlyChart from '~/components/views/analytics/monthly-chart.vue'
+import InvestmentPlans from '~/components/views/analytics/investment-plans.vue'
 
 export default {
   layout: 'investor',
   components: {
-    InvestorMonthlyRoi,
-    InvestorNetIncome,
-    InvestorAvailableFunds,
-    InvestorCaptialAccounBal,
-    InvestorAnalytics,
+    MonthlyRoi,
+    NetIncome,
+    AvailableFunds,
+    CaptialAccountBalance,
+    MonthlyChart,
     InvestmentPlans,
   },
   data() {

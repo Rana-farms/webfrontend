@@ -16,9 +16,11 @@
         <v-icon size="40" color="#6E81DF">mdi-poll</v-icon>
       </div>
       <div class="mt-3 text-sm" v-if="percentageIncrease != null">
-        <span class="inline-flex items-center" style="color: #039e00"
-          >{{ percentageIncrease }}%
-          <v-icon color="#039E00">mdi-arrow-up-bold</v-icon></span
+        <span class="inline-flex items-center" :class="{'text-green-500': parseInt(percentageIncrease) > 0, 'text-red-500': parseInt(percentageIncrease) < 0}">
+          {{ percentageIncrease }} 
+          <v-icon color="success" v-if="parseInt(percentageIncrease) > 0">mdi-arrow-up-bold</v-icon>
+          <v-icon color="error" v-if="parseInt(percentageIncrease) < 0">mdi-arrow-down-bold</v-icon>
+          </span
         >
         <span class="text-gray-400">Since Last Month</span>
       </div>
