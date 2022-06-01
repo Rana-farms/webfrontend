@@ -106,6 +106,11 @@ export default {
           icon: 'mdi-account-multiple-outline',
           link: '/admin/investors',
         },
+         {
+          text: 'Admins',
+          icon: 'mdi-account-multiple-outline',
+          link: '/admin/admins',
+        },
           {
           text: 'Transactions',
           icon: 'mdi-format-list-bulleted',
@@ -115,11 +120,6 @@ export default {
           text: 'Withdrawals',
           icon: 'mdi-cash-multiple',
           link: '/admin/withdrawals',
-        },
-          {
-          text: 'Admins',
-          icon: 'mdi-account-multiple-outline',
-          link: '/admin/admins',
         },
         {
           text: 'Documents',
