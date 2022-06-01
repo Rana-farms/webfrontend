@@ -49,4 +49,12 @@ export default {
       },
     })
   },
+
+  fetchROIMetrics(role = 'investor') {
+    return api().get(`/${role}/dashboard-graph`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+  }
 }

@@ -1,5 +1,4 @@
 export default async function ({ store, redirect, route }) {
-  console.log(route.name)
   //check user logged in browser
   let status = localStorage.getItem('token')
 

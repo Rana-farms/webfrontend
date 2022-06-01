@@ -75,10 +75,10 @@
             <v-icon>mdi-download</v-icon></v-btn
           >
           </a>
-          <v-btn color="#0C9F09"  icon>
+          <v-btn @click="editDOc(item)" color="#0C9F09"  icon>
             <v-icon>mdi-pencil-outline</v-icon></v-btn
           >
-          <v-btn color="#F42F54" icon>
+          <v-btn  @click="deleteDoc(item)" color="#F42F54" icon>
             <v-icon>mdi-trash-can-outline</v-icon></v-btn
           >
         </template>
@@ -142,7 +142,7 @@
             name="cac"
             class="d-none"
             type="file"
-            accept="application/pdf, application/docx, application/txt, image/png, image/jpg, image/jpeg"
+            accept="application/pdf, application/docx, application/doc, application/xls, application/xlsx, application/txt"
             @change="selectFile"
           />
         </div>
@@ -157,6 +157,66 @@
         >
       </div>
     </v-dialog>
+
+
+      <!-- Delete Oder -->
+    <v-dialog
+      v-model="deleteDocDialog"
+      max-width="400px"
+      transition="dialog-transition"
+      :persistent="isDeleteingDoc"
+    >
+      <div class="bg-white p-8 rounded-md shadow">
+        <span class="font-semibold block text-center text-lg"
+          >Are you sure you want to delete this document?</span
+        >
+
+        <div class="flex mt-12 justify-between">
+          <v-btn
+            v-if="!isDeleteingDoc"
+            elevation="0"
+            @click="cancelDeleteDOc"
+            dark
+            color="#EE1D23"
+            >Cancel</v-btn
+          >
+          <v-btn
+            elevation="0"
+            @click="confirmDeleteDoc"
+            :loading="isDeleteingDoc"
+            dark
+            color="#27AE60"
+            >Delete</v-btn
+          >
+        </div>
+      </div>
+    </v-dialog>
+
+      <!-- Delete Oder -->
+    <v-dialog
+      v-model="editDocDialog"
+      max-width="400px"
+      transition="dialog-transition"
+      :persistent="isEditingDoc"
+    >
+      <div class="bg-white p-8 rounded-md shadow" v-if="selectedDoc">
+        <span class="font-semibold block mb-3 text-center text-lg"
+          >Edit Document name?</span
+        >
+
+        <v-text-field
+        v-model="selectedDoc.name"
+          hide-details="auto"
+          outlined
+          label="Name of Document"
+          placeholder="Name of Document"
+          id="id"
+        ></v-text-field>
+
+        <v-btn color="primary" @click="updateDocument" elevation="0" :disabled="!selectedDoc.name" :loading="isEditingDoc"  class="mt-5">Save Changes</v-btn>
+      </div>
+    </v-dialog>
+
   </div>
 </template>
 
@@ -181,7 +241,6 @@ export default {
         file: null,
         formname: null,
       },
-      chosenFile: null,
       documents: [],
       investments: [],
       readers: null,
@@ -189,6 +248,11 @@ export default {
       isUploadingDoc: false,
       errorLoading:false,
       formData: null,
+      deleteDocDialog: false,
+      isDeleteingDoc: false,
+      selectedDoc: null,
+      editDocDialog: false,
+      isEditingDoc: false,
     }
   },
   mounted() {
@@ -244,6 +308,64 @@ export default {
           message: error.msg,
           color: 'error',
         })
+      }
+    },
+
+    
+    deleteDoc(doc) {
+      this.deleteDocDialog = true
+      this.selectedDoc = doc
+    },
+
+    cancelDeleteDOc() {
+      this.deleteDocDialog = false
+      this.selectedDoc = null
+    },
+
+     async confirmDeleteDoc() {
+      try {
+        this.isDeleteingDoc = true
+        await this.$API.document.deleteDocument(this.selectedDoc.code)
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Document Deleted Successfully',
+          color: 'success',
+        })
+        await this.getAllDocuments()
+        this.deleteDocDialog = false
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isDeleteingDoc = false
+      }
+    },
+
+     editDOc(doc) {
+      this.editDocDialog = true
+      this.selectedDoc = {...doc}
+    },
+
+    async updateDocument() {
+       try {
+        this.isEditingDoc = true
+        await this.$API.document.updateDocument({
+          name: this.selectedDoc.name,
+        }, this.selectedDoc.code)
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Document Update!',
+          color: 'success',
+        })
+        await this.getAllDocuments()
+        this.editDocDialog = false
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isEditingDoc = false
       }
     },
 
@@ -306,6 +428,16 @@ export default {
       },
       deep: true,
       immediate: true,
+    },
+
+    uploadDocDialog(val) {
+      if (!val) {
+        this.form.name = ''
+        this.form.investment_id = ''
+        this.form.amount = ''
+        this.form.file = null
+        this.form.formname = null
+      }
     },
   },
 }
