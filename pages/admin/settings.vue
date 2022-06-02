@@ -38,9 +38,9 @@ export default {
             link:'/admin/settings/profile'
         },
          {
-          text: 'Change Password',
-          link: '/admin/settings/password',
-        },
+            text:'Change Password',
+            link:'/admin/settings/password'
+        }
       ],
     }
   },
