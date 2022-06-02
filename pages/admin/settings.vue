@@ -36,7 +36,11 @@ export default {
          {
             text:'Profile',
             link:'/admin/settings/profile'
-        }
+        },
+         {
+          text: 'Change Password',
+          link: '/admin/settings/password',
+        },
       ],
     }
   },
