@@ -95,6 +95,11 @@
 import { format } from 'date-fns'
 export default {
   layout: 'admin',
+    middleware({ store, redirect }) {
+    if(store.getters['user/isSuperAdmin'] !== true) {
+      redirect('/dashboard')
+    }
+  },
   data() {
     return {
       format: format,

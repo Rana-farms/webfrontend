@@ -145,11 +145,13 @@ export default {
         try {
           this.isUpdatingAccount = true
           const { data } = await this.$API.bank.updateAccount(this.bank)
+           await this.$store.dispatch('user/fetchDetails')
           this.$store.dispatch('alert/setAlert', {
             message: data.msg || 'Bank details updated successfully',
             color: 'success',
             timeout: 10000,
           })
+          
         } catch (err) {
           this.$store.dispatch('alert/setAlert', {
             message: err.msg || 'Something went wrong',
