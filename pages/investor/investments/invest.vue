@@ -103,7 +103,14 @@ export default {
     },
 
     payViaPaystack() {
-      this.addNewCardDialog = false
+
+      if(!this.$profile.isVerified){
+         this.$store.dispatch('alert/setAlert', {
+          color: 'error',
+          message: 'Your account has not yet been verified!',
+        })
+        return
+      }
 
       this.scriptLoaded &&
         this.scriptLoaded.then(() => {
