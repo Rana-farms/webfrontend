@@ -19,7 +19,7 @@ export default async function ({ store, redirect, route }) {
       }
     } catch (err) {
 
-      if (err.status == 400) {
+      if (err.status == 400 || err.status == 401) {
         store.dispatch('alert/setAlert', {
           message: err.msg,
           color: 'error',
