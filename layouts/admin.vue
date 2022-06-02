@@ -124,7 +124,7 @@ export default {
           text: 'Withdrawals',
           icon: 'mdi-cash-multiple',
           link: '/admin/withdrawals',
-          permissions: ['Super Admin', 'Admin'],
+          permissions: ['Super Admin'],
         },
         {
           text: 'Documents',
@@ -142,7 +142,7 @@ export default {
           text: 'Settings',
           icon: 'mdi-cog-outline',
           link: '/admin/settings',
-          permissions: ['Super Admin'],
+          permissions: ['Super Admin','Admin'],
         },
         {
           text: 'Logout',
