@@ -29,8 +29,8 @@
           >
         </div>
       </template>
-      <template v-slot:[`item.action`]="{ item }">
-        <v-menu open-on-hover offset-y bottom max-width="94vw">
+      <template v-slot:[`item.action`]="{ item }" >
+        <v-menu open-on-hover offset-y bottom max-width="94vw"  v-if="$profile.id !== item.id">
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" v-on="on" icon elevation="0" small>
               <v-icon>mdi-dots-horizontal</v-icon>

@@ -148,7 +148,8 @@ export default {
           color: 'success',
           message: req.data.message,
         })
-
+        
+        await this.$store.dispatch('user/fetchDetails')
         this.$router.replace('/investor/investments')
       } catch (err) {
         this.$store.dispatch('alert/setAlert', {
