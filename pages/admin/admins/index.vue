@@ -235,14 +235,15 @@
 <script>
 export default {
   layout: 'admin',
+      middleware({ store, redirect }) {
+    if(store.getters['user/isSuperAdmin'] !== true) {
+      redirect('/dashboard')
+    }
+  },
   data() {
     return {
       inviteDialog: false,
       removeAdminDialog: false,
-      // roles: [
-      //   { text: 'Admin', value: 'admin' },
-      //   { text: 'Super Admin', value: 'super-admin' },
-      // ],
       headers: [
         {
           text: 'Name ',
