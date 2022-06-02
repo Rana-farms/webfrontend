@@ -11,11 +11,13 @@
     ></v-skeleton-loader>
 
     <div v-else>
-      <div class="bg-white max-w-3xl">
+      <div class="bg-white max-w-3xl p-10">
+        <div class=" text-right">{{ format(new Date(request.user.created_at), 'MMM do, y ') }}</div>
         <div
-          class="flex gap-10 flex-wrap items-center justify-between mt-5 rounded-lg shadow mx-auto p-10"
+          class="flex gap-10 flex-wrap items-center justify-between rounded-lg  mx-auto "
         >
           <div>
+            
             <span class="font-semibold text-2xl block">{{
               request.user.fullname
             }}</span>
