@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
       <div class="hidden md:flex items-center">
         <v-hover v-slot="{ hover }">
-          <nuxt-link to="/about-us">
+          <nuxt-link to="/who-we-are">
             <v-btn
               rounded
               :ripple="false"
@@ -31,7 +31,7 @@
         </v-hover>
 
         <v-hover v-slot="{ hover }">
-          <nuxt-link to="/purpose">
+          <nuxt-link to="/what-we-do">
             <v-btn
               rounded
               :ripple="false"
@@ -86,8 +86,8 @@
       :class="{ 'mobile-popup--show': showPopup }"
     >
       <div class="mobile-popup__links">
-        <router-link to="/about-us"> Who we arssse </router-link>
-        <router-link to="/purpose"> What we do </router-link>
+        <router-link to="/who-we-are"> Who we are </router-link>
+        <router-link to="/what-we-do"> What we do </router-link>
         <router-link to="/contact-us"> Contact us </router-link>
          <li>
           <a href="https://www.hope.com/" target="_blank">Bitcoin</a>
