@@ -30,7 +30,7 @@
         <v-list dense rounded>
           <v-list-item-group color="primary">
             <v-list-item
-              v-for="(item, i) in items"
+              v-for="(item, i) in routes"
               link
               :to="item.link"
               :key="i"
@@ -99,47 +99,56 @@ export default {
           text: 'Dashboard',
           icon: 'mdi-home-variant-outline',
           link: '/admin/dashboard',
+          permissions: ['Super Admin', 'Admin'],
         },
 
         {
           text: 'Investors',
           icon: 'mdi-account-multiple-outline',
           link: '/admin/investors',
+          permissions: ['Super Admin', 'Admin'],
         },
          {
           text: 'Admins',
           icon: 'mdi-account-multiple-outline',
           link: '/admin/admins',
+          permissions: ['Super Admin'],
         },
           {
           text: 'Transactions',
           icon: 'mdi-format-list-bulleted',
           link: '/admin/transactions',
+          permissions: ['Super Admin', 'Admin'],
         },
          {
           text: 'Withdrawals',
           icon: 'mdi-cash-multiple',
           link: '/admin/withdrawals',
+          permissions: ['Super Admin', 'Admin'],
         },
         {
           text: 'Documents',
           icon: 'mdi-file-document-multiple-outline',
           link: '/admin/documents',
+          permissions: ['Super Admin', 'Admin'],
         },
         {
           text: 'Orders',
           icon: 'mdi-inbox-outline',
           link: '/admin/orders',
+          permissions: ['Super Admin', 'Admin'],
         },
         {
           text: 'Settings',
           icon: 'mdi-cog-outline',
           link: '/admin/settings',
+          permissions: ['Super Admin'],
         },
         {
           text: 'Logout',
           icon: 'mdi-logout',
           link: '/logout',
+          permissions: ['Super Admin', 'Admin']
         },
       ],
     }
@@ -171,6 +180,11 @@ export default {
       this.showPopup = false
     },
   },
+  computed:{
+    routes(){
+      return this.items.filter(item => item.permissions.includes(this.$profile.role))
+    }
+  }
 }
 </script>
 
