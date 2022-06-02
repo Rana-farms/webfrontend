@@ -26,6 +26,7 @@ export const getters = {
         address: state.user.address,
         role: state.user.role.name,
         status: state.user.status,
+        isVerified: state.user.isVerified
       }
   },
   token: (state) => state.token,
@@ -34,7 +35,7 @@ export const getters = {
   bank(state) {
     if (state.bank)
       return {
-        bank_id: state.user.bank.bankId,
+        bank_id: Number(state.user.bank.bankId),
         account_no: state.user.bank.accountNumber,
         account_name: state.user.bank.accountName,
         bank_name: state.user.bank.bankName,

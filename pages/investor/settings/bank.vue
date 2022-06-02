@@ -4,14 +4,13 @@
       >Bank Settings</span
     >
     <div class="mb-10">
-        <v-select
+      <v-select
         v-model="bank.bank_id"
         ref="bank_id"
         name="Bank Name"
         label="Bank Name"
         :loading="isLoadingBanks"
-                class="mt-5 mb-8 pa-0"
-
+        class="mt-5 mb-8 pa-0"
         outlined
         hide-details="auto"
         :items="bankList"
@@ -25,8 +24,7 @@
         ref="account_no"
         name="Account Number"
         label="Account Number"
-                class="mt-5 mb-8 pa-0"
-
+        class="mt-5 mb-8 pa-0"
         type="number"
         outlined
         hide-details="auto"
@@ -39,8 +37,7 @@
         name="Account Name"
         label="Account Name"
         :loading="isResolvingAccount"
-                class="mt-5 mb-8 pa-0"
-
+        class="mt-5 mb-8 pa-0"
         outlined
         disabled
         hide-details="auto"
@@ -48,7 +45,15 @@
       ></v-text-field>
 
       <div class="flex justify-end">
-        <v-btn elevation="0" color="primary" :disabled="JSON.stringify($bank) === JSON.stringify(bank)" :loading="isUpdatingAccount" @click="updateBankDetails" large>Save Changes</v-btn>
+        <v-btn
+          elevation="0"
+          color="primary"
+          :disabled="JSON.stringify($bank) === JSON.stringify(bank)"
+          :loading="isUpdatingAccount"
+          @click="updateBankDetails"
+          large
+          >Save Changes</v-btn
+        >
       </div>
     </div>
   </div>
@@ -56,9 +61,9 @@
 
 <script>
 export default {
-  data(){
-    return{
-       show: false,
+  data() {
+    return {
+      show: false,
       bank: {
         bank_id: '',
         account_no: '',
@@ -66,7 +71,7 @@ export default {
       },
       bankList: [],
       isLoadingBanks: false,
-      isUpdatingAccount:false,
+      isUpdatingAccount: false,
       isResolvingAccount: false,
       bankLoader: 0,
       rules: {
@@ -78,25 +83,15 @@ export default {
           (v) => !!v || 'Account number is required',
           (v) => (v && v.length == 10) || 'Account number is invalid',
         ],
-        account_name: [
-          (v) => !!v || 'Account name is required',
-        ],
+        account_name: [(v) => !!v || 'Account name is required'],
       },
     }
   },
 
-    mounted() {
+  mounted() {
     this.getBanks()
   },
   methods: {
-    REGISTER() {
-      Object.keys(this.form).forEach((f) => {
-        this.$refs[f].validate(true)
-      })
-
-    
-    },
-
     async getBanks() {
       try {
         this.bankLoader++
@@ -140,27 +135,32 @@ export default {
         this.isResolvingAccount = false
       }
     },
-    
-    async updateBankDetails(){
-      try{
-        this.isUpdatingAccount = true
-        const {data} = await this.$API.bank.updateAccount(this.bank)
-        this.$store.dispatch('alert/setAlert', {
-          message: data.msg || 'Bank details updated successfully',
-          color: 'success',
-          timeout: 10000,
-        })
 
-      }catch(err){
-             this.$store.dispatch('alert/setAlert', {
-          message: err.msg || 'Something went wrong',
-          color: 'error',
-          timeout: 10000,
-        })
-      }finally{
-        this.isUpdatingAccount = false
+    async updateBankDetails() {
+      Object.keys(this.form).forEach((f) => {
+        this.$refs[f].validate(true)
+      })
+
+      if (this.canMoveOn) {
+        try {
+          this.isUpdatingAccount = true
+          const { data } = await this.$API.bank.updateAccount(this.bank)
+          this.$store.dispatch('alert/setAlert', {
+            message: data.msg || 'Bank details updated successfully',
+            color: 'success',
+            timeout: 10000,
+          })
+        } catch (err) {
+          this.$store.dispatch('alert/setAlert', {
+            message: err.msg || 'Something went wrong',
+            color: 'error',
+            timeout: 10000,
+          })
+        } finally {
+          this.isUpdatingAccount = false
+        }
       }
-    }
+    },
   },
 
   computed: {
@@ -198,15 +198,15 @@ export default {
         this.fetchAccountDetails()
     },
 
-    $bank:{
-      deep:true,
-      immediate:true,
-      handler(val){
-         if (val != null) {
+    $bank: {
+      deep: true,
+      immediate: true,
+      handler(val) {
+        if (val != null) {
           this.bank = { ...val }
         }
-      }
-    }
+      },
+    },
   },
 }
 </script>
