@@ -2,7 +2,7 @@
   <div class="page">
     <div class="mb-5 flex justify-between">
       <span class="font-semibold text-2xl">Documents</span>
-      <v-btn color="primary" elevation="0" @click="initiateUploadDocument"
+      <v-btn color="primary" v-if="$isSuperAdmin" elevation="0" @click="initiateUploadDocument"
         >upload document</v-btn
       >
     </div>

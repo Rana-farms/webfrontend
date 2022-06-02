@@ -2,7 +2,7 @@
   <div class="page">
     <div class="flex justify-between">
       <span class="block font-semibold mb-5 text-2xl">Orders</span>
-      <v-btn color="primary" elevation="0" @click="initiateOrder"
+      <v-btn color="primary" v-if="$isSuperAdmin" elevation="0" @click="initiateOrder"
         >Create Order</v-btn
       >
     </div>
@@ -78,10 +78,10 @@
           <v-btn color="#2E42A5" icon @click="viewOrder(item)">
             <v-icon>mdi-eye</v-icon></v-btn
           >
-          <v-btn color="#0C9F09" @click="editOrder(item)" icon>
+          <v-btn color="#0C9F09" v-if="$isSuperAdmin" @click="editOrder(item)" icon>
             <v-icon>mdi-pencil-outline</v-icon></v-btn
           >
-          <v-btn color="#F42F54" @click="deleteOrder(item)" icon>
+          <v-btn color="#F42F54" v-if="$isSuperAdmin" @click="deleteOrder(item)" icon>
             <v-icon>mdi-trash-can-outline</v-icon></v-btn
           >
         </template>
