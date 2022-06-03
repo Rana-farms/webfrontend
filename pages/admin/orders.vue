@@ -164,8 +164,9 @@
             hide-details="auto"
             outlined
             v-model="selectedOrder.orderStatus"
-            :items="Object.keys(approvedStatutes)"
-            :color="approvedStatutes[selectedOrder.orderStatus]"
+            item-text="text"
+            item-value="value"
+            :items="approvedStatutes"
           ></v-select>
         </div>
 
@@ -190,8 +191,9 @@
             hide-details="auto"
             outlined
             v-model="selectedOrder.aggregationStatus"
-            :items="Object.keys(otherStatutes)"
-            :color="approvedStatutes[selectedOrder.aggregationStatus]"
+            item-text="text"
+            item-value="value"
+            :items="otherStatuses"
           ></v-select>
         </div>
 
@@ -204,8 +206,9 @@
             hide-details="auto"
             outlined
             v-model="selectedOrder.negotiationStatus"
-            :items="Object.keys(otherStatutes)"
-            :color="approvedStatutes[selectedOrder.negotiationStatus]"
+            item-text="text"
+            item-value="value"
+            :items="otherStatuses"
           ></v-select>
         </div>
 
@@ -235,8 +238,9 @@
            dense
            v-model="selectedOrder.produceLoading"
             outlined
-             :items="Object.keys(otherStatutes)"
-            :color="approvedStatutes[selectedOrder.produceLoading]"
+            item-text="text"
+            item-value="value"
+            :items="otherStatuses"
          ></v-select>
         </div>
 
@@ -261,8 +265,9 @@
            dense
            v-model="selectedOrder.deliveryStatus"
             outlined
-             :items="Object.keys(otherStatutes)"
-            :color="approvedStatutes[selectedOrder.deliveryStatus]"
+             item-text="text"
+            item-value="value"
+            :items="otherStatuses"
          ></v-select>
         </div>
 
@@ -305,8 +310,9 @@
            dense
            v-model="selectedOrder.paymentStatus"
             outlined
-             :items="Object.keys(otherStatutes)"
-            :color="approvedStatutes[selectedOrder.paymentStatus]"
+              item-text="text"
+            item-value="value"
+            :items="otherStatuses"
          ></v-select>
         </div>
         <div class="my-4">
@@ -481,16 +487,23 @@ export default {
         weight_received: [(v) => !!v || 'Field is required'],
         weight_loss: [(v) => !!v || 'Field is required'],
       },
-      approvedStatutes:{
-        'Initiated':'grey',
-        'Approved':'success',
-        'Pending':'yellow',
+      approvedStatutes:[
+        {
+        text: 'Approved',
+        value:'Approved',
+        color:'success'
       },
-       otherStatutes:{
-        'Initiated':'grey',
-        'Pending':'yellow',
-        'Approved':'success',
+        {
+        text: 'Pending',
+        value:'Pending',
+        color:'yellow'
       }
+      ],
+      otherStatuses:[
+        { text: 'Initiated', value: 'Initiated', color: 'grey' },
+        { text: 'Pending', value: 'Pending', color: 'yellow' },
+        { text: 'Completed', value: 'Completed', color: 'success' },
+      ]
     }
   },
   mounted() {
