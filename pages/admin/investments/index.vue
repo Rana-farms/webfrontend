@@ -30,7 +30,7 @@
           elevation="0"
           small
           color="primary"
-          :to="`/investor/investments/${item.id}`"
+          :to="`/admin/investments/${item.id}`"
           >View</v-btn
         >
       </template>
@@ -83,7 +83,7 @@
 
 <script>
 export default {
-  layout: 'investor',
+  layout: 'admin',
   data() {
     return {
       headers: [

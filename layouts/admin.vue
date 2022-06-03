@@ -48,14 +48,18 @@
     </v-navigation-drawer>
 
     <v-app-bar app :height="60" color="#fff" clipped-left elevation="0">
-       <div class="app-header md:px-3 flex items-center">
+      <div class="app-header md:px-3 flex items-center">
         <router-link to="/">
           <img class="app-header__logo" src="/images/logo.png" alt=""
         /></router-link>
 
-         <div class=" hidden md:inline-block"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
+        <div class="hidden md:inline-block">
+          <v-app-bar-nav-icon color="primary" @click="drawer = !drawer" />
+        </div>
         <v-spacer></v-spacer>
-         <div class="md:hidden"><v-app-bar-nav-icon color="primary" @click="drawer = !drawer" /></div>
+        <div class="md:hidden">
+          <v-app-bar-nav-icon color="primary" @click="drawer = !drawer" />
+        </div>
 
         <div class="hidden md:flex gap-5">
           <router-link
@@ -108,19 +112,25 @@ export default {
           link: '/admin/investors',
           permissions: ['Super Admin', 'Admin'],
         },
-         {
+        {
           text: 'Admins',
           icon: 'mdi-account-multiple-outline',
           link: '/admin/admins',
           permissions: ['Super Admin'],
         },
-          {
+        {
+          text: 'Investments',
+          icon: 'mdi-chart-line',
+          link: '/admin/investments',
+          permissions: ['Super Admin', 'Admin'],
+        },
+        {
           text: 'Transactions',
           icon: 'mdi-format-list-bulleted',
           link: '/admin/transactions',
           permissions: ['Super Admin', 'Admin'],
         },
-         {
+        {
           text: 'Withdrawals',
           icon: 'mdi-cash-multiple',
           link: '/admin/withdrawals',
@@ -142,13 +152,13 @@ export default {
           text: 'Settings',
           icon: 'mdi-cog-outline',
           link: '/admin/settings',
-          permissions: ['Super Admin','Admin'],
+          permissions: ['Super Admin', 'Admin'],
         },
         {
           text: 'Logout',
           icon: 'mdi-logout',
           link: '/logout',
-          permissions: ['Super Admin', 'Admin']
+          permissions: ['Super Admin', 'Admin'],
         },
       ],
     }
@@ -180,11 +190,13 @@ export default {
       this.showPopup = false
     },
   },
-  computed:{
-    routes(){
-      return this.items.filter(item => item.permissions.includes(this.$profile.role))
-    }
-  }
+  computed: {
+    routes() {
+      return this.items.filter((item) =>
+        item.permissions.includes(this.$profile.role)
+      )
+    },
+  },
 }
 </script>
 

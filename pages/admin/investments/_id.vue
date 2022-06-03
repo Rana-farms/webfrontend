@@ -39,18 +39,13 @@
       </div>
       </div>
 
-      <div >
-        <v-btn elevation="0" :to="`/investor/investments/invest/?id=${investment.id}`" large color="primary"
-          >Invest</v-btn
-        >
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'investor',
+  layout: 'admin',
   data() {
     return {
       investment: null,
