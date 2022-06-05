@@ -7,6 +7,7 @@ import order from './order'
 import withdrawal from './withdrawal'
 import transaction from './transaction'
 import document from './document'
+import contact from './contact'
 
 const $Api = {
   user,
@@ -17,7 +18,8 @@ const $Api = {
   order,
   withdrawal,
   transaction,
-  document
+  document,
+  contact
 }
 
 export default $Api 
