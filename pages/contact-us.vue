@@ -29,7 +29,8 @@
           <span class="text-dark ml-2">
             <span class="font-semibold block w">Address:</span>
             <span class="text-gray-500 w-64 block"
-              >21 Buhari Shopping complex, Hadeija Road, Yankaba, 70213, Kano, Nigeria</span
+              >21 Buhari Shopping complex, Hadeija Road, Yankaba, 70213, Kano,
+              Nigeria</span
             >
           </span>
         </div>
@@ -53,16 +54,22 @@
 
       <div class="flex-1 grid grid-cols-12 gap-5">
         <v-text-field
+          ref="name"
           name="Name"
           label="Name"
+          v-model="data.name"
+          :rules="rules.name"
           class="col-span-12 md:col-span-6 p-0 m-0"
           hide-details="auto"
           outlined
         ></v-text-field>
 
         <v-text-field
+          ref="email"
           name="Email"
           label="Email"
+          v-model="data.email"
+          :rules="rules.email"
           type="email"
           class="col-span-12 md:col-span-6 p-0 m-0"
           hide-details="auto"
@@ -71,6 +78,9 @@
 
         <v-text-field
           name="Phone number"
+          ref="phone"
+          v-model="data.phone"
+          :rules="rules.phone"
           label="Phone number"
           class="col-span-12 p-0 m-0"
           hide-details="auto"
@@ -80,6 +90,9 @@
         <v-text-field
           name="Subject"
           label="Subject"
+          ref="subject"
+          :rules="rules.subject"
+          v-model="data.subject"
           class="col-span-12 p-0 m-0"
           hide-details="auto"
           outlined
@@ -88,6 +101,9 @@
         <v-textarea
           name="Write your Message"
           label="Write your Message"
+          ref="message"
+          v-model="data.message"
+          :rules="rules.message"
           class="col-span-12 p-0 m-0"
           hide-details="auto"
           outlined
@@ -95,7 +111,14 @@
         </v-textarea>
 
         <div class="col-span-12">
-          <v-btn color="primary" large elevation="0">Send a message</v-btn>
+          <v-btn
+            @click="sendMessage"
+            color="primary"
+            :loading="isSendingMessage"
+            large
+            elevation="0"
+            >Send a message</v-btn
+          >
         </div>
       </div>
     </div>
@@ -103,7 +126,85 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      data: {
+        name: '',
+        phone: '',
+        subject: '',
+        email: '',
+        message: '',
+      },
+
+      rules: {
+        name: [(v) => !!v || 'This field is required'],
+        phone: [(v) => !!v || 'This field is required'],
+        subject: [(v) => !!v || 'This field is required'],
+        email: [(v) => !!v || 'This field is required'],
+        message: [(v) => !!v || 'This field is required'],
+      },
+      isSendingMessage: false,
+    }
+  },
+
+  methods: {
+    async sendMessage() {
+      Object.keys(this.form).forEach((f) => {
+        this.$refs[f].validate(true)
+      })
+
+      if (this.canMoveOn) {
+        try {
+          this.isSendingMessage = true
+          await this.$API.contact.contactUs(this.data)
+
+          this.$store.dispatch('alert/setAlert', {
+            message: 'Message sent successfully',
+            color: 'success',
+            timeout: 10000,
+          })
+
+          this.$router.replace('/')
+        } catch (err) {
+          this.$store.dispatch('alert/setAlert', {
+            message: err.msg || 'Something went wrong',
+            color: 'error',
+            timeout: 10000,
+          })
+        } finally {
+          this.isSendingMessage = false
+        }
+      }
+    },
+  },
+
+  computed: {
+    form() {
+      return {
+        name: this.data.name,
+        phone: this.data.phone,
+        subject: this.data.subject,
+        email: this.data.email,
+        message: this.data.message,
+      }
+    },
+
+    canMoveOn() {
+      const rules = Object.keys(this.rules)
+
+      return rules
+        .map((rule) => {
+          return Object.keys(this.rules[rule])
+            .map((field, index) => {
+              return this.rules[rule][index](this.data[rule])
+            })
+            .every((val) => val == true)
+        })
+        .every((val) => val == true)
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
