@@ -12,7 +12,7 @@
 
     <div v-else>
       <div class="bg-white max-w-3xl p-10">
-        <div class=" text-right">{{ format(new Date(request.user.created_at), 'MMM do, y ') }}</div>
+        <div class=" text-right">{{ format(new Date(request.dateCreated), 'MMM do, y ') }}</div>
         <div
           class="flex gap-10 flex-wrap items-center justify-between rounded-lg  mx-auto "
         >
