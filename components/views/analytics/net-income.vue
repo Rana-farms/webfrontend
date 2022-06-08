@@ -15,6 +15,28 @@
           income | currency
         }}</span>
       </div>
+      <div class="mt-1 text-sm" v-if="monthlyNetIncome != null">
+        <span
+          class="inline-flex items-center"
+          :class="{
+            'text-green-500': parseInt(monthlyNetIncome) > 0,
+            'text-red-500': parseInt(monthlyNetIncome) < 0,
+          }"
+        >
+          {{ monthlyNetIncome }}%
+          <v-icon color="success" v-if="parseInt(monthlyNetIncome) > 0"
+            >mdi-arrow-up-bold</v-icon
+          >
+          <v-icon color="error" v-if="parseInt(monthlyNetIncome) < 0"
+            >mdi-arrow-down-bold</v-icon
+          >
+        </span>
+        <span class="text-gray-400">Since Last Month</span>
+      </div>
+      <div class="mt-1 inline-flex gap-2 text-sm" v-else>
+        <span class="font-semibold"> 0%</span
+        ><span class="text-gray-400">Since Last Month</span>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +46,9 @@ export default {
   props: {
     income: {
       default: null,
+    },
+    monthlyNetIncome: {
+      default: 0,
     },
   },
 }

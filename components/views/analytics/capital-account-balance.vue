@@ -11,7 +11,7 @@
       <v-icon size="50" color="#9D1E23">mdi-wallet</v-icon>
       <div class="text-sm">
         <span class="text-gray-400 tracking-wider"
-          >Capital account balance</span
+          >Value of Unit Shares Owned</span
         >
         <span class="block font-semibold text-2xl">{{
           balance | currency

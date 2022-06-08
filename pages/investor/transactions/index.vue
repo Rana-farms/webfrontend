@@ -11,7 +11,7 @@
           $wallet.balance | currency
         }}</span>
         <div class=" text-center mt-8">
-          <!-- <v-btn color="primary" large elevation="0">Deposit</v-btn> -->
+          <v-btn color="primary" outlined large to="/investor/investments" elevation="0">TRust</v-btn>
           <v-btn
             color="primary"
             dark
