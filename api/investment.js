@@ -56,5 +56,13 @@ export default {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       },
     })
+  },
+
+  redeemTrust(id) {
+    return api().post(`/investor/redeem-trust/${id}`,{}, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
   }
 }

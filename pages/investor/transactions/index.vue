@@ -37,7 +37,7 @@
             <v-btn
               color="green"
               icon
-              v-if="item.transaction_type == 'Investment' || item.transaction_type == 'ROI'"
+              v-if="item.transaction_type == 'Investment' || item.transaction_type == 'ROI' || item.transaction_type == 'Redeem Capital Funds'"
             >
               <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
             >

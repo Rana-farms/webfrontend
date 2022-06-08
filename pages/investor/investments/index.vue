@@ -19,10 +19,12 @@
       :loading="isLoadingInvestments"
       class="elevation-0"
     >
-          <template v-slot:no-data>
+      <template v-slot:no-data>
         <div
           class="w-full flex items-center justify-center h-60"
-          v-if="!isLoadingInvestments && investments.length == 0 && !errorLoading"
+          v-if="
+            !isLoadingInvestments && investments.length == 0 && !errorLoading
+          "
         >
           <div class="text-center text-flame">
             <span class="block text-center"
@@ -66,7 +68,7 @@
         {{ Intl.NumberFormat().format(item.units) }}
       </template>
 
-        <template v-slot:[`item.amount`]="{ item }">
+      <template v-slot:[`item.amount`]="{ item }">
         {{ item.amount | currency }}
       </template>
 
@@ -79,6 +81,24 @@
           }"
           >{{ item.status }}</span
         >
+      </template>
+
+      <template v-slot:[`item.action`]="{ item }">
+        <v-btn
+          color="primary"
+          @click="redeem(item)"
+          :loading="(redeemingItem && redeemingItem.id) == item.id && isReedeming"
+          :disabled="!item.isDue || item.status.toLowerCase() == 'inactive'"
+          class="my-2"
+          small
+          elevation="0"
+          rounded
+        >
+          <span v-if="item.isDue && item.status.toLowerCase() == 'inactive'"
+            >Redeemed</span
+          >
+          <span v-else>Redeem</span>
+        </v-btn>
       </template>
     </v-data-table>
   </div>
@@ -101,12 +121,13 @@ export default {
         { text: 'START DATE', value: 'startDate' },
         { text: 'END DATE', value: 'dueDate' },
         { text: ' STATUS', value: 'status' },
+        { text: ' ACTION', value: 'action' },
       ],
-      investments: [
-  
-      ],
+      investments: [],
       isLoadingInvestments: false,
-      errorLoading:false,
+      errorLoading: false,
+      isReedeming: false,
+      redeemingItem: null,
     }
   },
   mounted() {
@@ -129,7 +150,27 @@ export default {
         this.isLoadingInvestments = false
       }
     },
-  }
+
+    async redeem(item) {
+      this.redeemingItem = item
+      try {
+        this.isReedeming = true
+        await this.$API.investment.redeemTrust(item.id)
+        await this.getMyInvestments()
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Capital funds redeemed successfully!',
+          color: 'success',
+        })
+      } catch (error) {
+        this.$store.dispatch('alert/setAlert', {
+          message: error.msg,
+          color: 'error',
+        })
+      } finally {
+        this.isReedeming = false
+      }
+    },
+  },
 }
 </script>
 
