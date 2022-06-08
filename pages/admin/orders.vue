@@ -109,18 +109,18 @@
         </div>
 
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Delivered :</span>
-          <span>{{ selectedOrder.weight }}Tonnes</span>
+          <span class="font-semibold">Weight Aggregated:</span>
+          <span>{{ Intl.NumberFormat().format(selectedOrder.weight) }} kg</span>
         </div>
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Received :</span>
-          <span>{{ selectedOrder.weightReceived }}Tonnes</span>
+          <span>{{Intl.NumberFormat().format(selectedOrder.weightReceived)}} kg</span>
         </div>
 
         <div class="py-1 mt-2 mb-3">
           <span class="font-semibold">Weight Loss :</span>
-          <span>{{ selectedOrder.weightLoss }}Tonnes</span>
+          <span>{{ selectedOrder.weightLoss }}%</span>
         </div>
 
         <v-divider></v-divider>
@@ -224,7 +224,7 @@
            type="number"
            hide-details="auto"
             outlined
-            suffix="Tonnes"
+            suffix="kg"
          ></v-text-field>
         </div>
 
@@ -281,25 +281,9 @@
            type="number"
            hide-details="auto"
             outlined
-            suffix="Tonnes"
+            suffix="kg"
          ></v-text-field>
         </div>
-
-        <div class="flex mt-5">
-          <v-text-field
-           name="Weight Loss"
-           label="Weight Loss"
-           placeholder="Weight Loss"
-           dense
-           v-model="selectedOrder.weightLoss"
-           type="number"
-           hide-details="auto"
-            outlined
-            suffix="Tonnes"
-         ></v-text-field>
-        </div>
-
-       
 
         <div class="mt-5">
            <v-select
@@ -385,7 +369,7 @@
             outlined
             v-model="createForm.weight"
             ref="weight"
-            suffix="Tonnes"
+            suffix="kg"
             type="number"
             :rules="createFormRules.weight"
             hide-details="auto"
@@ -414,21 +398,10 @@
           <v-text-field
             label="Weight Recieved"
             v-model="createForm.weight_received"
-            suffix="Tonnes"
+            suffix="kg"
             type="number"
             ref="weight_received"
             :rules="createFormRules.weight_received"
-            outlined
-            hide-details="auto"
-          ></v-text-field>
-
-          <v-text-field
-            label="Weight Loss"
-            v-model="createForm.weight_loss"
-            suffix="Tonnes"
-            type="number"
-            ref="weight_loss"
-            :rules="createFormRules.weight_loss"
             outlined
             hide-details="auto"
           ></v-text-field>
@@ -473,8 +446,7 @@ export default {
         weight: '',
         location: '',
         aggregated: '',
-        weight_received: '',
-        weight_loss: '',
+        weight_received: ''
       },
       isCreatingOrder: false,
       isDeletingOrder: false,
@@ -484,8 +456,7 @@ export default {
         weight: [(v) => !!v || 'Field is required'],
         location: [(v) => !!v || 'Field is required'],
         aggregated: [(v) => !!v || 'Field is required'],
-        weight_received: [(v) => !!v || 'Field is required'],
-        weight_loss: [(v) => !!v || 'Field is required'],
+        weight_received: [(v) => !!v || 'Field is required']
       },
       approvedStatutes:[
         {
@@ -534,7 +505,6 @@ export default {
           location: this.selectedOrder.location,
           aggregated: this.selectedOrder.aggregated,
           weight_received: this.selectedOrder.weightReceived,
-          weight_loss: this.selectedOrder.weightLoss,
           order_status: this.selectedOrder.orderStatus,
           aggregation_status: this.selectedOrder.aggregationStatus,
           negotiation_status: this.selectedOrder.negotiationStatus,
@@ -643,8 +613,7 @@ export default {
         weight: this.createForm.weight,
         location: this.createForm.location,
         aggregated: this.createForm.aggregated,
-        weight_received: this.createForm.weight_received,
-        weight_loss: this.createForm.weight_loss,
+        weight_received: this.createForm.weight_received
       }
     },
 
@@ -664,7 +633,7 @@ export default {
     canEditOrder(){
       if(this.selectedOrder){
         if(JSON.stringify(this.selectedOrder) !== JSON.stringify(this.orderList.find(order => this.selectedOrder.id === order.id) )){
-          if(!!this.selectedOrder.weight  && !!this.selectedOrder.location  && !!this.selectedOrder.weightLoss && !!this.selectedOrder.weightReceived && !!this.selectedOrder.aggregated){
+          if(!!this.selectedOrder.weight  && !!this.selectedOrder.location  && !!this.selectedOrder.weightReceived && !!this.selectedOrder.aggregated){
             return true
           }else{
             return false
@@ -672,7 +641,8 @@ export default {
         }
       }
       return false
-    }
+    },
+
   },
   watch: {
     createOderDialog(val) {

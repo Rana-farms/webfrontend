@@ -8,7 +8,7 @@
         :roi="metrics.monthlyRoi"
         :percentageIncrease="metrics.percentageSinceLastMonths"
       />
-      <net-income :income="metrics.netIncome" />
+      <net-income :income="metrics.netIncome" :monthlyNetIncome="metrics.monthlyNetIncome" />
       <available-funds :funds="metrics.availableFunds" />
       <captial-account-balance :balance="metrics.capitalBalance" />
       
@@ -117,6 +117,7 @@ export default {
       metrics: {
         monthlyRoi: null,
         percentageSinceLastMonths: null,
+        monthlyNetIncome:null,
         netIncome: null,
         availableFunds: null,
         capitalBalance: null,

@@ -100,18 +100,28 @@
         </div>
 
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Delivered :</span>
-          <span>{{ selectedOrder.weight }}Tonnes</span>
+          <span class="font-semibold">Weight Aggregated :</span>
+          <span
+            >{{
+              Intl.NumberFormat().format(selectedOrder.weight)
+            }}
+            Kg</span
+          >
         </div>
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Received :</span>
-          <span>{{ selectedOrder.weightReceived }}Tonnes</span>
+          <span
+            >{{
+              Intl.NumberFormat().format(selectedOrder.weightReceived)
+            }}
+            Kg</span
+          >
         </div>
 
         <div class="py-1 mt-2 mb-3">
           <span class="font-semibold">Weight Loss :</span>
-          <span>{{ selectedOrder.weightLoss }}Tonnes</span>
+          <span>{{ selectedOrder.weightLoss }}%</span>
         </div>
 
         <v-divider></v-divider>
@@ -128,12 +138,6 @@
         <v-btn color="primary" @click="closeOrderDialog" outlined>Close</v-btn>
       </div>
     </v-dialog>
-
-
-
-  
-
- 
   </div>
 </template>
 
@@ -158,7 +162,7 @@ export default {
       orderList: [],
       isLoadingOrders: false,
       errorLoading: false,
-      selectedOrder: null
+      selectedOrder: null,
     }
   },
   mounted() {
@@ -175,7 +179,6 @@ export default {
       this.viewOrderDialog = false
       this.selectedOrder = null
     },
-
 
     async getAllOrders() {
       try {
@@ -194,7 +197,6 @@ export default {
       }
     },
   },
-
 }
 </script>
 
