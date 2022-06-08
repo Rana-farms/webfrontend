@@ -53,8 +53,8 @@
           {{ item.amount | currency }}
         </template>
 
-        <template v-slot:[`item.user.created_at`]="{ item }">
-          {{ format(new Date(item.user.created_at), 'MMM do, y ') }}
+        <template v-slot:[`item.dateCreated`]="{ item }">
+          {{ format(new Date(item.dateCreated), 'MMM do, y ') }}
         </template>
 
         <template v-slot:[`item.status`]="{ item }">
@@ -106,7 +106,7 @@ export default {
       withdrawalRequestHeaders: [
         { text: 'NAME OF INVESTOR', value: 'user.fullname' },
         { text: 'AMOUNT', value: 'amount' },
-        { text: 'DATE', value: 'user.created_at' },
+        { text: 'DATE', value: 'dateCreated' },
         { text: 'STATUS', value: 'status' },
         { text: 'ACTIONS', value: 'id' },
       ],
