@@ -4,7 +4,26 @@
       <span class="font-semibold text-2xl">Documents</span>
     </div>
 
-    <div>
+    <div class="flex items-center justify-center h-80" v-if="isLoadingDoc">
+      <v-progress-circular color="primary" indeterminate></v-progress-circular>
+    </div>
+
+    <div
+      class="flex items-center justify-center h-80"
+      v-if="errorLoading && !isLoadingDoc"
+    >
+      <div class="text-center text-flame">
+        <v-icon size="50" color="primary"
+          >mdi-format-list-bulleted-square</v-icon
+        >
+        <span class="block text-center">Error loading documents...</span>
+        <v-btn color="primary" text @click="getAllDocuments">
+          <v-icon left>mdi-refresh</v-icon> Retry</v-btn
+        >
+      </div>
+    </div>
+
+    <div class="flex gap-8" v-if="documents.length > 0">
       <a
         :href="document.file"
         download
