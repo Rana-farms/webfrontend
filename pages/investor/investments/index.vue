@@ -87,7 +87,9 @@
         <v-btn
           color="primary"
           @click="redeem(item)"
-          :loading="(redeemingItem && redeemingItem.id) == item.id && isReedeming"
+          :loading="
+            (redeemingItem && redeemingItem.id) == item.id && isReedeming
+          "
           :disabled="!item.isDue || item.status.toLowerCase() == 'inactive'"
           class="my-2"
           small
@@ -157,6 +159,7 @@ export default {
         this.isReedeming = true
         await this.$API.investment.redeemTrust(item.id)
         await this.getMyInvestments()
+        await this.$store.dispatch('user/fetchDetails')
         this.$store.dispatch('alert/setAlert', {
           message: 'Capital funds redeemed successfully!',
           color: 'success',
