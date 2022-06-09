@@ -297,7 +297,7 @@
           ></v-text-field>
         </div>
 
-        <div class="flex mt-5 justify-between">
+        <div class="flex mt-5 justify-between" v-if="selectedOrder.weightLoss > 0">
           <v-text-field
             name="Weight Loss"
             label="Weight Loss"
