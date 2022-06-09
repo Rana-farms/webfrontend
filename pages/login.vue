@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="login__form bg-white md:shadow rounded-md">
+    <div class="login__form bg-white md:shadow rounded-md" v-if="!isLogining">
       <router-link to="/">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
@@ -36,7 +36,9 @@
         ></v-text-field>
       </div>
       <div class="flex justify-end">
-        <a href="#" class="cursor-pointer border-none">Forgot password ?</a>
+        <a href="/forgot-password" class="cursor-pointer border-none"
+          >Forgot password ?</a
+        >
       </div>
 
       <v-btn
@@ -54,6 +56,8 @@
         Don't have an account ? <router-link to="/signup">Sign up</router-link>
       </div>
     </div>
+
+    <v-progress-circular indeterminate color="primary" v-else />
   </div>
 </template>
 
@@ -82,13 +86,34 @@ export default {
   },
 
   methods: {
-    LOGIN() {
+    async LOGIN() {
       Object.keys(this.form).forEach((f) => {
         this.$refs[f].validate(true)
       })
 
       if (this.canLogin) {
         this.isLogining = true
+        try {
+          const { data } = await this.$API.user.login(this.form)
+          localStorage.setItem('token', data?.token)
+
+
+          const details = await this.$API.user.fetchDetails()
+          this.$store.dispatch('user/setUser', details.data)
+          this.$router.replace('/dashboard')
+
+        } catch (err) {
+          this.$store.dispatch('alert/setAlert', {
+            message: err.msg,
+            color: 'error',
+          })
+
+          if (err.msg == 'Your email address is not verified.') {
+            this.$router.replace('/verify-email/?email=' + this.form.email)
+          }
+        } finally {
+          this.isLogining = false
+        }
       }
     },
   },

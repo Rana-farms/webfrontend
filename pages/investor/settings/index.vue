@@ -6,7 +6,9 @@
 
 <script>
 export default {
-
+    middleware({ redirect }) {
+    return redirect('/investor/settings/profile')
+  },
 }
 </script>
 

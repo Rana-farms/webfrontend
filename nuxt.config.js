@@ -13,47 +13,57 @@ export default {
     htmlAttrs: {
       lang: 'en',
     },
-    meta: [{
-        charset: 'utf-8'
+    meta: [
+      {
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        content: 'width=device-width, initial-scale=1',
       },
       {
         hid: 'RANA Farms - Intelligence in Agricultural service & investment',
         name: 'RANA Farms - Intelligence in Agricultural service & investment',
-        content: 'RANA Farms - Intelligence in Agricultural service & investment'
+        content:
+          'RANA Farms - Intelligence in Agricultural service & investment',
       },
       {
         name: 'format-detection',
-        content: 'telephone=no'
+        content: 'telephone=no',
       },
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/logo.png'
-    }],
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/logo.png',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/scss/main.css',
-    "@mdi/font/css/materialdesignicons.css",
-    "~/assets/scss/breakpoints.scss",
+    '@mdi/font/css/materialdesignicons.css',
+    '~/assets/scss/breakpoints.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{
-    src: '~/plugins/vue-device-detector',
-    ssr: false
-  }, 
- {
-    src: '~/plugins/app-mixin',
- }
-
-],
+  plugins: [
+    {
+      src: '~/plugins/vue-device-detector',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/app-mixin',
+    },
+    {
+      src: '~/plugins/api',
+    },
+    {
+      src: '~/plugins/vue-currency-filter',
+    },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -62,7 +72,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    '@nuxt/postcss8'
+    '@nuxt/postcss8',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -78,7 +88,7 @@ export default {
   },
 
   styleResources: {
-    scss: ['./assets/scss/*.scss']
+    scss: ['./assets/scss/*.scss'],
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -88,10 +98,15 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: "#BE1F2C",
-        }
+          primary: '#BE1F2C',
+        },
       },
     },
+  },
+
+  env: {
+    baseURL: process.env.BASE_URL,
+    paystack_key: process.env.PAYSTACK_PUBLIC_KEY,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -102,5 +117,8 @@ export default {
         autoprefixer: {},
       },
     },
+  },
+  router: {
+    middleware: ['user', 'route-mesh'],
   },
 }

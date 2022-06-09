@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="sectionx grid grid-cols-12">
-      <div class="sectionx__1 col-span-12 lg:col-span-3">
+      <div class="sectionx__1 col-span-12 lg:col-span-4">
         <div>
           <img src="/images/logo.png" alt="" />
           <span class="call-us">CALL US DIRECTLY</span>
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="sectionx__2 col-span-12 md:col-span-4 lg:col-span-3">
+      <div class="sectionx__2 col-span-12 md:col-span-4 ">
         <span class="title">Company</span>
         <ul>
           <li>
@@ -32,7 +32,7 @@
         </ul>
       </div>
 
-      <div class="sectionx__3 col-span-12 md:col-span-4 lg:col-span-3">
+      <div class="sectionx__3 col-span-12 md:col-span-4 ">
         <span class="title">Quick links</span>
         <ul>
 
@@ -50,7 +50,7 @@
         </ul>
       </div>
 
-      <div class="sectionx__4 col-span-12 md:col-span-4 lg:col-span-3">
+      <!-- <div class="sectionx__4 col-span-12 md:col-span-4 lg:col-span-3">
         <span class="title">Our Newsletter</span>
         <span class="subscribe"
           >Subscribe to our newsletter and we will inform you about latest
@@ -67,7 +67,7 @@
           class="mt-5 pa-0 ma-0"
           elevation="0"
         ></v-text-field>
-      </div>
+      </div> -->
     </div>
 
     <div

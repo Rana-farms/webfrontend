@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <div class="signup__form bg-white md:shadow rounded-md">
+    <div v-if="!registering" class="signup__form bg-white md:shadow rounded-md">
       <router-link to="/" v-if="!registering">
         <img class="logo" src="/images/logo.png" alt="" />
       </router-link>
@@ -9,7 +9,7 @@
         class="block text-center font-bold mt-1 text-2xl"
         >Register Account</span
       >
-      <div v-if="!registering">
+      <div>
         <span
           class="text-light-dark mb-2 block text-center tracking-wider text-lg"
           >Get your free Rana account now.</span
@@ -20,109 +20,105 @@
           color="primary"
         ></v-progress-linear>
         <div class="sm:flex my-2 text-sm hidden justify-between">
-          <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
+          <span :class="{ 'font-semibold': el == 0, 'text-gray-500': el != 0 }"
             >User Details</span
           >
-          <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
+          <span :class="{ 'font-semibold': el == 1, 'text-gray-500': el != 1 }"
             >Next of Kin</span
           >
-          <span :class="{ 'font-semibold': el == 3, 'text-gray-500': el != 3 }"
+          <span :class="{ 'font-semibold': el == 2, 'text-gray-500': el != 2 }"
             >Bank details</span
           >
-          <!-- <span :class="{ 'font-semibold': el == 4, 'text-gray-500': el != 4 }"
-          >Investment trust</span
-        > -->
         </div>
       </div>
 
-      <user-details-form @next="setUpUserDetails" v-if="el == 1" />
-      <next-of-kin-form @next="setUpNextOfKin" @back="el -= 1" v-if="el == 2" />
-      <bank-details-form
-        @complete="setUpBankDetails"
-        @back="el -= 1"
-        v-if="el == 3"
-      />
-      <!-- <investment-trust-form @complete="setUpInvestmentTrust" @back="el -=1"  v-if="el == 4" /> -->
+      <keep-alive>
+        <component
+          :is="current"
+          :current="el"
+          @move="current = steps[$event]"
+          v-model="form"
+          @register="RESGISTER"
+        />
+      </keep-alive>
 
-      <div v-if="registering" class="flex text-center justify-center p-10">
-        <v-progress-circular
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
-      </div>
-
-      <div class="text-center" v-if="!registering">
+      <div class="text-center">
         Already have an account ? <router-link to="/login">Sign in</router-link>
       </div>
     </div>
+
+    <v-progress-circular indeterminate color="primary" v-else />
   </div>
 </template>
 
 <script>
 import BankDetailsForm from '~/components/views/signup/bank-details-form.vue'
-import InvestmentTrustForm from '~/components/views/signup/investment-trust-form.vue'
 import NextOfKinForm from '~/components/views/signup/next-of-kin-form.vue'
+import PasswordForm from '~/components/views/signup/password-form.vue'
 import userDetailsForm from '~/components/views/signup/user-details-form.vue'
 export default {
   components: {
-    userDetailsForm,
-    NextOfKinForm,
-    BankDetailsForm,
-    InvestmentTrustForm,
+    user: userDetailsForm,
+    kin: NextOfKinForm,
+    bank: BankDetailsForm,
+    password: PasswordForm,
   },
+
   layout: 'auth',
   data() {
     return {
-      el: 1,
+      steps: ['user', 'kin', 'bank', 'password'],
       form: {},
       registering: false,
       progress: 0,
+      current: 'user',
     }
   },
   methods: {
-    setUpUserDetails(data) {
-      this.el++
-      this.form = Object.assign({}, this.form, { user: data })
-    },
-
-    setUpNextOfKin(data) {
-      this.el++
-      this.form = Object.assign({}, this.form, { nextOfKin: data })
-    },
-
-    setUpBankDetails(data) {
-      this.el = -1
+    async RESGISTER() {
       this.registering = true
-      this.progress = 0
-      this.form = Object.assign({}, this.form, { bank: data })
-    },
 
-    // setUpInvestmentTrust(data) {
-    //   this.el = -1
-    //   this.registering = true
-    //   this.form = Object.assign({}, this.form, { investmentTrust: data })
-    // },
+      try {
+        const { data } = await this.$API.user.register(this.form)
+         
+                          localStorage.setItem('token', data?.token)
+
+        this.$store.dispatch('user/setUser', data.data)
+
+
+        this.$store.dispatch('alert/setAlert', {
+          message: 'Account created successfully',
+          color: 'success',
+        })
+
+        this.$router.replace('/verify-email/?email=' + data?.data?.email)
+      } catch (err) {
+        this.$store.dispatch('alert/setAlert', {
+          message: err.msg,
+          color: 'error',
+        })
+      } finally {
+        this.registering = false
+      }
+    },
+  },
+
+  computed: {
+    el() {
+      return this.steps.indexOf(this.current)
+    },
   },
   watch: {
-    form: {
-      deep: true,
-      immediate: true,
-      handler(val) {
-        //console.log(JSON.stringify(val, null, 2))
-      },
-    },
-    el(val) {
-      if (val == 1) {
+    el(el) {
+      if (el == 0) {
         this.progress = 0
-      } else if (val == 2) {
+      } else if (el == 1) {
         this.progress = 33.33333
-      } else if (val == 3) {
+      } else if (el == 2) {
         this.progress = 33.33333 * 2
+      } else if (el == 3) {
+        this.progress = 33.33333 * 3
       }
-
-      // else if (val == 4){
-      //       this.progress = 100
-      // }
     },
   },
 }
