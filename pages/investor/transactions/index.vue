@@ -10,8 +10,15 @@
         <span class="font-semibold text-center text-2xl md:text-4xl block">{{
           $wallet.balance | currency
         }}</span>
-        <div class=" text-center mt-8">
-          <v-btn color="primary" outlined large to="/investor/investments" elevation="0">TRust</v-btn>
+        <div class="text-center mt-8">
+          <v-btn
+            color="primary"
+            outlined
+            large
+            to="/investor/investments"
+            elevation="0"
+            >TRust</v-btn
+          >
           <v-btn
             color="primary"
             dark
@@ -37,7 +44,13 @@
             <v-btn
               color="green"
               icon
-              v-if="item.transaction_type == 'Investment' || item.transaction_type == 'ROI' || item.transaction_type == 'Redeem Capital Funds'"
+              v-if="
+                item.transaction_type == 'Investment' ||
+                item.transaction_type == 'ROI' ||
+                item.transaction_type == 'Monthly ROI' ||
+                item.transaction_type == 'Redeem Capital Funds' ||
+                item.transaction_type == 'Redeem Unit Shares'
+              "
             >
               <v-icon>mdi-arrow-top-right-thin</v-icon></v-btn
             >
@@ -57,12 +70,9 @@
           <span
             class="uppercase"
             :class="{
-              'text-green-500':
-                item.status.toLowerCase() == 'success',
-                'text-gray-500':
-                item.status.toLowerCase() == 'processing',
-              'text-yellow-500':
-                item.status.toLowerCase() == 'pending',
+              'text-green-500': item.status.toLowerCase() == 'success',
+              'text-gray-500': item.status.toLowerCase() == 'processing',
+              'text-yellow-500': item.status.toLowerCase() == 'pending',
               'text-red-500': item.status.toLowerCase() == 'failed',
             }"
             >{{ item.status }}</span

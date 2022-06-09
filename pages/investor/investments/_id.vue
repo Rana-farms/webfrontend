@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <span class="block font-semibold mb-5 text-2xl">Investment</span>
+    <span class="block font-semibold mb-5 text-2xl">Investment Trust</span>
 
     <div class="bg-white flex p-3 pa-md-8 rounded-lg shadow-md mt-10" v-if="investment">
       <div class="flex-1">
@@ -34,7 +34,7 @@
           <span class="block">{{ investment.profitSharingFormula }}</span>
 
           <span class="font-semibold block mt-1">Insurance Fee</span>
-          <span class="block">{{ investment.insuranceFee | currency }}</span>
+          <span class="block">{{ investment.insuranceFee }}</span>
         </div>
       </div>
       </div>

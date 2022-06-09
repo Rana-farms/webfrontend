@@ -100,7 +100,7 @@
         </div>
 
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Aggregated :</span>
+          <span class="font-semibold">Weight Delivered :</span>
           <span
             >{{
               Intl.NumberFormat().format(selectedOrder.weight)

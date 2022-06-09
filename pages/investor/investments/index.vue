@@ -5,7 +5,7 @@
         <span class="block font-semibold mb-5 text-2xl">My Investments</span>
 
         <v-btn color="primary" elevation="0" to="/investor/investments/plans"
-          >Investment Plans</v-btn
+          >Investment Trusts</v-btn
         >
       </div>
     </div>
@@ -113,7 +113,7 @@ export default {
     return {
       headers: [
         {
-          text: 'INVESTMENT NAME',
+          text: 'INVESTMENT',
           align: 'start',
           sortable: false,
           value: 'investmentName',
