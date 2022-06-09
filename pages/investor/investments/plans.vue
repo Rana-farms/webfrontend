@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <span class="block font-semibold mb-5 text-2xl">Investment Plans</span>
+    <span class="block font-semibold mb-5 text-2xl">Investment Trusts</span>
 
     <v-data-table
       :headers="headers"
@@ -20,7 +20,7 @@
       </template>
 
       <template v-slot:[`item.insuranceFee`]="{ item }">
-        <span>{{ item.insuranceFee | currency }}</span>
+        <span>{{  Number(item.insuranceFee) }}%</span>
       </template>
 
       <template v-slot:[`item.action`]="{ item }">

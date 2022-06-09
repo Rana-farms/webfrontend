@@ -78,10 +78,20 @@
           <v-btn color="#2E42A5" icon @click="viewOrder(item)">
             <v-icon>mdi-eye</v-icon></v-btn
           >
-          <v-btn color="#0C9F09" @click="editOrder(item)" icon>
+          <v-btn
+            color="#0C9F09"
+            v-if="$isSuperAdmin"
+            @click="editOrder(item)"
+            icon
+          >
             <v-icon>mdi-pencil-outline</v-icon></v-btn
           >
-          <v-btn color="#F42F54" @click="deleteOrder(item)" icon>
+          <v-btn
+            color="#F42F54"
+            v-if="$isSuperAdmin"
+            @click="deleteOrder(item)"
+            icon
+          >
             <v-icon>mdi-trash-can-outline</v-icon></v-btn
           >
         </template>
@@ -109,13 +119,18 @@
         </div>
 
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Aggregated:</span>
+          <span class="font-semibold">Weight Delivered :</span>
           <span>{{ Intl.NumberFormat().format(selectedOrder.weight) }} kg</span>
         </div>
 
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Received :</span>
-          <span>{{Intl.NumberFormat().format(selectedOrder.weightReceived)}} kg</span>
+          <span
+            >{{
+              Intl.NumberFormat().format(selectedOrder.weightReceived)
+            }}
+            kg</span
+          >
         </div>
 
         <div class="py-1 mt-2 mb-3">
@@ -147,7 +162,7 @@
     >
       <div v-if="selectedOrder" class="bg-white p-5 rounded-md shadow">
         <span class="uppercase pb-2 font-semibold text-xl text-primary block"
-          >Order No: #{{selectedOrder.code}}</span
+          >Order No: #{{ selectedOrder.code }}</span
         >
         <v-divider></v-divider>
 
@@ -170,22 +185,10 @@
           ></v-select>
         </div>
 
-         <div class="flex mt-5">
-           <v-text-field
-           name="Aggregated"
-           label="Aggregated"
-           placeholder="Aggregated"
-           hide-details="auto"
-           dense
-           v-model="selectedOrder.aggregated"
-            outlined
-         ></v-text-field>
-        </div>
-
         <div class="flex mt-5 justify-between">
-           <v-select
+          <v-select
             name="Aggregation Status"
-            label="Aggregation Status" 
+            label="Aggregation Status"
             placeholder="Aggregation Status"
             dense
             hide-details="auto"
@@ -212,95 +215,122 @@
           ></v-select>
         </div>
 
-       
-
-        <div class="flex mt-5 gap-1">
-         <v-text-field
-           name="Weight"
-           label="Weight"
-           placeholder="Weight"
-           dense
-           v-model="selectedOrder.weight"
-           type="number"
-           hide-details="auto"
+        <div class="flex mt-5">
+          <v-text-field
+            name="Aggregated"
+            label="Aggregated"
+            placeholder="Aggregated"
+            hide-details="auto"
+            dense
+            v-model="selectedOrder.aggregated"
             outlined
-            suffix="kg"
-         ></v-text-field>
+          ></v-text-field>
         </div>
 
-      
+        <div class="flex mt-5 gap-1">
+          <v-text-field
+            name="Weight"
+            label="Weight"
+            placeholder="Weight"
+            dense
+            v-model="selectedOrder.weight"
+            type="number"
+            hide-details="auto"
+            outlined
+            suffix="kilograms"
+          ></v-text-field>
+        </div>
+
         <div class="flex mt-5 justify-between">
           <v-select
-           name="Loading off produce"
-           label="Loading off produce"
-           placeholder="Loading off produce"
-           hide-details="auto"
-           dense
-           v-model="selectedOrder.produceLoading"
+            name="Loading produce"
+            label="Loading produce"
+            placeholder="Loading produce"
+            hide-details="auto"
+            dense
+            v-model="selectedOrder.produceLoading"
             outlined
             item-text="text"
             item-value="value"
             :items="otherStatuses"
-         ></v-select>
+          ></v-select>
         </div>
 
         <div class="flex mt-5">
-           <v-text-field
-           name="Product enroute to"
-           label="Product enroute to"
-           placeholder="Product enroute to"
-           hide-details="auto"
-           dense
-           v-model="selectedOrder.location"
+          <v-text-field
+            name="Enroute to"
+            label="Enroute to"
+            placeholder="Enroute to"
+            hide-details="auto"
+            dense
+            v-model="selectedOrder.location"
             outlined
-         ></v-text-field>
+          ></v-text-field>
         </div>
 
         <div class="flex mt-5 justify-between">
-           <v-select
-           name="Delivery complete"
-           label="Delivery complete"
-           placeholder="Delivery complete"
-           hide-details="auto"
-           dense
-           v-model="selectedOrder.deliveryStatus"
+          <v-select
+            name="Delivery"
+            label="Delivery"
+            placeholder="Delivery"
+            hide-details="auto"
+            dense
+            v-model="selectedOrder.deliveryStatus"
             outlined
-             item-text="text"
+            item-text="text"
             item-value="value"
             :items="otherStatuses"
-         ></v-select>
+          ></v-select>
         </div>
 
         <div class="flex mt-5">
-            <v-text-field
-           name="Weight Recieved"
-           label="Weight Recieved"
-           placeholder="Weight Recieved"
-           dense
-           v-model="selectedOrder.weightReceived"
-           type="number"
-           hide-details="auto"
+          <v-text-field
+            name="Weight Recieved"
+            label="Weight Recieved"
+            placeholder="Weight Recieved"
+            dense
+            v-model="selectedOrder.weightReceived"
+            type="number"
+            hide-details="auto"
             outlined
-            suffix="kg"
-         ></v-text-field>
+            suffix="kilograms"
+          ></v-text-field>
+        </div>
+
+        <div class="flex mt-5 justify-between">
+          <v-text-field
+            name="Weight Loss"
+            label="Weight Loss"
+            placeholder="Weight Loss"
+            hide-details="auto"
+            dense
+            disabled
+            v-model="selectedOrder.weightLoss"
+            outlined
+          ></v-text-field>
         </div>
 
         <div class="mt-5">
-           <v-select
-           name="Payment Status"
-           label="Payment Status"
-           placeholder="Payment Status"
-           hide-details="auto"
-           dense
-           v-model="selectedOrder.paymentStatus"
+          <v-select
+            name="Payment Status"
+            label="Payment Status"
+            placeholder="Payment Status"
+            hide-details="auto"
+            dense
+            v-model="selectedOrder.paymentStatus"
             outlined
-              item-text="text"
+            item-text="text"
             item-value="value"
             :items="otherStatuses"
-         ></v-select>
+          ></v-select>
         </div>
         <div class="my-4">
-          <v-btn color="primary" :loading="isEditingOrder" :disabled="!canEditOrder" elevation="0" @click="saveChanges"
+          <v-btn
+            color="primary"
+            :loading="isEditingOrder"
+            :disabled="!canEditOrder"
+            elevation="0"
+            @click="saveChanges"
             >Save Changes</v-btn
           >
         </div>
@@ -355,7 +385,7 @@
         </div>
         <div class="grid gap-5 mt-5 mb-5">
           <v-text-field
-            label="Name of Order"
+            label="Order Name"
             v-model="createForm.name"
             ref="name"
             :rules="createFormRules.name"
@@ -369,7 +399,7 @@
             outlined
             v-model="createForm.weight"
             ref="weight"
-            suffix="kg"
+            suffix="kilograms"
             type="number"
             :rules="createFormRules.weight"
             hide-details="auto"
@@ -386,7 +416,7 @@
             placeholder="Enter Location"
           ></v-text-field>
 
-          <v-text-field
+          <!-- <v-text-field
             label="Aggregated"
             v-model="createForm.aggregated"
             ref="aggregated"
@@ -398,13 +428,13 @@
           <v-text-field
             label="Weight Recieved"
             v-model="createForm.weight_received"
-            suffix="kg"
+            suffix="kilograms"
             type="number"
             ref="weight_received"
             :rules="createFormRules.weight_received"
             outlined
             hide-details="auto"
-          ></v-text-field>
+          ></v-text-field> -->
         </div>
 
         <v-btn
@@ -445,8 +475,8 @@ export default {
         name: '',
         weight: '',
         location: '',
-        aggregated: '',
-        weight_received: ''
+        // aggregated: '',
+        // weight_received: ''
       },
       isCreatingOrder: false,
       isDeletingOrder: false,
@@ -455,26 +485,26 @@ export default {
         name: [(v) => !!v || 'Field is required'],
         weight: [(v) => !!v || 'Field is required'],
         location: [(v) => !!v || 'Field is required'],
-        aggregated: [(v) => !!v || 'Field is required'],
-        weight_received: [(v) => !!v || 'Field is required']
+        // aggregated: [(v) => !!v || 'Field is required'],
+        // weight_received: [(v) => !!v || 'Field is required']
       },
-      approvedStatutes:[
+      approvedStatutes: [
         {
-        text: 'Approved',
-        value:'Approved',
-        color:'success'
-      },
+          text: 'Approved',
+          value: 'Approved',
+          color: 'success',
+        },
         {
-        text: 'Pending',
-        value:'Pending',
-        color:'yellow'
-      }
+          text: 'Pending',
+          value: 'Pending',
+          color: 'yellow',
+        },
       ],
-      otherStatuses:[
+      otherStatuses: [
         { text: 'Initiated', value: 'Initiated', color: 'grey' },
         { text: 'Pending', value: 'Pending', color: 'yellow' },
         { text: 'Completed', value: 'Completed', color: 'success' },
-      ]
+      ],
     }
   },
   mounted() {
@@ -494,24 +524,27 @@ export default {
 
     editOrder(order) {
       this.editOrderDialog = true
-      this.selectedOrder ={...order}
+      this.selectedOrder = { ...order }
     },
 
     async saveChanges() {
-         try {
+      try {
         this.isEditingOrder = true
-        await this.$API.order.updateOrder({
-          weight: this.selectedOrder.weight,
-          location: this.selectedOrder.location,
-          aggregated: this.selectedOrder.aggregated,
-          weight_received: this.selectedOrder.weightReceived,
-          order_status: this.selectedOrder.orderStatus,
-          aggregation_status: this.selectedOrder.aggregationStatus,
-          negotiation_status: this.selectedOrder.negotiationStatus,
-          delivery_status: this.selectedOrder.deliveryStatus,
-          payment_status: this.selectedOrder.paymentStatus,
-          produce_loading: this.selectedOrder.produceLoading,
-        }, this.selectedOrder.code)
+        await this.$API.order.updateOrder(
+          {
+            weight: this.selectedOrder.weight,
+            location: this.selectedOrder.location,
+            aggregated: this.selectedOrder.aggregated,
+            weight_received: this.selectedOrder.weightReceived,
+            order_status: this.selectedOrder.orderStatus,
+            aggregation_status: this.selectedOrder.aggregationStatus,
+            negotiation_status: this.selectedOrder.negotiationStatus,
+            delivery_status: this.selectedOrder.deliveryStatus,
+            payment_status: this.selectedOrder.paymentStatus,
+            produce_loading: this.selectedOrder.produceLoading,
+          },
+          this.selectedOrder.code
+        )
         this.$store.dispatch('alert/setAlert', {
           message: 'Order Deleted Successfully',
           color: 'success',
@@ -612,8 +645,8 @@ export default {
         name: this.createForm.name,
         weight: this.createForm.weight,
         location: this.createForm.location,
-        aggregated: this.createForm.aggregated,
-        weight_received: this.createForm.weight_received
+        // aggregated: this.createForm.aggregated,
+        // weight_received: this.createForm.weight_received
       }
     },
 
@@ -630,19 +663,28 @@ export default {
         .every((val) => val == true)
     },
 
-    canEditOrder(){
-      if(this.selectedOrder){
-        if(JSON.stringify(this.selectedOrder) !== JSON.stringify(this.orderList.find(order => this.selectedOrder.id === order.id) )){
-          if(!!this.selectedOrder.weight  && !!this.selectedOrder.location  && !!this.selectedOrder.weightReceived && !!this.selectedOrder.aggregated){
+    canEditOrder() {
+      if (this.selectedOrder) {
+        if (
+          JSON.stringify(this.selectedOrder) !==
+          JSON.stringify(
+            this.orderList.find((order) => this.selectedOrder.id === order.id)
+          )
+        ) {
+          if (
+            !!this.selectedOrder.weight &&
+            !!this.selectedOrder.location &&
+            !!this.selectedOrder.weightReceived &&
+            !!this.selectedOrder.aggregated
+          ) {
             return true
-          }else{
+          } else {
             return false
           }
         }
       }
       return false
     },
-
   },
   watch: {
     createOderDialog(val) {
@@ -651,7 +693,7 @@ export default {
           this.createForm[form] = null
         })
       }
-    }
+    },
   },
 }
 </script>
