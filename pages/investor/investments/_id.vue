@@ -34,7 +34,7 @@
           <span class="block">{{ investment.profitSharingFormula }}</span>
 
           <span class="font-semibold block mt-1">Insurance Fee</span>
-          <span class="block">{{ investment.insuranceFee }}</span>
+          <span class="block">{{ Number(investment.insuranceFee) }}%</span>
         </div>
       </div>
       </div>
