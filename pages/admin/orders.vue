@@ -385,7 +385,7 @@
         </div>
         <div class="grid gap-5 mt-5 mb-5">
           <v-text-field
-            label="Order Numberr"
+            label="Order Name"
             v-model="createForm.name"
             ref="name"
             :rules="createFormRules.name"
