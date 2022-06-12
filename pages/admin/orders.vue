@@ -2,7 +2,7 @@
   <div class="page">
     <div class="flex justify-between">
       <span class="block font-semibold mb-5 text-2xl">Orders</span>
-      <v-btn color="primary" elevation="0" @click="initiateOrder"
+      <v-btn color="primary"  v-if="$isSuperAdmin" elevation="0" @click="initiateOrder"
         >Create Order</v-btn
       >
     </div>
@@ -116,6 +116,11 @@
             style="color: #039e00; background-color: #019f241a"
             >{{ selectedOrder.orderStatus }}</span
           >
+        </div>
+
+        <div class="py-1 mt-2">
+          <span class="font-semibold">Delivery Status :</span>
+          <span>{{ selectedOrder.deliveryStatus }} </span>
         </div>
 
         <div class="py-1 mt-2">
