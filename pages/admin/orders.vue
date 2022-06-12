@@ -118,13 +118,30 @@
           >
         </div>
 
+        <div class="py-1 mt-2" v-if="selectedOrder.aggregated">
+          <span class="font-semibold">Aggregation :</span>
+          <span>{{ selectedOrder.aggregated }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Loading Produce :</span>
+          <span>{{ selectedOrder.produceLoading }} </span>
+        </div>
+
         <div class="py-1 mt-2">
+          <span class="font-semibold">EnRoute to:</span>
+          <span>{{ selectedOrder.location }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
           <span class="font-semibold">Delivery Status :</span>
           <span>{{ selectedOrder.deliveryStatus }} </span>
         </div>
 
+
+
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Delivered :</span>
+          <span class="font-semibold">Weight Aggregated :</span>
           <span>{{ Intl.NumberFormat().format(selectedOrder.weight) }} kg</span>
         </div>
 
