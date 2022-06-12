@@ -17,7 +17,7 @@
             large
             to="/investor/investments"
             elevation="0"
-            >TRust</v-btn
+            >TRusts</v-btn
           >
           <v-btn
             color="primary"

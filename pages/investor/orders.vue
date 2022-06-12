@@ -99,6 +99,11 @@
           >
         </div>
 
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Delivery Status :</span>
+          <span>{{ selectedOrder.deliveryStatus }} </span>
+        </div>
+
         <div class="py-1 mt-2">
           <span class="font-semibold">Weight Delivered :</span>
           <span
