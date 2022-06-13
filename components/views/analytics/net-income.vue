@@ -31,11 +31,11 @@
             >mdi-arrow-down-bold</v-icon
           >
         </span>
-        <span class="text-gray-400">Since Last Month</span>
+        <span class="text-gray-400">Profit Rate</span>
       </div>
       <div class="mt-1 inline-flex gap-2 text-sm" v-else>
         <span class="font-semibold"> 0%</span
-        ><span class="text-gray-400">Since Last Month</span>
+        ><span class="text-gray-400">Profit Rate</span>
       </div>
     </div>
   </div>

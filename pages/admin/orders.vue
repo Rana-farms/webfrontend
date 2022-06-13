@@ -2,7 +2,7 @@
   <div class="page">
     <div class="flex justify-between">
       <span class="block font-semibold mb-5 text-2xl">Orders</span>
-      <v-btn color="primary" elevation="0" @click="initiateOrder"
+      <v-btn color="primary"  v-if="$isSuperAdmin" elevation="0" @click="initiateOrder"
         >Create Order</v-btn
       >
     </div>
@@ -118,8 +118,30 @@
           >
         </div>
 
+        <div class="py-1 mt-2" v-if="selectedOrder.aggregated">
+          <span class="font-semibold">Aggregation :</span>
+          <span>{{ selectedOrder.aggregated }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Loading Produce :</span>
+          <span>{{ selectedOrder.produceLoading }} </span>
+        </div>
+
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Delivered :</span>
+          <span class="font-semibold">EnRoute to:</span>
+          <span>{{ selectedOrder.location }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Delivery Status :</span>
+          <span>{{ selectedOrder.deliveryStatus }} </span>
+        </div>
+
+
+
+        <div class="py-1 mt-2">
+          <span class="font-semibold">Weight Aggregated :</span>
           <span>{{ Intl.NumberFormat().format(selectedOrder.weight) }} kg</span>
         </div>
 
@@ -297,7 +319,7 @@
           ></v-text-field>
         </div>
 
-        <div class="flex mt-5 justify-between">
+        <div class="flex mt-5 justify-between" v-if="selectedOrder.weightLoss > 0">
           <v-text-field
             name="Weight Loss"
             label="Weight Loss"
@@ -385,7 +407,7 @@
         </div>
         <div class="grid gap-5 mt-5 mb-5">
           <v-text-field
-            label="Order Numberr"
+            label="Order Name"
             v-model="createForm.name"
             ref="name"
             :rules="createFormRules.name"

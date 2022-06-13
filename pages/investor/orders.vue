@@ -90,7 +90,7 @@
           >Order No: #{{ selectedOrder.code }}</span
         >
         <v-divider></v-divider>
-        <div class="py-1 mt-6">
+         <div class="py-1 mt-6">
           <span class="font-semibold">Status:</span>
           <span
             class="p-2 text-sm rounded capitalize"
@@ -99,14 +99,31 @@
           >
         </div>
 
+        <div class="py-1 mt-2" v-if="selectedOrder.aggregated">
+          <span class="font-semibold">Aggregation :</span>
+          <span>{{ selectedOrder.aggregated }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Loading Produce :</span>
+          <span>{{ selectedOrder.produceLoading }} </span>
+        </div>
+
         <div class="py-1 mt-2">
-          <span class="font-semibold">Weight Delivered :</span>
-          <span
-            >{{
-              Intl.NumberFormat().format(selectedOrder.weight)
-            }}
-            Kg</span
-          >
+          <span class="font-semibold">EnRoute to:</span>
+          <span>{{ selectedOrder.location }} </span>
+        </div>
+
+         <div class="py-1 mt-2">
+          <span class="font-semibold">Delivery Status :</span>
+          <span>{{ selectedOrder.deliveryStatus }} </span>
+        </div>
+
+
+
+        <div class="py-1 mt-2">
+          <span class="font-semibold">Weight Aggregated :</span>
+          <span>{{ Intl.NumberFormat().format(selectedOrder.weight) }} kg</span>
         </div>
 
         <div class="py-1 mt-2">
@@ -115,7 +132,7 @@
             >{{
               Intl.NumberFormat().format(selectedOrder.weightReceived)
             }}
-            Kg</span
+            kg</span
           >
         </div>
 

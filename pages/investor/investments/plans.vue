@@ -19,9 +19,9 @@
         <span>{{ item.unitPrice | currency }}</span>
       </template>
 
-      <!-- <template v-slot:[`item.insuranceFee`]="{ item }">
-        <span>{{ item.insuranceFee | currency }}</span>
-      </template> -->
+      <template v-slot:[`item.insuranceFee`]="{ item }">
+        <span>{{  Number(item.insuranceFee) }}%</span>
+      </template>
 
       <template v-slot:[`item.action`]="{ item }">
         <v-btn
