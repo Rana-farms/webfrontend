@@ -26,10 +26,7 @@
               >What we do</router-link
             >
           </li>
-      
-
-          <li><a href="https://www.hope.com/" target="_blank">Bitcoin</a></li>
-        </ul>
+              </ul>
       </div>
 
       <div class="sectionx__3 col-span-12 md:col-span-4 ">
