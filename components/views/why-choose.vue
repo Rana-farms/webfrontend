@@ -16,18 +16,18 @@
       >
         <div class="text-center tracking-wider">
           <span class="block font-semibold text-3xl md:text-4xl mb-2">
-            <ICountUp :delay="delay" :endVal="1050" :options="options" /> tons
+            <ICountUp :delay="delay" :endVal="1050" :options="options" /> Tons
           </span>
-          <span class="block text-gray-100"> Grain supplied</span>
+          <span class="block text-gray-100"> Grain Supplied</span>
         </div>
 
         <div class="text-center tracking-wider">
           <span class="block font-semibold text-3xl md:text-4xl mb-2">
-            <ICountUp :delay="delay" :endVal="498" :options="options" />
+            <ICountUp :delay="delay" :endVal="541" :options="options" />
 
             Trips</span
           >
-          <span class="block text-gray-100"> Agricultural logistics</span>
+          <span class="block text-gray-100"> Agricultural Logistics</span>
         </div>
 
         <div class="text-center tracking-wider">
@@ -41,7 +41,7 @@
           <span class="block font-semibold text-3xl md:text-4xl mb-2">
             <ICountUp :delay="delay" :endVal="100" :options="options" />%+</span
           >
-          <span class="block text-gray-100"> Growth rate</span>
+          <span class="block text-gray-100"> Growth Rate</span>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ export default {
         suffix: '',
       },
     }
-  }
+  },
 }
 </script>
 

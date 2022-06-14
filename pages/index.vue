@@ -30,17 +30,17 @@
         <div class="analytics__box">
           <span class="analytics__box--title">
             <ICountUp :delay="delay" :endVal="1050" :options="options" />
-            tons</span
+            Tons</span
           >
-          <span class="analytics__box--text"> Grain supplied</span>
+          <span class="analytics__box--text"> Grain Supplied</span>
         </div>
 
         <div class="analytics__box">
           <span class="analytics__box--title">
-            <ICountUp :delay="delay" :endVal="498" :options="options" />
+            <ICountUp :delay="delay" :endVal="541" :options="options" />
             Trips</span
           >
-          <span class="analytics__box--text"> Agricultural logistics</span>
+          <span class="analytics__box--text"> Agricultural Logistics</span>
         </div>
 
         <div class="analytics__box">
@@ -58,7 +58,7 @@
           <span class="analytics__box--title">
             <ICountUp :delay="delay" :endVal="100" :options="options" />%+</span
           >
-          <span class="analytics__box--text"> Growth rate</span>
+          <span class="analytics__box--text"> Growth Rate</span>
         </div>
       </div>
 
@@ -100,17 +100,17 @@
 </template>
 
 <script>
+import ICountUp from 'vue-countup-v2'
 import partners from '@/components/views/partners.vue'
 import posts from '@/components/views/posts.vue'
-import faqs from '@/components/views/faqs.vue'
+// import faqs from '@/components/views/faqs.vue'
 
-import ICountUp from 'vue-countup-v2'
 export default {
   components: {
     ICountUp,
     partners,
     posts,
-    faqs,
+    // faqs,
   },
   data() {
     return {
