@@ -200,7 +200,7 @@ export default {
         },
         {
           title: 'Treasury Management ',
-          talk: 'Corporate treasury strategy is to acquire Bitcoin for 100% of long term liabilities.',
+          talk: 'Corporate treasury strategy is to acquire property for 100% of long term liquidities.',
         },
       ],
     }
