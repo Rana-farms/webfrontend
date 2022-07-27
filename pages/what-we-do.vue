@@ -143,6 +143,7 @@ Financing primary production through contracting of smallholder farmers. -->
           <span class="text-primary block font-semibold text-xl"
             >Agricultural Logistics Trust</span
           >
+          <span class="text-primary font-semibold text-sm capitalize animate-pulse text-center w-full">coming soon...</span>
           <span class="text-gray-500 block my-2"
             >This trust is invested in the logistic of produce to generate
             profit for unit holders.</span
@@ -154,7 +155,7 @@ Financing primary production through contracting of smallholder farmers. -->
             <li><b>Minimum Investment:</b> 200,000 Units</li>
             <li><b>Unit Price:</b> $ 0.05</li>
             <li><b>Insurance Fee:</b> 3%</li>
-            <li><b>Look-Up Period:</b> 2 Years</li>
+            <li><b>Lock-Up Period:</b> 2 Years</li>
             <li><b>Risk Profile:</b> Medium Risk Appetite</li>
           </ul>
         </div>
@@ -176,7 +177,7 @@ Financing primary production through contracting of smallholder farmers. -->
             <li><b>Minimum Investment:</b> 100,000 Units</li>
             <li><b>Unit Price:</b> &#8358; 10.00</li>
             <li><b>Insurance Fee:</b> 4%</li>
-            <li><b>Look-Up Period:</b> 1 Year</li>
+            <li><b>Lock-Up Period:</b> 1 Year</li>
             <li><b>Risk Profile:</b> Medium Risk Appetite</li>
           </ul>
         </div>
@@ -184,6 +185,7 @@ Financing primary production through contracting of smallholder farmers. -->
           <span class="text-primary block font-semibold text-xl"
             >Agricultural Storage Trust
           </span>
+          <span class="text-primary font-semibold text-sm capitalize animate-pulse text-center w-full">coming soon...</span>
           <span class="text-gray-500 block my-2"
             >This trust is invested in construction or acquisition of storage
             facilities to generate profit for unit holders.
@@ -196,7 +198,7 @@ Financing primary production through contracting of smallholder farmers. -->
             <li><b>Investment Agreement: </b> Cost-Plus Financing</li>
             <li><b>Minimum Investment:</b> 2,500,000 Units</li>
             <li><b>Unit Price:</b> &#8358;1.00</li>
-            <li><b>Look-Up Period:</b> 5 Years</li>
+            <li><b>Lock-Up Period:</b> 5 Years</li>
             <li><b>Risk Profile:</b> Low Risk Appetite</li>
           </ul>
         </div>
