@@ -5,7 +5,7 @@
         <div>
           <img src="/images/logo.png" alt="" />
           <span class="call-us">CALL US DIRECTLY</span>
-          <a class="phone" href="tel:+234 805 2040 002">+234 805 2040 002</a>
+          <a class="phone" href="tel:+234 806 9229 767">+234 806 9229 767</a>
           <a class="email" href="mailto:info@rana.com.ng"
             >info@rana.com.ng</a
           >

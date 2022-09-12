@@ -12,7 +12,9 @@
           <div
             class="w-full flex items-center justify-center h-60"
             v-if="
-              !isLoadingWithdrawals && withdrawalHistories.length == 0 && !errorLoading
+              !isLoadingWithdrawals &&
+              withdrawalHistories.length == 0 &&
+              !errorLoading
             "
           >
             <div class="text-center text-flame">
@@ -36,7 +38,7 @@
           </div>
         </template>
 
-          <template v-slot:loading>
+        <template v-slot:loading>
           <div class="w-full flex items-center justify-center h-72">
             <div class="text-center text-flame">
               <v-icon size="40" color="primary"
@@ -53,8 +55,8 @@
           {{ item.amount | currency }}
         </template>
 
-        <template v-slot:[`item.dateCreated`]="{ item }">
-          {{ format(new Date(item.dateCreated), 'MMM do, y ') }}
+        <template v-slot:[`item.created_at`]="{ item }">
+          {{ format(new Date(item.created_at), 'MMM do, y ') }}
         </template>
 
         <template v-slot:[`item.status`]="{ item }">
@@ -95,8 +97,8 @@
 import { format } from 'date-fns'
 export default {
   layout: 'admin',
-    middleware({ store, redirect }) {
-    if(store.getters['user/isSuperAdmin'] !== true) {
+  middleware({ store, redirect }) {
+    if (store.getters['user/isSuperAdmin'] !== true) {
       redirect('/dashboard')
     }
   },
@@ -106,7 +108,7 @@ export default {
       withdrawalRequestHeaders: [
         { text: 'NAME OF INVESTOR', value: 'user.fullname' },
         { text: 'AMOUNT', value: 'amount' },
-        { text: 'DATE', value: 'dateCreated' },
+        { text: 'DATE', value: 'created_at' },
         { text: 'STATUS', value: 'status' },
         { text: 'ACTIONS', value: 'id' },
       ],
@@ -115,12 +117,12 @@ export default {
       errorLoading: false,
     }
   },
-  mounted(){
+  mounted() {
     this.getAllWithdrawals()
   },
   methods: {
     async getAllWithdrawals() {
-        try {
+      try {
         this.isLoadingWithdrawals = true
         this.errorLoading = false
         const { data } = await this.$API.withdrawal.fetchAllWithdrawals()

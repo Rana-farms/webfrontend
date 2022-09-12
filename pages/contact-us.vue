@@ -47,7 +47,7 @@
           <v-icon>mdi-phone-outline</v-icon>
           <span class="text-dark ml-2">
             <span class="font-semibold block w">Phone:</span>
-            <span class="text-gray-500 w-64 block">+234 805 2040 002</span>
+            <span class="text-gray-500 w-64 block">+234 806 9229 767</span>
           </span>
         </div>
       </div>
