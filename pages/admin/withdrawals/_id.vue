@@ -12,12 +12,13 @@
 
     <div v-else>
       <div class="bg-white max-w-3xl p-10">
-        <div class=" text-right">{{ format(new Date(request.dateCreated), 'MMM do, y ') }}</div>
+        <div class="text-right">
+          {{ format(new Date(request.created_at), 'MMM do, y ') }}
+        </div>
         <div
-          class="flex gap-10 flex-wrap items-center justify-between rounded-lg  mx-auto "
+          class="flex gap-10 flex-wrap items-center justify-between rounded-lg mx-auto"
         >
           <div>
-            
             <span class="font-semibold text-2xl block">{{
               request.user.fullname
             }}</span>
@@ -116,15 +117,12 @@ export default {
         })
       }
     },
-    
 
     async aproveWithdrawalPaystack() {
       try {
         this.isApprovingWithdrawal = true
 
-        await this.$API.withdrawal.approveWithdrawal(
-          this.$route.params.id
-        )
+        await this.$API.withdrawal.approveWithdrawal(this.$route.params.id)
         this.$store.dispatch('alert/setAlert', {
           message: 'Withdrawal request approved successfully',
           color: 'success',
@@ -140,13 +138,11 @@ export default {
       }
     },
 
-      async bankPayment() {
+    async bankPayment() {
       try {
         this.isApprovingWithdrawal = true
 
-        await this.$API.withdrawal.paiedMannually(
-          this.$route.params.id
-        )
+        await this.$API.withdrawal.paiedMannually(this.$route.params.id)
         this.$store.dispatch('alert/setAlert', {
           message: 'Withdrawal request approved successfully',
           color: 'success',
@@ -161,7 +157,7 @@ export default {
         this.isApprovingWithdrawal = false
       }
     },
-  }
+  },
 }
 </script>
 
