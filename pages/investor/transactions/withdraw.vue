@@ -96,7 +96,7 @@ export default {
         amount: '',
         password: '',
       },
-      minimumAmount: 50000,
+      minimumAmount: 5000,
       maximumAmount: 1000000,
     }
   },
